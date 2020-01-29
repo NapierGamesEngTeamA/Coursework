@@ -19,5 +19,16 @@ link_directories("${CMAKE_BINARY_DIR}/Libs/sfml/lib")
 ### Game ###
 file(GLOB_RECURSE SOURCES Game/*.cpp Game/*.h)
 add_executable(GAME ${SOURCES})
-target_include_directories(GAME PRIVATE ${SFML_INCS})
-target_link_libraries(GAME sfml-graphics)
+target_include_directories(GAME SYSTEM PRIVATE ${SFML_INCS})
+target_link_libraries(GAME ecm maths sfml-graphics)
+
+### ECM Lib ###
+file(GLOB_RECURSE SOURCE_FILES Libs/ecm/*.cpp Libs/ecm/*.h)
+add_library(ecm STATIC ${SOURCE_FILES})
+target_include_directories(ecm INTERFACE "${CMAKE_SOURCE_DIR}/Libs/ecm")
+target_link_libraries(ecm PRIVATE maths)
+
+### Maths Lib ###
+add_library(maths INTERFACE)
+target_sources(maths INTERFACE "${CMAKE_SOURCE_DIR}/Libs/maths/maths.h")
+target_include_directories(maths INTERFACE "${CMAKE_SOURCE_DIR}/Libs/maths" SYSTEM INTERFACE ${SFML_INCS})
