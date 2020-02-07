@@ -8,7 +8,7 @@ class Character : public Entity
 private:
 	float _speed;
 public:
-	Character();
+	Character() { };
 	void Update(double dt) override;
 	void Render() override;
 };

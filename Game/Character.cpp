@@ -9,7 +9,8 @@ void Character::Update(double dt)
 
 	if (Keyboard::isKeyPressed(Keyboard::W))
 	{
-		SetPosition(Vector2f(GetPosition().x, GetPosition().y + 10));
+		SetPosition(_position + Vector2f(0, -10));
+		printf("Moved!");
 	}
 
 }
