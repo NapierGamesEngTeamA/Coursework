@@ -5,6 +5,7 @@ using namespace std;
 
 void Character::Update(double dt)
 {
+	printf("Updating");
 	Entity::Update(dt);
 
 	if (Keyboard::isKeyPressed(Keyboard::W))

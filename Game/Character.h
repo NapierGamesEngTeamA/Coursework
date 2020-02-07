@@ -6,7 +6,7 @@ using namespace sf;
 class Character : public Entity
 {
 private:
-	float _speed;
+	//float _speed = 10;
 public:
 	Character() { };
 	void Update(double dt) override;

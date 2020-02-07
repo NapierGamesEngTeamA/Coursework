@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "SpriteComponent.h"
 #include "Character.h"
+#include "PlayerMovementComponent.h"
 
 using namespace std;
 using namespace sf;
@@ -58,6 +59,8 @@ void OverworldScene::Load()
 	s->GetSprite().setTexture(*texture);
 	s->GetSprite().setTextureRect(IntRect(0, 0, 26, 35));
 	ch->SetPosition(Vector2f(100, 100));
+	auto pmc = ch->AddComponent<PlayerMovementComponent>();
+
 	_ents.list.push_back(ch);	
 }
 
