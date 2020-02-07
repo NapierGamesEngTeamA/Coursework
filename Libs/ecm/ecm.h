@@ -17,16 +17,16 @@ protected:
 	vector<shared_ptr<Component>> _components;
 	Vector2f _position;
 	float _rotation;
-	bool _alive;
-	bool _visible;
-	bool _fordeletion;
+	bool _alive;			//Should be updated
+	bool _visible;			//Should be rendered
+	bool _fordeletion;		//Should be deleted
 public:
 	Entity();
-	virtual ~Entity();
+	virtual ~Entity() { };
 	virtual void Update(double dt);
 	virtual void Render();
 
-	const Vector2f& GetPosition() const;
+	const Vector2f GetPosition() const;
 	void SetPosition(const Vector2f& _position);
 	bool Is_ForDeletion() const;
 	float GetRotation() const;
@@ -83,11 +83,18 @@ class Component
 protected:
 	Entity* const _parent;
 	bool _forDeletion;
-	explicit Component(Entity* const p);
+	explicit Component(Entity* const p) : _parent(p), _forDeletion(false) { };
 public:
 	Component() = delete;
 	bool Is_ForDeletion() const;
 	virtual void Update(double dt) = 0;
 	virtual void Render() = 0;
-	virtual ~Component();
+	virtual ~Component() { };
+};
+
+struct EntityManager
+{
+	vector<shared_ptr<Entity>> list;
+	void Update(double dt);
+	void Render();
 };

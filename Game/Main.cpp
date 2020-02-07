@@ -1,6 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <iostream>
+#include "Game.h"
+#include "ecm.h"
+#include "SystemRenderer.h"
 
 using namespace sf;
 using namespace std;
@@ -9,7 +12,14 @@ uint16_t _gameHeight = 1080, _gameWidth = 1920;
 
 void Load()
 {
+	
 
+	titleScene.reset(new TitleScene());
+	overworldScene.reset(new OverworldScene());
+	titleScene->Load();
+	overworldScene->Load();
+
+	activeScene = titleScene;
 }
 
 void Update(RenderWindow& window)
@@ -35,17 +45,19 @@ void Update(RenderWindow& window)
 		window.close();
 	}
 
-
+	activeScene->Update(dt);
 }
 
 void Render(RenderWindow& window)
 {
-
+	activeScene->Render();
+	Renderer::Render();
 }
 
 int main()
 {
 	RenderWindow window(VideoMode(_gameWidth, _gameHeight), "Game");
+	Renderer::Initialise(window);
 	Load();
 	while (window.isOpen())
 	{
