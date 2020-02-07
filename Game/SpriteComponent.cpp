@@ -13,7 +13,7 @@ void SpriteComponent::Render()
 
 Sprite& SpriteComponent::GetSprite() const { return *_sprite; }
 
-SpriteComponent::SpriteComponent(Entity* p) : Component(p)
+SpriteComponent::SpriteComponent(Entity* p) : Component(p), _sprite(make_shared<Sprite>())
 {
 
 }

@@ -51,12 +51,13 @@ void TitleScene::Render()
 
 void OverworldScene::Load()
 {
-	Texture& texture = Texture();
+	Texture texture;
 	texture.loadFromFile("Res/Sprites/TestSprites.png");
 	auto ch = make_shared<Entity>();
 	auto s = ch->AddComponent<SpriteComponent>();
+	printf("");
 	s->SetTexture(texture);
-	s->SetRect(IntRect(33, 72, 26, 35));
+	s->SetRect(IntRect(0, 0, 26, 35));
 	ch->SetPosition(Vector2f(1080/2, 1920/2));
 	_ents.list.push_back(ch);
 	
