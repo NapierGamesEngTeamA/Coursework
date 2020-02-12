@@ -8,6 +8,6 @@ public:
 	explicit PlayerMovementComponent(Entity* p);
 	~PlayerMovementComponent() = default;
 
-	void Update(double dt) override;
+	void Update(Time dt) override;
 	void Render() override { };
 };

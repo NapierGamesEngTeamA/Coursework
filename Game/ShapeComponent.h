@@ -12,7 +12,7 @@ protected:
 public:
 	ShapeComponent() = delete;
 	explicit ShapeComponent(Entity* p);
-	void Update(double dt) override;
+	void Update(Time dt) override;
 	void Render() override;
 
 	Shape& GetShape() const;

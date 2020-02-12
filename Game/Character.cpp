@@ -4,7 +4,7 @@
 using namespace sf;
 using namespace std;
 
-void Character::Update(double dt)
+void Character::Update(Time dt)
 {
 	if (Keyboard::isKeyPressed(Keyboard::W))
 	{

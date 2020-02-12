@@ -2,7 +2,7 @@
 
 using namespace sf;
 
-void ActorMovementComponent::Update(double dt) { }
+void ActorMovementComponent::Update(Time dt) { }
 
 ActorMovementComponent::ActorMovementComponent(Entity *p)
 	: _speed(100.0f), Component(p) { }

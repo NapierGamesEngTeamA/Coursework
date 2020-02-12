@@ -17,6 +17,6 @@ public:
 	void SetSpeed(float _speed);
 	void Move(const Vector2f&);
 	void Move(float x, float y);
-	void Update(double dt) override;
+	void Update(Time dt) override;
 	void Render() override { }
 };

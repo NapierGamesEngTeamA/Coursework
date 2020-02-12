@@ -1,7 +1,7 @@
 #include "ShapeComponent.h"
 #include "SystemRenderer.h"
 
-void ShapeComponent::Update(double dt)
+void ShapeComponent::Update(Time dt)
 {
 	_shape->setPosition(_parent->GetPosition());
 }

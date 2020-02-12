@@ -21,7 +21,7 @@ void Scene::Load()
 
 }
 
-void Scene::Update(double dt) 
+void Scene::Update(Time dt) 
 { 
 	_ents.Update(dt); 
 }
@@ -35,7 +35,7 @@ void TitleScene::Load()
 
 }
 
-void TitleScene::Update(double dt)
+void TitleScene::Update(Time dt)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Enter))
 	{
@@ -93,8 +93,9 @@ void OverworldScene::Load()
 
 	Animation* wr = new Animation();
 	wr->SetSpriteSheet(*texture);
-	wr->AddFrame(IntRect(0, 38, 30, 35));
-	wr->AddFrame(IntRect(68, 38, 30, 35));
+	wr->AddFrame(IntRect(0, 38, 28, 33));
+	//wr->AddFrame(IntRect(36, 36, 24, 36));
+	wr->AddFrame(IntRect(69, 38, 24, 33));
 	ch->_anims.insert(pair<string, Animation>("Walk Right", *wr));
 
 	Animation* wd = new Animation();
@@ -105,8 +106,8 @@ void OverworldScene::Load()
 
 	Animation* wl = new Animation();
 	wl->SetSpriteSheet(*texture);
-	wl->AddFrame(IntRect(0, 110, 30, 35));
-	wl->AddFrame(IntRect(64, 110, 30, 35));
+	wl->AddFrame(IntRect(0, 110, 28, 33));
+	wl->AddFrame(IntRect(64, 110, 28, 33));
 	ch->_anims.insert(pair<string, Animation>("Walk Left", *wl));
 
 	auto as = ch->AddComponent<AnimatedSpriteComponent>();
@@ -118,7 +119,7 @@ void OverworldScene::Load()
 	_ents.list.push_back(ch);	
 }
 
-void OverworldScene::Update(double dt)
+void OverworldScene::Update(Time dt)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Tab))
 	{

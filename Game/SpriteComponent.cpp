@@ -1,7 +1,7 @@
 #include "SpriteComponent.h"
 #include "SystemRenderer.h"
 
-void SpriteComponent::Update(double dt)
+void SpriteComponent::Update(Time dt)
 {
 	_sprite->setPosition(_parent->GetPosition());
 }

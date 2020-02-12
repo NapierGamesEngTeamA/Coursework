@@ -19,6 +19,6 @@ public:
 		currentState = STAND_RIGHT;
 		currentAnim = new Animation();
 	};
-	void Update(double dt) override;
+	void Update(Time dt) override;
 	void Render() override;
 };

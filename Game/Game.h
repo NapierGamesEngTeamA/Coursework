@@ -14,7 +14,7 @@ private:
 
 public:
 	TitleScene() { }
-	void Update(double dt) override;
+	void Update(Time dt) override;
 	void Render() override;
 	void Load() override;
 };
@@ -25,7 +25,7 @@ private:
 
 public:
 	OverworldScene() = default;
-	void Update(double dt) override;
+	void Update(Time dt) override;
 	void Render() override;
 	void Load() override;
 };

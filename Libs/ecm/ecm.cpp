@@ -1,6 +1,6 @@
 #include "ecm.h"
 
-void Entity::Update(double dt)
+void Entity::Update(Time dt)
 {
 	for (auto s : _components)
 	{
@@ -28,7 +28,7 @@ void Entity::SetPosition(const Vector2f& _position)
 	this->_position = _position;
 }
 
-void EntityManager::Update(double dt)
+void EntityManager::Update(Time dt)
 {
 	for (auto s : list)
 	{

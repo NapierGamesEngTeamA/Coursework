@@ -12,10 +12,10 @@ protected:
 public:
 	AnimatedSpriteComponent() = delete;
 	explicit AnimatedSpriteComponent(Entity* p);
-	void Update(double dt) override;
+	void Update(Time dt) override;
 	void Render() override;
 	void SetAnimation(const Animation& anim);
-	void SetFrameTime(double time);
+	void SetFrameTime(Time time);
 	void Play();
 	void Play(const Animation& anim);
 	void Pause();
@@ -24,12 +24,12 @@ public:
 	const Animation* GetAnimation() const;
 	bool IsLooped() const;
 	bool IsPlaying() const;
-	double GetFrameTime() const;
+	Time GetFrameTime() const;
 	void SetFrame(size_t newFrame, bool resetTime = true);
 private:
 	const Animation* _animation;
-	double _frameTime;
-	double _currentTime;
+	Time _frameTime;
+	Time _currentTime;
 	bool _isPaused;
 	bool _isLooped;
 	const Texture* _texture;

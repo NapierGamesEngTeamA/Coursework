@@ -23,7 +23,7 @@ protected:
 public:
 	Entity();
 	virtual ~Entity() { };
-	virtual void Update(double dt);
+	virtual void Update(Time dt);
 	virtual void Render();
 
 	const Vector2f GetPosition() const;
@@ -87,7 +87,7 @@ protected:
 public:
 	Component() = delete;
 	bool Is_ForDeletion() const;
-	virtual void Update(double dt) = 0;
+	virtual void Update(Time dt) = 0;
 	virtual void Render() = 0;
 	virtual ~Component() { };
 };
@@ -95,6 +95,6 @@ public:
 struct EntityManager
 {
 	vector<shared_ptr<Entity>> list;
-	void Update(double dt);
+	void Update(Time dt);
 	void Render();
 };

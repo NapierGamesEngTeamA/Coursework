@@ -12,6 +12,7 @@ using namespace sf;
 using namespace std;
 
 uint16_t _gameHeight = 1080, _gameWidth = 1920;
+Time dt;
 
 void Load()
 {
@@ -28,8 +29,9 @@ void Load()
 void Update(RenderWindow& window)
 {
 	//Reset clock, recalculate deltatime
-	static Clock clock;
-	float dt = clock.restart().asSeconds();
+	/*static Clock clock;
+	Time dt = clock.getElapsedTime();
+	clock.restart();*/
 
 	//Check and consume events
 	Event event;
@@ -62,8 +64,10 @@ int main()
 	RenderWindow window(VideoMode(_gameWidth, _gameHeight), "Game");
 	Renderer::Initialise(window);
 	Load();
+	Clock clock;
 	while (window.isOpen())
 	{
+		dt = clock.restart();
 		window.clear();
 		Update(window);
 		Render(window);

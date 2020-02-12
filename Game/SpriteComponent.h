@@ -12,7 +12,7 @@ protected:
 public:
 	SpriteComponent() = delete;
 	explicit SpriteComponent(Entity* p);
-	void Update(double dt) override;
+	void Update(Time dt) override;
 	void Render() override;
 
 	Sprite& GetSprite() const;
