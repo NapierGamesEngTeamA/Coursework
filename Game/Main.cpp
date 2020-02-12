@@ -1,3 +1,6 @@
+//TO DO:
+//Anims: Animations work but need to change deltaTime to time instead of double.
+
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <iostream>

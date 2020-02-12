@@ -1,3 +1,6 @@
+#ifndef ANIMATION_INCLUDE
+#define ANIMATION_INCLUDE
+
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
@@ -18,3 +21,5 @@ private:
 	vector<IntRect> _frames;
 	const Texture* _texture;
 };
+
+#endif // !ANIMATION_INCLUDE

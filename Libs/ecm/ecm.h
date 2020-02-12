@@ -17,9 +17,9 @@ protected:
 	vector<shared_ptr<Component>> _components;
 	Vector2f _position;
 	float _rotation;
-	bool _alive;			//Should be updated
-	bool _visible;			//Should be rendered
-	bool _fordeletion;		//Should be deleted
+	bool _alive = true;				//Should be updated
+	bool _visible = true;			//Should be rendered
+	bool _fordeletion = false;		//Should be deleted
 public:
 	Entity();
 	virtual ~Entity() { };

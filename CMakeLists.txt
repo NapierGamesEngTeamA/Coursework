@@ -32,3 +32,9 @@ target_link_libraries(ecm PRIVATE maths)
 add_library(maths INTERFACE)
 target_sources(maths INTERFACE "${CMAKE_SOURCE_DIR}/Libs/maths/maths.h")
 target_include_directories(maths INTERFACE "${CMAKE_SOURCE_DIR}/Libs/maths" SYSTEM INTERFACE ${SFML_INCS})
+
+### Level Loader Lib ###
+file(GLOB_RECURSE SOURCES_FILES Libs/level_loader/*.cpp Libs/level_loader/*.h)
+add_library(level_loader STATIC ${SOURCES_FILES})
+target_include_directories(level_loader INTERFACE "${CMAKE_SOURCE_DIR}/level_loader/")
+target_link_libraries(level_loader maths sfml-graphics)
