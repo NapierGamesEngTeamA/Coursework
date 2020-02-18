@@ -1,3 +1,5 @@
+#pragma region INCLUDES
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "SystemRenderer.h"
@@ -8,6 +10,10 @@
 #include "Character.h"
 #include "PlayerMovementComponent.h"
 #include "AnimatedSpriteComponent.h"
+#include "TileMap.h"
+#include "Tile.h"
+
+#pragma endregion
 
 using namespace std;
 using namespace sf;
@@ -56,6 +62,24 @@ void TitleScene::Render()
 
 void OverworldScene::Load()
 {
+	Texture* tileSheet = new Texture();
+	tileSheet->loadFromFile("Res/Sprites/TileSheet.png");
+	auto tm = make_shared<TileMap>();
+
+	for (int y = 0; y < tm->_height; y++)
+	{
+		for (int x = 0; x < tm->_width; x++)
+		{
+			auto t = tm->AddComponent<Tile>();
+			//t->SetTexture(*tileSheet);
+			t->GetSprite().setTexture(*tileSheet);
+			t->SetRect(IntRect(31, 79, 16, 16));
+			t->SetPosition(Vector2f(x * 16, y * 16));
+		}
+	}
+
+	_ents.list.push_back(tm);
+
 	Texture* texture = new Texture();
 	texture->loadFromFile("Res/Sprites/TestSprites.png");
 	auto ch = make_shared<Character>();
@@ -116,7 +140,7 @@ void OverworldScene::Load()
 
 	ch->SetPosition(Vector2f(100, 100));
 
-	_ents.list.push_back(ch);	
+	_ents.list.push_back(ch);
 }
 
 void OverworldScene::Update(Time dt)
