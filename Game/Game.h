@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include <list>
 
 using namespace std;
 using namespace sf;
@@ -10,13 +11,18 @@ extern shared_ptr<Scene> activeScene;
 
 class TitleScene : public Scene
 {
-private:
 
 public:
-	TitleScene() { }
 	void Update(Time dt) override;
 	void Render() override;
 	void Load() override;
+
+private:
+	Sprite sprite;
+	Texture texture;
+	Font font;
+	Text play;
+	Text quit;
 };
 
 class OverworldScene : public Scene
