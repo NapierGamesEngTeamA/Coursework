@@ -43,12 +43,13 @@ void Scene::Render() { _ents.Render(); }
 void TitleScene::Load()
 {
 	Color color;
-	texture.loadFromFile("/Res/Fonts/MenuBack.jpg");
+
+	texture.loadFromFile("Res/Fonts/MenuBack.jpg");
 	Vector2u size = texture.getSize();
 	sprite.setTexture(texture);
 	sprite.setOrigin(size.x / 4, size.y / 4.5);
 
-	font.loadFromFile("/Res/Fonts/BreatheFire-65pg.ttf");
+	font.loadFromFile("Res/Fonts/BreatheFire-65pg.ttf");
 	play.setFont(font);
 	play.setCharacterSize(200);
 	play.setString("Play");
@@ -100,10 +101,11 @@ void TitleScene::Render()
 
 void OverworldScene::Load()
 {
+
 	Texture* tileSheet = new Texture();
-	tileSheet->loadFromFile("/Res/Sprites/TileSheet.png");
+	tileSheet->loadFromFile("Res/Sprites/TileSheet.png");
 	auto tm = make_shared<TileMap>();
-	tm->GenerateMap("/Res/Maps/TestLevel.txt", *tileSheet);
+	tm->GenerateMap("Res/Maps/TestLevel.txt", *tileSheet);
 
 	//for (int y = 0; y < tm->_height; y++)
 	//{
@@ -120,7 +122,7 @@ void OverworldScene::Load()
 	_ents.list.push_back(tm);
 
 	Texture* texture = new Texture();
-	texture->loadFromFile("/Res/Sprites/TestSprites.png");
+	texture->loadFromFile("Res/Sprites/TestSprites.png");
 	auto ch = make_shared<Character>();
 	//auto s = ch->AddComponent<SpriteComponent>();
 	//s->GetSprite().setTexture(*texture);
