@@ -12,6 +12,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "TileMap.h"
 #include "Tile.h"
+#include "Camera.h"
 
 #pragma endregion
 
@@ -65,18 +66,19 @@ void OverworldScene::Load()
 	Texture* tileSheet = new Texture();
 	tileSheet->loadFromFile("Res/Sprites/TileSheet.png");
 	auto tm = make_shared<TileMap>();
+	tm->GenerateMap("Res/Maps/TestLevel.txt", *tileSheet);
 
-	for (int y = 0; y < tm->_height; y++)
-	{
-		for (int x = 0; x < tm->_width; x++)
-		{
-			auto t = tm->AddComponent<Tile>();
-			//t->SetTexture(*tileSheet);
-			t->GetSprite().setTexture(*tileSheet);
-			t->SetRect(IntRect(31, 79, 16, 16));
-			t->SetPosition(Vector2f(x * 16, y * 16));
-		}
-	}
+	//for (int y = 0; y < tm->_height; y++)
+	//{
+	//	for (int x = 0; x < tm->_width; x++)
+	//	{
+	//		auto t = tm->AddComponent<Tile>();
+	//		//t->SetTexture(*tileSheet);
+	//		t->GetSprite().setTexture(*tileSheet);
+	//		t->SetRect(IntRect(324, 137, 16, 16));
+	//		t->SetPosition(Vector2f(x * 16, y * 16));
+	//	}
+	//}
 
 	_ents.list.push_back(tm);
 
@@ -88,6 +90,8 @@ void OverworldScene::Load()
 	//s->GetSprite().setTextureRect(IntRect(0, 0, 26, 35));	
 
 	auto pmc = ch->AddComponent<PlayerMovementComponent>();
+	auto cam = ch->AddComponent<Camera>();
+	cam->SetWindow();
 
 	Animation* su = new Animation();
 	su->SetSpriteSheet(*texture);
@@ -150,11 +154,17 @@ void OverworldScene::Update(Time dt)
 		activeScene = titleScene;
 		printf("Scene Changed!");
 	}
+
+	
+	
+
 	Scene::Update(dt);
 }
 
 void OverworldScene::Render()
 {
+	//Renderer::GetWindow().setView();
+	
 	Scene::Render();
 }
 ///////////////////////////////////////////////////////////////
