@@ -82,6 +82,8 @@ void TitleScene::Update(Time dt)
 {
 	Vector2u size = texture.getSize();
 	Color col;
+	RenderWindow window;
+
 	if (Keyboard::isKeyPressed(Keyboard::Down))
 	{
 		outline.setPosition(size.x / 5, size.y / 3.5);
@@ -90,13 +92,27 @@ void TitleScene::Update(Time dt)
 	if (Keyboard::isKeyPressed(Keyboard::Up))
 	{
 		outline.setPosition(size.x / 5, size.y / 10);
+
+
 	}
 
-	if (Keyboard::isKeyPressed(Keyboard::Enter))
+	if (Keyboard::isKeyPressed(Keyboard::Enter) && outline.getPosition() == Vector2f(size.x / 5, size.y / 10))
 	{
-		outline.setColor(col.White);
-		activeScene = overworldScene;
-		printf("Scene Changed!");
+	
+			activeScene = overworldScene;
+			printf("Scene Changed!");
+		
+	}
+
+
+	if (Keyboard::isKeyPressed(Keyboard::Enter) && outline.getPosition() == Vector2f(size.x / 5, size.y / 3.5))
+	{
+
+		cout << "Exit";
+		window.close();
+		
+		
+
 	}
 
 	Scene::Update(dt);
