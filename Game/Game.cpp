@@ -57,7 +57,7 @@ void TitleScene::Load()
 
 	const auto textRect = play.getGlobalBounds();
 	play.setOrigin(textRect.width * .5f, textRect.height * .5f);
-	play.setPosition(size.x / 4, size.y / 4);
+	play.setPosition(size.x / 4, size.y / 5.5);
 
 	quit.setFont(font);
 	quit.setCharacterSize(200);
@@ -68,14 +68,33 @@ void TitleScene::Load()
 	quit.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
 	quit.setPosition(size.x / 4, size.y / 2.5);
 
+	ButtonOutline.loadFromFile("Res/Fonts/Outline.png");
+	Vector2u Outsize = ButtonOutline.getSize();
+	outline.setTexture(ButtonOutline);
+	outline.setOrigin(textRect.width * .5f, textRect.height * .5f);
+	outline.setPosition(size.x / 5, size.y / 10);
+
 
 
 }
 
 void TitleScene::Update(Time dt)
 {
+	Vector2u size = texture.getSize();
+	Color col;
+	if (Keyboard::isKeyPressed(Keyboard::Down))
+	{
+		outline.setPosition(size.x / 5, size.y / 3.5);
+	}
+
+	if (Keyboard::isKeyPressed(Keyboard::Up))
+	{
+		outline.setPosition(size.x / 5, size.y / 10);
+	}
+
 	if (Keyboard::isKeyPressed(Keyboard::Enter))
 	{
+		outline.setColor(col.White);
 		activeScene = overworldScene;
 		printf("Scene Changed!");
 	}
@@ -88,7 +107,9 @@ void TitleScene::Render()
 	Scene::Render();
 
 	sf::Texture::bind(&texture);
+	sf::Texture::bind(&ButtonOutline);
 	Renderer::Queue(&sprite);
+	Renderer::Queue(&outline);
 	sf::Texture::bind(NULL);
 
 	Renderer::Queue(&play);

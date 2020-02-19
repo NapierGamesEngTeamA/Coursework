@@ -19,7 +19,9 @@ public:
 
 private:
 	Sprite sprite;
+	Sprite outline;
 	Texture texture;
+	Texture ButtonOutline;
 	Font font;
 	Text play;
 	Text quit;
