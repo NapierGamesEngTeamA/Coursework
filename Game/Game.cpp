@@ -47,7 +47,7 @@ void TitleScene::Load()
 	texture.loadFromFile("Res/Fonts/MenuBack.jpg");
 	Vector2u size = texture.getSize();
 	sprite.setTexture(texture);
-	sprite.setOrigin(size.x / 4, size.y / 4.5);
+	sprite.setOrigin(size.x / 200, size.y / 10);
 
 	font.loadFromFile("Res/Fonts/BreatheFire-65pg.ttf");
 	play.setFont(font);
@@ -57,7 +57,7 @@ void TitleScene::Load()
 
 	const auto textRect = play.getGlobalBounds();
 	play.setOrigin(textRect.width * .5f, textRect.height * .5f);
-	play.setPosition(size.x / 4, size.y / 5.5);
+	play.setPosition(size.x / 2, size.y / 2.5);
 
 	quit.setFont(font);
 	quit.setCharacterSize(200);
