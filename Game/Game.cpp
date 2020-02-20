@@ -12,6 +12,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "TileMap.h"
 #include "Tile.h"
+#include "Camera.h"
 
 #pragma endregion
 
@@ -90,6 +91,10 @@ void OverworldScene::Load()
 
 	auto pmc = ch->AddComponent<PlayerMovementComponent>();
 
+	//Add Camera
+	auto cam = ch->AddComponent<Camera>();
+	cam->SetWindow();
+
 	Animation* su = new Animation();
 	su->SetSpriteSheet(*texture);
 	su->AddFrame(IntRect(31, 0, 30, 33));
@@ -141,6 +146,7 @@ void OverworldScene::Load()
 
 	ch->SetPosition(Vector2f(100, 100));
 
+
 	_ents.list.push_back(ch);
 }
 
@@ -151,11 +157,17 @@ void OverworldScene::Update(Time dt)
 		activeScene = titleScene;
 		printf("Scene Changed!");
 	}
+
+	
+	
+
 	Scene::Update(dt);
 }
 
 void OverworldScene::Render()
 {
+	//Renderer::GetWindow().setView();
+	
 	Scene::Render();
 }
 ///////////////////////////////////////////////////////////////

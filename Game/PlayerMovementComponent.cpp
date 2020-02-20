@@ -22,4 +22,5 @@ void PlayerMovementComponent::Update(Time dt)
 	{
 		Move(Vector2f(-_speed * dt.asSeconds(), 0));
 	}
+
 }

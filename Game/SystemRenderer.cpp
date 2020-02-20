@@ -19,7 +19,10 @@ void Renderer::Shutdown()
 	}
 }
 
-void Renderer::Update(const double &) { }
+void Renderer::Update(const Time& dt) 
+{ 
+
+}
 
 void Renderer::Render()
 {
@@ -35,3 +38,8 @@ void Renderer::Render()
 }
 
 void Renderer::Queue(const Drawable* s) { sprites.push(s); }
+
+//const View& Renderer::GetView()
+//{
+//	return GetWindow().getView();
+//}

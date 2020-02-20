@@ -51,6 +51,7 @@ void Update(RenderWindow& window)
 	}
 
 	activeScene->Update(dt);
+	Renderer::Update(dt);
 }
 
 void Render(RenderWindow& window)
@@ -69,6 +70,7 @@ int main()
 	{
 		dt = clock.restart();
 		window.clear();
+		//window.setView();
 		Update(window);
 		Render(window);
 		window.display();
