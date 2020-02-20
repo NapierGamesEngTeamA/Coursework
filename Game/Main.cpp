@@ -51,6 +51,7 @@ void Update(RenderWindow& window)
 	}
 
 	activeScene->Update(dt);
+	Renderer::Update(dt);
 }
 
 void Render(RenderWindow& window)

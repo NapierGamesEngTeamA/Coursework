@@ -169,6 +169,10 @@ void OverworldScene::Load()
 	auto cam = ch->AddComponent<Camera>();
 	cam->SetWindow();
 
+	//Add Camera
+	auto cam = ch->AddComponent<Camera>();
+	cam->SetWindow();
+
 	Animation* su = new Animation();
 	su->SetSpriteSheet(*texture);
 	su->AddFrame(IntRect(31, 0, 30, 33));
@@ -219,6 +223,7 @@ void OverworldScene::Load()
 	as->Play();
 
 	ch->SetPosition(Vector2f(100, 100));
+
 
 	_ents.list.push_back(ch);
 }
