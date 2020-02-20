@@ -166,12 +166,10 @@ void OverworldScene::Load()
 	//s->GetSprite().setTextureRect(IntRect(0, 0, 26, 35));	
 
 	auto pmc = ch->AddComponent<PlayerMovementComponent>();
-	auto cam = ch->AddComponent<Camera>();
-	cam->SetWindow();
 
 	//Add Camera
 	auto cam = ch->AddComponent<Camera>();
-	cam->SetWindow();
+	//cam->SetWindow();
 
 	Animation* su = new Animation();
 	su->SetSpriteSheet(*texture);
