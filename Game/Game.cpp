@@ -57,7 +57,7 @@ void TitleScene::Load()
 
 	const auto textRect = play.getGlobalBounds();
 	play.setOrigin(textRect.width * .5f, textRect.height * .5f);
-	play.setPosition(size.x / 2, size.y / 2.5);
+	play.setPosition(size.x / 2, size.y / 4.0);
 
 	quit.setFont(font);
 	quit.setCharacterSize(200);
@@ -66,13 +66,13 @@ void TitleScene::Load()
 
 	const auto textRect2 = quit.getGlobalBounds();
 	quit.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
-	quit.setPosition(size.x / 4, size.y / 2.5);
+	quit.setPosition(size.x / 2, size.y / 2);
 
 	ButtonOutline.loadFromFile("Res/Fonts/Outline.png");
 	Vector2u Outsize = ButtonOutline.getSize();
 	outline.setTexture(ButtonOutline);
 	outline.setOrigin(textRect.width * .5f, textRect.height * .5f);
-	outline.setPosition(size.x / 5, size.y / 10);
+	outline.setPosition(size.x / 2.25, size.y / 6);
 
 
 
@@ -86,17 +86,17 @@ void TitleScene::Update(Time dt)
 
 	if (Keyboard::isKeyPressed(Keyboard::Down))
 	{
-		outline.setPosition(size.x / 5, size.y / 3.5);
+		outline.setPosition(size.x / 2.25, size.y / 2.5);
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::Up))
 	{
-		outline.setPosition(size.x / 5, size.y / 10);
+		outline.setPosition(size.x / 2.25, size.y / 6);
 
 
 	}
 
-	if (Keyboard::isKeyPressed(Keyboard::Enter) && outline.getPosition() == Vector2f(size.x / 5, size.y / 10))
+	if (Keyboard::isKeyPressed(Keyboard::Enter) && outline.getPosition() == Vector2f(size.x / 2.25, size.y / 6))
 	{
 	
 			activeScene = overworldScene;
@@ -105,7 +105,7 @@ void TitleScene::Update(Time dt)
 	}
 
 
-	if (Keyboard::isKeyPressed(Keyboard::Enter) && outline.getPosition() == Vector2f(size.x / 5, size.y / 3.5))
+	if (Keyboard::isKeyPressed(Keyboard::Enter) && outline.getPosition() == Vector2f(size.x / 2.25, size.y / 2.5))
 	{
 
 		cout << "Exit";
