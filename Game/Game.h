@@ -19,6 +19,7 @@ public:
 	void Load() override;
 
 private:
+	int index;
 	View view;
 	Sprite sprite;
 	Sprite outline;

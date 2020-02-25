@@ -91,23 +91,24 @@ void TitleScene::Update(Time dt)
 	//Move cursor
 	if (InputManager::GetInstance()->Up())
 	{
-
-		outline.setPosition(size.x / 5, size.y / 10);
+		index = 0;
+		outline.setPosition(Vector2f(size.x / 2.25, size.y / 6));
 
 	}
 	else if (InputManager::GetInstance()->Down())
 	{
-		outline.setPosition(size.x / 5, size.y / 3.5);
+		index = 1;
+		outline.setPosition(Vector2f(size.x / 2.25, size.y / 2.6));
 	}
 
-	if (InputManager::GetInstance()->Interact() && outline.getPosition() == Vector2f(size.x / 5, size.y / 10))
+	if (InputManager::GetInstance()->Interact() && index == 0)
 	{	
 
 			activeScene = overworldScene;
 			printf("Scene Changed!");		
 	}
 
-	if (InputManager::GetInstance()->Interact() && outline.getPosition() == Vector2f(size.x / 5, size.y / 3.5))
+	if (InputManager::GetInstance()->Interact() && index == 1)
 	{
 		Renderer::GetWindow().close();
 	}
