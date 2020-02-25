@@ -13,6 +13,7 @@
 #include "TileMap.h"
 #include "Tile.h"
 #include "Camera.h"
+#include "InputManager.h"
 
 #pragma endregion
 
@@ -21,6 +22,7 @@ using namespace sf;
 
 shared_ptr<Scene> titleScene;
 shared_ptr<Scene> overworldScene;
+shared_ptr<Scene> combatScene;
 shared_ptr<Scene> activeScene;
 
 void Scene::Load()
@@ -29,19 +31,23 @@ void Scene::Load()
 }
 
 void Scene::Update(Time dt) 
-{ 
+{
+	//Update all entities in scene
 	_ents.Update(dt); 
 }
 
-void Scene::Render() { _ents.Render(); }
+void Scene::Render() 
+{ 
+	//Render all entities in scene
+	_ents.Render(); 
+}
 
 
 //////////////////////// TITLE SCENE ///////////////////////////////
-
-
-
 void TitleScene::Load()
 {
+	view.reset(FloatRect(0, 0, 1920, 1080));
+
 	Color color;
 
 	texture.loadFromFile("Res/Fonts/MenuBack.jpg");
@@ -74,8 +80,6 @@ void TitleScene::Load()
 	outline.setOrigin(textRect.width * .5f, textRect.height * .5f);
 	outline.setPosition(size.x / 2.25, size.y / 6);
 
-
-
 }
 
 void TitleScene::Update(Time dt)
@@ -84,36 +88,32 @@ void TitleScene::Update(Time dt)
 	Color col;
 	RenderWindow window;
 
-	if (Keyboard::isKeyPressed(Keyboard::Down))
+	//Move cursor
+	if (InputManager::GetInstance()->Up())
 	{
-		outline.setPosition(size.x / 2.25, size.y / 2.5);
-	}
 
-	if (Keyboard::isKeyPressed(Keyboard::Up))
-	{
-		outline.setPosition(size.x / 2.25, size.y / 6);
-
+		outline.setPosition(size.x / 5, size.y / 10);
 
 	}
-
-	if (Keyboard::isKeyPressed(Keyboard::Enter) && outline.getPosition() == Vector2f(size.x / 2.25, size.y / 6))
+	else if (InputManager::GetInstance()->Down())
 	{
-	
+		outline.setPosition(size.x / 5, size.y / 3.5);
+	}
+
+	if (InputManager::GetInstance()->Interact() && outline.getPosition() == Vector2f(size.x / 5, size.y / 10))
+	{	
+
 			activeScene = overworldScene;
-			printf("Scene Changed!");
-		
+			printf("Scene Changed!");		
 	}
 
-
-	if (Keyboard::isKeyPressed(Keyboard::Enter) && outline.getPosition() == Vector2f(size.x / 2.25, size.y / 2.5))
+	if (InputManager::GetInstance()->Interact() && outline.getPosition() == Vector2f(size.x / 5, size.y / 3.5))
 	{
-
-		cout << "Exit";
-		window.close();
-		
-		
-
+		Renderer::GetWindow().close();
 	}
+
+	Renderer::GetWindow().setView(view);
+	InputManager::GetInstance()->Update();
 
 	Scene::Update(dt);
 }
@@ -171,6 +171,7 @@ void OverworldScene::Load()
 	auto cam = ch->AddComponent<Camera>();
 	//cam->SetWindow();
 
+	////////////////// Set animations /////////////////////////////////
 	Animation* su = new Animation();
 	su->SetSpriteSheet(*texture);
 	su->AddFrame(IntRect(31, 0, 30, 33));
@@ -200,7 +201,6 @@ void OverworldScene::Load()
 	Animation* wr = new Animation();
 	wr->SetSpriteSheet(*texture);
 	wr->AddFrame(IntRect(0, 38, 28, 33));
-	//wr->AddFrame(IntRect(36, 36, 24, 36));
 	wr->AddFrame(IntRect(69, 38, 24, 33));
 	ch->_anims.insert(pair<string, Animation>("Walk Right", *wr));
 
@@ -219,23 +219,23 @@ void OverworldScene::Load()
 	auto as = ch->AddComponent<AnimatedSpriteComponent>();
 	as->SetAnimation(*sl);
 	as->Play();
+	//////////////////////////////////////////////////////////////////////////
 
 	ch->SetPosition(Vector2f(100, 100));
-
 
 	_ents.list.push_back(ch);
 }
 
 void OverworldScene::Update(Time dt)
 {
-	if (Keyboard::isKeyPressed(Keyboard::Tab))
+	//Debug: Back to menu
+	if (InputManager::Back())
 	{
 		activeScene = titleScene;
 		printf("Scene Changed!");
 	}
 
-	
-	
+	InputManager::GetInstance()->Update();
 
 	Scene::Update(dt);
 }
@@ -247,3 +247,24 @@ void OverworldScene::Render()
 	Scene::Render();
 }
 ///////////////////////////////////////////////////////////////
+
+//////////////////// Combat Scene /////////////////////////////
+void CombatScene::Load()
+{
+
+}
+
+void CombatScene::Update(Time dt)
+{
+	Scene::Update(dt);
+}
+
+void CombatScene::Render()
+{
+	Scene::Render();
+}
+
+void CombatScene::Setup()
+{
+
+}

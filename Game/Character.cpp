@@ -1,24 +1,25 @@
 #include "Character.h"
 #include "AnimatedSpriteComponent.h"
+#include "InputManager.h"
 
 using namespace sf;
 using namespace std;
 
 void Character::Update(Time dt)
 {
-	if (Keyboard::isKeyPressed(Keyboard::W))
+	if (InputManager::GetInstance()->Up())
 	{
 		currentState = WALK_UP;
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::S))
+	else if (InputManager::GetInstance()->Down())
 	{
 		currentState = WALK_DOWN;
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::D))
+	else if (InputManager::GetInstance()->Right())
 	{
 		currentState = WALK_RIGHT;
 	}
-	else if (Keyboard::isKeyPressed(Keyboard::A))
+	else if (InputManager::GetInstance()->Left())
 	{
 		currentState = WALK_LEFT;
 	}

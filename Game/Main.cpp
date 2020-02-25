@@ -16,13 +16,13 @@ Time dt;
 
 void Load()
 {
-	
-
+	// Initialise Scenes
 	titleScene.reset(new TitleScene());
 	overworldScene.reset(new OverworldScene());
 	titleScene->Load();
 	overworldScene->Load();
 
+	// Set current scene
 	activeScene = titleScene;
 }
 
@@ -50,13 +50,18 @@ void Update(RenderWindow& window)
 		window.close();
 	}
 
+	//Update current scene
 	activeScene->Update(dt);
+
+	//Update renderer
 	Renderer::Update(dt);
 }
 
 void Render(RenderWindow& window)
 {
+	// Render Active scene
 	activeScene->Render();
+
 	Renderer::Render();
 }
 
@@ -70,7 +75,6 @@ int main()
 	{
 		dt = clock.restart();
 		window.clear();
-		//window.setView();
 		Update(window);
 		Render(window);
 		window.display();
