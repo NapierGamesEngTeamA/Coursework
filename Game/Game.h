@@ -7,6 +7,7 @@ using namespace sf;
 
 extern shared_ptr<Scene> titleScene;
 extern shared_ptr<Scene> overworldScene;
+extern shared_ptr<Scene> combatScene;
 extern shared_ptr<Scene> activeScene;
 
 class TitleScene : public Scene
@@ -18,6 +19,7 @@ public:
 	void Load() override;
 
 private:
+	View view;
 	Sprite sprite;
 	Sprite outline;
 	Texture texture;
@@ -36,4 +38,16 @@ public:
 	void Update(Time dt) override;
 	void Render() override;
 	void Load() override;
+};
+
+class CombatScene : public Scene
+{
+private:
+
+public:
+	CombatScene() = default;
+	void Update(Time dt) override;
+	void Render() override;
+	void Load() override;
+	void Setup();
 };
