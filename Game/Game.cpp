@@ -241,7 +241,7 @@ void OverworldScene::Update(Time dt)
 		int d100 = rand() % 100 + 1;
 		if (d100 > 80)
 		{
-			activeScene = combatScene;
+			//activeScene = combatScene;
 			printf("Scene: Combat Scene");
 		}
 	}
