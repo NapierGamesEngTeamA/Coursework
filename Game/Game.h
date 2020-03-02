@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include <list>
+#include <SFML/Audio.hpp>
 
 using namespace std;
 using namespace sf;
@@ -19,6 +20,9 @@ public:
 	void Load() override;
 
 private:
+	Music titleMusic;
+	//SoundBuffer buffer;
+	//Sound s;
 	int index;
 	View view;
 	Sprite sprite;

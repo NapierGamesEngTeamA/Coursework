@@ -14,6 +14,9 @@
 #include "Tile.h"
 #include "Camera.h"
 #include "InputManager.h"
+#include "AudioManager.h"
+//#include <SFML/Audio.hpp>
+//#include <SFML/System.hpp>
 
 #pragma endregion
 
@@ -79,11 +82,23 @@ void TitleScene::Load()
 	outline.setTexture(ButtonOutline);
 	outline.setOrigin(textRect.width * .5f, textRect.height * .5f);
 	outline.setPosition(size.x / 2.25, size.y / 6);
-
+	
+	/*buffer.loadFromFile("Res/Music/MenuMusic.wav");
+	s.setBuffer(buffer);
+	s.play();*/
+	//Music titleMusic;
+	if (!titleMusic.openFromFile("Res/Music/MenuMusic.wav"))
+	{
+		cout << "Can't load title music" << endl;
+	}
+	titleMusic.setVolume(50);
+	titleMusic.setLoop(true);
+	titleMusic.play();
 }
 
 void TitleScene::Update(Time dt)
 {
+	
 	Vector2u size = texture.getSize();
 	Color col;
 	RenderWindow window;
@@ -145,26 +160,11 @@ void OverworldScene::Load()
 	auto tm = make_shared<TileMap>();
 	tm->GenerateMap("Res/Maps/TestLevel.txt", *tileSheet);
 
-	//for (int y = 0; y < tm->_height; y++)
-	//{
-	//	for (int x = 0; x < tm->_width; x++)
-	//	{
-	//		auto t = tm->AddComponent<Tile>();
-	//		//t->SetTexture(*tileSheet);
-	//		t->GetSprite().setTexture(*tileSheet);
-	//		t->SetRect(IntRect(324, 137, 16, 16));
-	//		t->SetPosition(Vector2f(x * 16, y * 16));
-	//	}
-	//}
-
 	_ents.list.push_back(tm);
 
 	Texture* texture = new Texture();
 	texture->loadFromFile("Res/Sprites/TestSprites.png");
 	auto ch = make_shared<Character>();
-	//auto s = ch->AddComponent<SpriteComponent>();
-	//s->GetSprite().setTexture(*texture);
-	//s->GetSprite().setTextureRect(IntRect(0, 0, 26, 35));	
 
 	auto pmc = ch->AddComponent<PlayerMovementComponent>();
 
@@ -234,6 +234,16 @@ void OverworldScene::Update(Time dt)
 	{
 		activeScene = titleScene;
 		printf("Scene Changed!");
+	}
+
+	if (InputManager::Up() || InputManager::Down() || InputManager::Right() || InputManager::Left())
+	{
+		int d100 = rand() % 100 + 1;
+		if (d100 > 80)
+		{
+			activeScene = combatScene;
+			printf("Scene: Combat Scene");
+		}
 	}
 
 	InputManager::GetInstance()->Update();

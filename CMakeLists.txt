@@ -20,7 +20,7 @@ link_directories("${CMAKE_BINARY_DIR}/Libs/sfml/lib")
 file(GLOB_RECURSE SOURCES Game/*.cpp Game/*.h)
 add_executable(GAME ${SOURCES})
 target_include_directories(GAME SYSTEM PRIVATE ${SFML_INCS})
-target_link_libraries(GAME ecm maths sfml-graphics)
+target_link_libraries(GAME ecm maths sfml-graphics sfml-audio)
 
 ### ECM Lib ###
 file(GLOB_RECURSE SOURCE_FILES Libs/ecm/*.cpp Libs/ecm/*.h)
