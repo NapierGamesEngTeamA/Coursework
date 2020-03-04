@@ -163,7 +163,7 @@ void OverworldScene::Load()
 	_ents.list.push_back(tm);
 
 	Texture* texture = new Texture();
-	texture->loadFromFile("Res/Sprites/TestSprites.png");
+	texture->loadFromFile("Res/Sprites/TstSprt.png");
 	auto ch = make_shared<Character>();
 
 	auto pmc = ch->AddComponent<PlayerMovementComponent>();
