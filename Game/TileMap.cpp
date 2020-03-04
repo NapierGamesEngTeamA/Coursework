@@ -68,7 +68,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list)
 {
 	for (size_t y = 0; y < 50; y++)
 	{
-		for (size_t x = 0; x < 65; x++)
+		for (size_t x = 0; x < 80; x++)
 		{
 			/*auto t = AddComponent<Tile>();
 			t->SetTexture(texture);

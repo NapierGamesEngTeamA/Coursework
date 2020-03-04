@@ -223,7 +223,7 @@ void OverworldScene::Load()
 	as->Play();
 	//////////////////////////////////////////////////////////////////////////
 
-	ch->SetPosition(Vector2f(100, 100));
+	ch->SetPosition(Vector2f(600, 600));
 
 	_ents.list.push_back(ch);
 }
