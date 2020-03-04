@@ -18,6 +18,7 @@
 //#include <SFML/Audio.hpp>
 //#include <SFML/System.hpp>
 
+
 #pragma endregion
 
 using namespace std;
@@ -156,7 +157,7 @@ void OverworldScene::Load()
 {
 
 	Texture* tileSheet = new Texture();
-	tileSheet->loadFromFile("Res/Sprites/TileSheet.png");
+	tileSheet->loadFromFile("Res/Sprites/A2_Ground.png");
 	auto tm = make_shared<TileMap>();
 	tm->GenerateMap("Res/Maps/TestLevel.txt", *tileSheet);
 
