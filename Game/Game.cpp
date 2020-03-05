@@ -155,6 +155,13 @@ void TitleScene::Render()
 
 void OverworldScene::Load()
 {
+	
+
+	texture.loadFromFile("Res/Fonts/HealthBar.png");
+	Vector2u size = texture.getSize();
+	sprite.setTexture(texture);
+	sprite.setOrigin(0, 0);
+
 
 	Texture* tileSheet = new Texture();
 	tileSheet->loadFromFile("Res/Sprites/A2_Ground.png");
@@ -257,8 +264,12 @@ void OverworldScene::Update(Time dt)
 void OverworldScene::Render()
 {
 	//Renderer::GetWindow().setView();
-	
+
+
 	Scene::Render();
+	sf::Texture::bind(&texture);
+	Renderer::Queue(&sprite);
+	sf::Texture::bind(NULL);
 }
 ///////////////////////////////////////////////////////////////
 

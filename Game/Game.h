@@ -37,7 +37,9 @@ private:
 class OverworldScene : public Scene
 {
 private:
-
+	Texture texture;
+	Sprite sprite;
+	
 public:
 	OverworldScene() = default;
 	void Update(Time dt) override;
