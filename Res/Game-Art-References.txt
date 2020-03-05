@@ -1,0 +1,4 @@
+All Game Art used:
+http://gaurav.munjal.us/Universal-LPC-Spritesheet-Character-Generator/ - All character sprites
+https://jd-collier.itch.io/mythril-age-tilesets - TileSheet
+
