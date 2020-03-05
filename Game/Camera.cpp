@@ -7,7 +7,7 @@ Camera::Camera(Entity* p) : Component(p), _view(make_shared<View>())
 	_view->setViewport(FloatRect(_parent->GetPosition().x, _parent->GetPosition().y, 1920, 1080));
 	_view->setCenter(_parent->GetPosition().x, _parent->GetPosition().y);
 	_view->setViewport(FloatRect(_parent->GetPosition().x, _parent->GetPosition().y, 1, 1));*/
-	_view->reset(FloatRect(_parent->GetPosition(), Vector2f(1920, 1080)));
+	_view->reset(FloatRect(_parent->GetPosition(), Vector2f(1080, 720)));
 }
 
 void Camera::Update(Time dt)

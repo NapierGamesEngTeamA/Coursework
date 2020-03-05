@@ -163,6 +163,8 @@ void OverworldScene::Load()
 
 	_ents.list.push_back(tm);
 
+
+
 	Texture* texture = new Texture();
 	texture->loadFromFile("Res/Sprites/TstSprt.png");
 	auto ch = make_shared<Character>();
@@ -223,7 +225,7 @@ void OverworldScene::Load()
 	as->Play();
 	//////////////////////////////////////////////////////////////////////////
 
-	ch->SetPosition(Vector2f(600, 600));
+	ch->SetPosition(Vector2f(2000, 600));
 
 	_ents.list.push_back(ch);
 }

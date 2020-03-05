@@ -66,9 +66,9 @@ void TileMap::GenerateMap(const string& path, const Texture& texture)
 
 void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list)
 {
-	for (size_t y = 0; y < 50; y++)
+	for (size_t y = 0; y < 90; y++)
 	{
-		for (size_t x = 0; x < 80; x++)
+		for (size_t x = 0; x < 200; x++)
 		{
 			/*auto t = AddComponent<Tile>();
 			t->SetTexture(texture);
@@ -79,7 +79,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list)
 				auto t = AddComponent<Tile>();
 				//t->SetTexture(texture);
 				t->GetSprite().setTexture(texture);
-				t->SetPosition(Vector2f(x * 32, y * 32));
+				t->SetPosition(Vector2f(x * 16, y *16));
 				t->SetRect(IntRect(0, 0, 32, 32));
 			}
 			else if (list[y][x] == 'w')
@@ -87,7 +87,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list)
 				auto s = AddComponent<Tile>();
 				//s->SetTexture(texture);
 				s->GetSprite().setTexture(texture);
-				s->SetPosition(Vector2f(x * 32, y * 32));
+				s->SetPosition(Vector2f(x * 16, y * 16));
 				s->SetRect(IntRect(463, 334, 32, 32));
 			}
 			else if (list[y][x] == 's')
@@ -95,7 +95,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list)
 				auto u = AddComponent<Tile>();
 				//s->SetTexture(texture);
 				u->GetSprite().setTexture(texture);
-				u->SetPosition(Vector2f(x * 32, y * 32));
+				u->SetPosition(Vector2f(x * 16, y * 16));
 				u->SetRect(IntRect(383, 288, 32, 32));
 			}
 			else if (list[y][x] == 'r')
@@ -103,7 +103,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list)
 				auto v = AddComponent<Tile>();
 				//s->SetTexture(texture);
 				v->GetSprite().setTexture(texture);
-				v->SetPosition(Vector2f(x * 32, y * 32));
+				v->SetPosition(Vector2f(x * 16, y * 16));
 				v->SetRect(IntRect(388, 0, 32, 32));
 			}
 		}
