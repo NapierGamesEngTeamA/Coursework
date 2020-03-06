@@ -20,7 +20,13 @@ link_directories("${CMAKE_BINARY_DIR}/Libs/sfml/lib")
 file(GLOB_RECURSE SOURCES Game/*.cpp Game/*.h)
 add_executable(GAME ${SOURCES})
 target_include_directories(GAME SYSTEM PRIVATE ${SFML_INCS})
-target_link_libraries(GAME ecm maths sfml-graphics sfml-audio)
+target_link_libraries(GAME ecm combat maths sfml-graphics sfml-audio)
+
+### Combat Lib ###
+file(GLOB_RECURSE SOURCE_FILES Libs/combat/*.cpp Libs/combat/*.h)
+add_library(combat STATIC ${SOURCE_FILES})
+target_include_directories(combat INTERFACE "${CMAKE_SOURCE_DIR}/Libs/combat")
+target_link_libraries(combat sfml-graphics sfml-audio)
 
 ### ECM Lib ###
 file(GLOB_RECURSE SOURCE_FILES Libs/ecm/*.cpp Libs/ecm/*.h)
