@@ -15,8 +15,7 @@
 #include "Camera.h"
 #include "InputManager.h"
 #include "AudioManager.h"
-//#include <SFML/Audio.hpp>
-//#include <SFML/System.hpp>
+#include "BattleEntity.h"
 
 
 #pragma endregion
@@ -46,7 +45,7 @@ void Scene::Render()
 	_ents.Render(); 
 }
 
-
+#pragma region TitleScene
 //////////////////////// TITLE SCENE ///////////////////////////////
 void TitleScene::Load()
 {
@@ -150,9 +149,10 @@ void TitleScene::Render()
 
 }
 ///////////////////////////////////////////////////////////////
+#pragma endregion
 
+#pragma region OverworldScene
 ///////////////////////////// OVERWORLD SCENE //////////////////
-
 void OverworldScene::Load()
 {
 	
@@ -272,21 +272,98 @@ void OverworldScene::Render()
 	sf::Texture::bind(NULL);
 }
 ///////////////////////////////////////////////////////////////
-
+#pragma endregion
 //////////////////// Combat Scene /////////////////////////////
 void CombatScene::Load()
 {
+	bgTex.loadFromFile("Res/Sprites/CombatBackground.jpg");
+	//Vector2u size = texture.getSize();
+	background.setTexture(bgTex);
+	background.setOrigin(0, 0);
+	
 
+	//Andrel
+	Texture* texture1 = new Texture();
+	texture1->loadFromFile("Res/Sprites/Main.png");
+	auto andrel = make_shared<BattleEntity>();
+
+	Animation* idle = new Animation();
+	idle->SetSpriteSheet(*texture1);
+	idle->AddFrame(IntRect(21, 205, 21, 48));
+	idle->AddFrame(IntRect(84, 205, 21, 48));
+	andrel->_anims.insert(pair<string, Animation>("Idle", *idle));
+
+	auto a = andrel->AddComponent<AnimatedSpriteComponent>();
+	a->SetAnimation(*idle);
+	a->Play();
+
+	andrel->SetPosition(Vector2f(200, 200));
+	_ents.list.push_back(andrel); 
+
+	//Charity
+	auto charity = make_shared<BattleEntity>();
+
+	Animation* idle1 = new Animation();
+	idle1->SetSpriteSheet(*texture1);
+	idle1->AddFrame(IntRect(21, 205, 21, 48));
+	idle1->AddFrame(IntRect(84, 205, 21, 48));
+	charity->_anims.insert(pair<string, Animation>("Idle", *idle1));
+
+	auto b = charity->AddComponent<AnimatedSpriteComponent>();
+	b->SetAnimation(*idle1);
+	b->Play();
+
+	charity->SetPosition(Vector2f(200, 300));
+	_ents.list.push_back(charity);
+
+	//Helmaer
+	auto helmaer = make_shared<BattleEntity>();
+
+	Animation* idle2 = new Animation();
+	idle2->SetSpriteSheet(*texture1);
+	idle2->AddFrame(IntRect(21, 205, 21, 48));
+	idle2->AddFrame(IntRect(84, 205, 21, 48));
+	helmaer->_anims.insert(pair<string, Animation>("Idle", *idle2));
+
+	auto c = helmaer->AddComponent<AnimatedSpriteComponent>();
+	c->SetAnimation(*idle2);
+	c->Play();
+
+	helmaer->SetPosition(Vector2f(200, 400));
+	_ents.list.push_back(helmaer);
+
+	//Horo
+	auto horo = make_shared<BattleEntity>();
+
+	Animation* idle3 = new Animation();
+	idle3->SetSpriteSheet(*texture1);
+	idle3->AddFrame(IntRect(21, 205, 21, 48));
+	idle3->AddFrame(IntRect(84, 205, 21, 48));
+	horo->_anims.insert(pair<string, Animation>("Idle", *idle3));
+
+	auto d = horo->AddComponent<AnimatedSpriteComponent>();
+	d->SetAnimation(*idle3);
+	d->Play();
+
+	horo->SetPosition(Vector2f(200, 500));
+	_ents.list.push_back(horo);
 }
 
 void CombatScene::Update(Time dt)
 {
+	
+
 	Scene::Update(dt);
 }
 
 void CombatScene::Render()
 {
+
+	//sf::Texture::bind(&bgTex);
+	Renderer::Queue(&background);
 	Scene::Render();
+
+
 }
 
 void CombatScene::Setup()

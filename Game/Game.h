@@ -50,7 +50,8 @@ public:
 class CombatScene : public Scene
 {
 private:
-
+	Texture bgTex;
+	Sprite background;
 public:
 	CombatScene() = default;
 	void Update(Time dt) override;
