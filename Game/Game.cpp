@@ -15,10 +15,9 @@
 #include "Camera.h"
 #include "InputManager.h"
 #include "AudioManager.h"
-//#include <SFML/Audio.hpp>
-//#include <SFML/System.hpp>
-
-
+#include "BattleEntity.h"
+#include "BattleParty.h"
+#include "Andrel.h"
 #pragma endregion
 
 using namespace std;
@@ -46,7 +45,7 @@ void Scene::Render()
 	_ents.Render(); 
 }
 
-
+#pragma region TitleScreen
 //////////////////////// TITLE SCENE ///////////////////////////////
 void TitleScene::Load()
 {
@@ -84,15 +83,13 @@ void TitleScene::Load()
 	outline.setOrigin(textRect.width * .5f, textRect.height * .5f);
 	outline.setPosition(size.x / 2.25, size.y / 6);
 	
-	/*buffer.loadFromFile("Res/Music/MenuMusic.wav");
-	s.setBuffer(buffer);
-	s.play();*/
+
 	//Music titleMusic;
 	if (!titleMusic.openFromFile("Res/Music/MenuMusic.wav"))
 	{
 		cout << "Can't load title music" << endl;
 	}
-	titleMusic.setVolume(50);
+	titleMusic.setVolume(10);
 	titleMusic.setLoop(true);
 	titleMusic.play();
 }
@@ -150,9 +147,10 @@ void TitleScene::Render()
 
 }
 ///////////////////////////////////////////////////////////////
+#pragma endregion
 
+#pragma region Overworld scene
 ///////////////////////////// OVERWORLD SCENE //////////////////
-
 void OverworldScene::Load()
 {
 	
@@ -251,7 +249,7 @@ void OverworldScene::Update(Time dt)
 		int d100 = rand() % 100 + 1;
 		if (d100 > 80)
 		{
-			//activeScene = combatScene;
+			activeScene = combatScene;
 			printf("Scene: Combat Scene");
 		}
 	}
@@ -272,15 +270,39 @@ void OverworldScene::Render()
 	sf::Texture::bind(NULL);
 }
 ///////////////////////////////////////////////////////////////
+#pragma endregion
 
+#pragma region CombatScene
 //////////////////// Combat Scene /////////////////////////////
 void CombatScene::Load()
 {
+	Texture* texture = new Texture();
+	texture->loadFromFile("Res/Sprites/TestSprites.png");
 
+	auto playerParty = make_shared<BattleParty>();
+	playerParty->SetupPlayer(texture);
+	
+	_ents.list.push_back(playerParty);
+
+	auto enemyParty = make_shared<BattleParty>();
+	enemyParty->SetupEnemy();
+
+	_ents.list.push_back(enemyParty);
+
+	auto andrel = make_shared<BattleEntity>();
+	Sprite* s = new Sprite();
+	s->setTexture(*texture, false);
+	s->setTextureRect(IntRect(31, 36, 30, 33));
+	auto sp = andrel->AddComponent<SpriteComponent>();
+	sp->SetTexture(*s->getTexture());
+	sp->SetRect(s->getTextureRect());
+	andrel->SetPosition(Vector2f(200, 100));
+	_ents.list.push_back(andrel);
 }
 
 void CombatScene::Update(Time dt)
 {
+	//Renderer::GetWindow().setView(View());
 	Scene::Update(dt);
 }
 
@@ -293,3 +315,4 @@ void CombatScene::Setup()
 {
 
 }
+#pragma endregion

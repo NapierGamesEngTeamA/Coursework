@@ -41,6 +41,7 @@ void AudioManager::PlaySong()
 	if (!isPlaying)
 	{
 		isPlaying = true;
+		menuMusic.setVolume(10);
 		menuMusic.play();
 	}
 }

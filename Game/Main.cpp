@@ -19,11 +19,13 @@ void Load()
 	// Initialise Scenes
 	titleScene.reset(new TitleScene());
 	overworldScene.reset(new OverworldScene());
+	combatScene.reset(new CombatScene());
 	titleScene->Load();
 	overworldScene->Load();
+	combatScene->Load();
 
 	// Set current scene
-	activeScene = titleScene;
+	activeScene = combatScene;
 }
 
 void Update(RenderWindow& window)
