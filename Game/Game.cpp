@@ -178,8 +178,6 @@ void OverworldScene::Load()
 	auto tm = make_shared<TileMap>();
 	tm->GenerateMap("Res/Maps/TestLevel.txt", *tileSheet, ch);
 
-	_ents.list.push_back(tm);
-
 
 
 	Texture* texture = new Texture();
@@ -242,10 +240,14 @@ void OverworldScene::Load()
 	as->Play();
 	//////////////////////////////////////////////////////////////////////////
 
-	ch->SetPosition(Vector2f(2000, 600));
+	//ch->SetPosition(Vector2f(2000, 600));
 
+	_ents.list.push_back(tm);
 	_ents.list.push_back(ch);
+
+
 }
+
 
 void OverworldScene::Update(Time dt)
 {

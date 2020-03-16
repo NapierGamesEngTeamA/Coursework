@@ -8,6 +8,7 @@ class Tile : public Component
 {
 protected:
 	shared_ptr<Sprite> _sprite;
+	shared_ptr <Vector2f >pos;
 public:
 	Tile() = delete;
 	explicit Tile(Entity* p);
@@ -19,6 +20,11 @@ public:
 	void SetPosition(Vector2f p)
 	{
 		_sprite->setPosition(p);
+	}
+
+	const Vector2f GetPosition() const
+	{
+	 return	_sprite->getPosition();
 	}
 
 	void SetTexture(Texture texture)

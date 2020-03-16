@@ -72,10 +72,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 	{
 		for (size_t x = 0; x < 200; x++)
 		{
-			if (ch->GetPosition().x > x || ch->GetPosition().x < 0)
-			{
-				printf("COLLISION DETECTED");
-			}
+			ch->SetPosition(Vector2f(2000, 400));
 
 			if (list[y][x] == 'g')
 			{
@@ -93,11 +90,14 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 				s->SetPosition(Vector2f(x * 16, y * 16));
 				s->SetRect(IntRect(463, 334, 32, 32));
 
-				/*	if (ch->GetPosition())
-					{
-						printf("Collision Detected");
-					}
-				}*/
+				Vector2f r1 = ch->GetPosition();
+				Vector2f r2 = s->GetPosition();
+		
+				if (r1 == r2)
+				{
+					printf("Collision Detected");
+				}
+				
 			}
 			else if (list[y][x] == 's')
 			{
