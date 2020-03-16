@@ -9,18 +9,22 @@ void Character::Update(Time dt)
 {
 	if (InputManager::GetInstance()->Up())
 	{
+		tileY += 1;
 		currentState = WALK_UP;
 	}
 	else if (InputManager::GetInstance()->Down())
 	{
+		tileY -= 1;
 		currentState = WALK_DOWN;
 	}
 	else if (InputManager::GetInstance()->Right())
 	{
+		tileX += 1;
 		currentState = WALK_RIGHT;
 	}
 	else if (InputManager::GetInstance()->Left())
 	{
+		tileX -= 1;
 		currentState = WALK_LEFT;
 	}
 

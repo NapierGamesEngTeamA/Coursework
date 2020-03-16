@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include "Tile.h"
+#include "Character.h"
 
 using namespace sf;
 using namespace std;
@@ -16,10 +17,11 @@ void TileMap::Render()
 	Entity::Render();
 }
 
-void TileMap::GenerateMap(const string& path, const Texture& texture)
+void TileMap::GenerateMap(const string& path, const Texture& texture, shared_ptr<Character> ch)
 {
 	size_t w = 0, h = 0;
 	string buffer;
+	
 
 	ifstream f(path);
 	if (f.good())
@@ -60,20 +62,21 @@ void TileMap::GenerateMap(const string& path, const Texture& texture)
 	cout << tiles.size() << endl;
 	
 
-	BuildSprites(texture, tiles);
+	BuildSprites(texture, tiles, ch);
 
 }
 
-void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list)
+void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, shared_ptr<Character> ch)
 {
 	for (size_t y = 0; y < 90; y++)
 	{
 		for (size_t x = 0; x < 200; x++)
 		{
-			/*auto t = AddComponent<Tile>();
-			t->SetTexture(texture);
-			t->GetSprite().setTexture(texture);
-			t->SetPosition(Vector2f(x * 16, y * 16));*/
+			if (ch->GetPosition().x > x || ch->GetPosition().x < 0)
+			{
+				printf("COLLISION DETECTED");
+			}
+
 			if (list[y][x] == 'g')
 			{
 				auto t = AddComponent<Tile>();
@@ -89,6 +92,12 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list)
 				s->GetSprite().setTexture(texture);
 				s->SetPosition(Vector2f(x * 16, y * 16));
 				s->SetRect(IntRect(463, 334, 32, 32));
+
+				/*	if (ch->GetPosition())
+					{
+						printf("Collision Detected");
+					}
+				}*/
 			}
 			else if (list[y][x] == 's')
 			{

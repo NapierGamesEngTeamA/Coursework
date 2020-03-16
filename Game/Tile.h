@@ -15,7 +15,7 @@ public:
 	void Render() override;
 
 	Sprite& GetSprite() const;
-
+	
 	void SetPosition(Vector2f p)
 	{
 		_sprite->setPosition(p);

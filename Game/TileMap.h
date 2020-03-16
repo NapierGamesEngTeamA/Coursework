@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "Character.h"
 
 using namespace sf;
 
@@ -23,6 +24,6 @@ public:
 	};
 	void Update(Time dt) override;
 	void Render() override;
-	void GenerateMap(const string& path, const Texture& texture);
-	void BuildSprites(const Texture& texture, vector<vector<char>> list);
+	void GenerateMap(const string& path, const Texture& texture, shared_ptr<Character> ch);
+	void BuildSprites(const Texture& texture, vector<vector<char>> list, shared_ptr<Character> ch);
 };

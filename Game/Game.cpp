@@ -156,6 +156,7 @@ void TitleScene::Render()
 void OverworldScene::Load()
 {
 	
+	auto ch = make_shared<Character>();
 
 	texture.loadFromFile("Res/Fonts/HealthBar.png");
 	Vector2u size = texture.getSize();
@@ -166,7 +167,7 @@ void OverworldScene::Load()
 	Texture* tileSheet = new Texture();
 	tileSheet->loadFromFile("Res/Sprites/A2_Ground.png");
 	auto tm = make_shared<TileMap>();
-	tm->GenerateMap("Res/Maps/TestLevel.txt", *tileSheet);
+	tm->GenerateMap("Res/Maps/TestLevel.txt", *tileSheet, ch);
 
 	_ents.list.push_back(tm);
 
@@ -174,7 +175,7 @@ void OverworldScene::Load()
 
 	Texture* texture = new Texture();
 	texture->loadFromFile("Res/Sprites/TstSprt.png");
-	auto ch = make_shared<Character>();
+
 
 	auto pmc = ch->AddComponent<PlayerMovementComponent>();
 
@@ -239,6 +240,8 @@ void OverworldScene::Load()
 
 void OverworldScene::Update(Time dt)
 {
+
+
 	//Debug: Back to menu
 	if (InputManager::Back())
 	{

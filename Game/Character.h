@@ -14,6 +14,10 @@ public:
 	map<string, Animation> _anims;
 	Animation* currentAnim;
 
+	int tileX;
+	int tileY;
+
+
 	Character() 
 	{ 
 		currentState = STAND_RIGHT;
