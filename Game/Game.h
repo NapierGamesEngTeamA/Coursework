@@ -10,6 +10,7 @@ extern shared_ptr<Scene> titleScene;
 extern shared_ptr<Scene> overworldScene;
 extern shared_ptr<Scene> combatScene;
 extern shared_ptr<Scene> activeScene;
+extern sf::Texture spritesheet;
 
 class TitleScene : public Scene
 {

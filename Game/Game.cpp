@@ -15,6 +15,7 @@
 #include "Camera.h"
 #include "InputManager.h"
 #include "AudioManager.h"
+#include "Enemy.h"
 //#include <SFML/Audio.hpp>
 //#include <SFML/System.hpp>
 
@@ -156,6 +157,14 @@ void TitleScene::Render()
 void OverworldScene::Load()
 {
 	
+	//if (!spritesheet.loadFromFile("Res/Sprites/Orc.png"))
+	//{
+	//	cerr << "Failed to load spritesheet!" << endl;
+	//}
+
+	
+
+
 	auto ch = make_shared<Character>();
 
 	texture.loadFromFile("Res/Fonts/HealthBar.png");
