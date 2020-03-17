@@ -5,7 +5,7 @@ using namespace sf;
 void ActorMovementComponent::Update(Time dt) { }
 
 ActorMovementComponent::ActorMovementComponent(Entity *p)
-	: _speed(500.0f), Component(p) { }
+	: _speed(100.0f), Component(p) { }
 
 bool ActorMovementComponent::ValidMove(const Vector2f& pos)
 {

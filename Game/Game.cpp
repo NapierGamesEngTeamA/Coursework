@@ -240,8 +240,8 @@ void OverworldScene::Load()
 
 	Animation* wu = new Animation();
 	wu->SetSpriteSheet(*texture);
-	wu->AddFrame(IntRect(0, 0, 30, 35));
-	wu->AddFrame(IntRect(64, 0, 30, 35));
+	wu->AddFrame(IntRect(33, 0, 30, 35));
+	wu->AddFrame(IntRect(60, 0, 30, 35));
 	ch->_anims.insert(pair<string, Animation>("Walk Up", *wu));
 
 	Animation* wr = new Animation();

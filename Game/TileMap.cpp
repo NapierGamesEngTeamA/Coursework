@@ -78,7 +78,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 	int underTile = ch->tileX + (ch->tileY + 2) * 200;
 	int topTile = ch->tileX + (ch->tileY - 1) * 200;
 
-	for (size_t y = 0; y < 90; y++)
+	for (size_t y = 0; y < 95; y++)
 	{
 		for (size_t x = 0; x < 200; x++)
 		{
@@ -133,6 +133,14 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 				v->GetSprite().setTexture(texture);
 				v->SetPosition(Vector2f(x * 16, y * 16));
 				v->SetRect(IntRect(388, 0, 32, 32));
+			}
+			else if (list[y][x] == NULL)
+			{
+				auto u = AddComponent<Tile>();
+				//s->SetTexture(texture);
+				u->GetSprite().setTexture(texture);
+				u->SetPosition(Vector2f(x * 16, y * 16));
+				u->SetRect(IntRect(463, 334, 32, 32));
 			}
 		}
 	}
