@@ -31,8 +31,10 @@ private:
 	Texture texture;
 	Texture ButtonOutline;
 	Font font;
+	Font gtitlefont;
 	Text play;
 	Text quit;
+	Text gtitle;
 };
 
 class OverworldScene : public Scene

@@ -55,23 +55,39 @@ void TitleScene::Load()
 
 	Color color;
 
-	texture.loadFromFile("Res/Fonts/MenuBack.jpg");
+	texture.loadFromFile("Res/Fonts/Background.png");
 	Vector2u size = texture.getSize();
 	sprite.setTexture(texture);
 	sprite.setOrigin(size.x / 200, size.y / 10);
 
-	font.loadFromFile("Res/Fonts/BreatheFire-65pg.ttf");
+
+	gtitlefont.loadFromFile("Res/Fonts/AncientModernTales-a7Po.ttf");
+	gtitle.setFont(font);
+	gtitle.setCharacterSize(100);
+	gtitle.setString("Fantasy & Ash");
+	gtitle.setColor(color.Yellow);
+	gtitle.setOutlineColor(color.Black);
+	gtitle.setOutlineThickness(6);
+
+	const auto textRecta = gtitle.getGlobalBounds();
+	gtitle.setOrigin(textRecta.width * .5f, textRecta.height * .5f);
+	gtitle.setPosition(size.x /4, size.y/12);
+
+	play.setColor(color.White);
+	font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
 	play.setFont(font);
-	play.setCharacterSize(200);
+	play.setCharacterSize(100);
 	play.setString("Play");
-	play.setColor(color.Red);
+	play.setColor(color.White);
+	play.setOutlineColor(color.Yellow);
+	play.setOutlineThickness(4);
 
 	const auto textRect = play.getGlobalBounds();
 	play.setOrigin(textRect.width * .5f, textRect.height * .5f);
-	play.setPosition(size.x / 2, size.y / 4.0);
+	play.setPosition(size.x / 2, size.y / 3.2);
 
 	quit.setFont(font);
-	quit.setCharacterSize(200);
+	quit.setCharacterSize(100);
 	quit.setString("Quit");
 	quit.setColor(color.Red);
 
@@ -83,7 +99,7 @@ void TitleScene::Load()
 	Vector2u Outsize = ButtonOutline.getSize();
 	outline.setTexture(ButtonOutline);
 	outline.setOrigin(textRect.width * .5f, textRect.height * .5f);
-	outline.setPosition(size.x / 2.25, size.y / 6);
+	outline.setPosition(size.x / 2.38, size.y / 6);
 	
 	/*buffer.loadFromFile("Res/Music/MenuMusic.wav");
 	s.setBuffer(buffer);
@@ -109,20 +125,30 @@ void TitleScene::Update(Time dt)
 	if (InputManager::GetInstance()->Up())
 	{
 		index = 0;
-		outline.setPosition(Vector2f(size.x / 2.25, size.y / 6));
-
+		outline.setPosition(size.x / 2.38, size.y / 6);
+		play.setColor(col.White);
+		quit.setColor(col.Red);
+		play.setOutlineColor(col.Yellow);
+		play.setOutlineThickness(4);
+		quit.setOutlineThickness(0);
 	}
 	else if (InputManager::GetInstance()->Down())
 	{
 		index = 1;
-		outline.setPosition(Vector2f(size.x / 2.25, size.y / 2.6));
+		outline.setPosition(Vector2f(size.x / 2.38, size.y / 2.6));
+		play.setColor(col.Red);
+		quit.setColor(col.White);
+		quit.setOutlineColor(col.Yellow);
+		quit.setOutlineThickness(4);
+		play.setOutlineThickness(0);
 	}
+
 
 	if (InputManager::GetInstance()->Interact() && index == 0)
 	{	
 
 			activeScene = overworldScene;
-			printf("Scene Changed!");		
+			//printf("Scene Changed!");		
 	}
 
 	if (InputManager::GetInstance()->Interact() && index == 1)
@@ -148,6 +174,7 @@ void TitleScene::Render()
 
 	Renderer::Queue(&play);
 	Renderer::Queue(&quit);
+	Renderer::Queue(&gtitle);
 
 }
 ///////////////////////////////////////////////////////////////
@@ -167,10 +194,10 @@ void OverworldScene::Load()
 
 	auto ch = make_shared<Character>();
 
-	texture.loadFromFile("Res/Fonts/HealthBar.png");
+	/*texture.loadFromFile("Res/Fonts/HealthBar.png");
 	Vector2u size = texture.getSize();
 	sprite.setTexture(texture);
-	sprite.setOrigin(0, 0);
+	sprite.setOrigin(0, 0);*/
 
 
 	Texture* tileSheet = new Texture();
@@ -257,7 +284,7 @@ void OverworldScene::Update(Time dt)
 	if (InputManager::Back())
 	{
 		activeScene = titleScene;
-		printf("Scene Changed!");
+		//printf("Scene Changed!");
 	}
 
 	if (InputManager::Up() || InputManager::Down() || InputManager::Right() || InputManager::Left())

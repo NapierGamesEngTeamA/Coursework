@@ -118,13 +118,13 @@ void AnimatedSpriteComponent::Update(Time dt)
 			if (_currentFrame + 1 != _animation->GetSize())
 			{
 				_currentFrame++;
-				printf("%zu ", _currentFrame);
+				//printf("%zu ", _currentFrame);
 
 			}
 			else
 			{
 				_currentFrame = 0;
-				printf("%zu ", _currentFrame);
+				//printf("%zu ", _currentFrame);
 
 			}
 
