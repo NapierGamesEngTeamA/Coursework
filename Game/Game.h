@@ -42,6 +42,11 @@ class OverworldScene : public Scene
 private:
 	Texture texture;
 	Sprite sprite;
+	Texture e2;
+	Sprite e2sprt;
+
+	Texture hbar;
+	Sprite hbarsprite;
 	
 public:
 	OverworldScene() = default;

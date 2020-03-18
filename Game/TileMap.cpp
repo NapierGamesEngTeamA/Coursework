@@ -100,13 +100,25 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 				s->SetPosition(Vector2f(x * 16, y * 16));
 				s->SetRect(IntRect(463, 334, 32, 32));
 
-				//Vector2f rect1 = ch->GetPosition();
-				//Vector2f rect2 = list[x][y];
+				Vector2f r1 = ch->GetPosition();
+				Vector2f r2 = s->GetPosition();
 				int c;
 
-				if ((ch->GetPosition().x == x) && (ch->GetPosition().y == y)){
+				//if ((ch->GetPosition().x > s->GetPosition().x) && (ch->GetPosition().y > s->GetPosition().y)){
+				//	cout << "Collision Has Worked " << '\n';
+				//}
+
+				
+
+				if (r1.x <= r2.x + 16 && r1.x + 32 >= r2.x && r1.y <= r2.y + 16 && r1.y + 32 >= r2.y)
+				{
 					cout << "Collision Has Worked " << '\n';
 				}
+				else
+				{
+					// nothing...
+				}
+
 
 			/*	if (rect1.x < rect2.x + 16 &&
 					rect1.x + 30 > rect2.x&&

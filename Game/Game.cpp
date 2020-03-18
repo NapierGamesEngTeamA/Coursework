@@ -105,7 +105,7 @@ void TitleScene::Load()
 	s.setBuffer(buffer);
 	s.play();*/
 	//Music titleMusic;
-	if (!titleMusic.openFromFile("Res/Music/MenuMusic.wav"))
+	if (!titleMusic.openFromFile("Res/Music/MenuMusic.mp3"))
 	{
 		cout << "Can't load title music" << endl;
 	}
@@ -194,22 +194,35 @@ void OverworldScene::Load()
 
 	auto ch = make_shared<Character>();
 
-	/*texture.loadFromFile("Res/Fonts/HealthBar.png");
-	Vector2u size = texture.getSize();
+
+	texture.loadFromFile("Res/Sprites/Orc.png");
 	sprite.setTexture(texture);
-	sprite.setOrigin(0, 0);*/
+	sprite.setTextureRect(IntRect(16, 145, 37, 51));
+	const auto textRect = sprite.getGlobalBounds();
+	sprite.setOrigin(textRect.width * .5f, textRect.height * .5f);
+	sprite.setPosition(2000, 300);
+
+	e2.loadFromFile("Res/Sprites/Skeleton.png");
+	e2sprt.setTexture(e2);
+	e2sprt.setTextureRect(IntRect(16, 145, 37, 51));
+	const auto textRect2 = sprite.getGlobalBounds();
+	e2sprt.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
+	e2sprt.setPosition(1800, 300);
+
+	
+	hbar.loadFromFile("Res/Fonts/HealthBar.png");
+	hbarsprite.setTexture(texture);
+	sprite.setOrigin(0, 0);
 
 
 	Texture* tileSheet = new Texture();
 	tileSheet->loadFromFile("Res/Sprites/A2_Ground.png");
 	auto tm = make_shared<TileMap>();
 	tm->GenerateMap("Res/Maps/TestLevel.txt", *tileSheet, ch);
-
-
+	
 
 	Texture* texture = new Texture();
-	texture->loadFromFile("Res/Sprites/TstSprt.png");
-
+	texture->loadFromFile("Res/Sprites/Main.png");
 
 	auto pmc = ch->AddComponent<PlayerMovementComponent>();
 
@@ -220,46 +233,46 @@ void OverworldScene::Load()
 	////////////////// Set animations /////////////////////////////////
 	Animation* su = new Animation();
 	su->SetSpriteSheet(*texture);
-	su->AddFrame(IntRect(31, 0, 30, 33));
+	su->AddFrame(IntRect(17, 17, 30, 51));
 	ch->_anims.insert(pair<string, Animation>("Stand Up", *su));
 
 	Animation* sd = new Animation();
 	sd->SetSpriteSheet(*texture);
-	sd->AddFrame(IntRect(31, 72, 30, 33));
+	sd->AddFrame(IntRect(17, 397, 30, 51));
 	ch->_anims.insert(pair<string, Animation>("Stand Down", *sd));
 
 	Animation* sr = new Animation();
 	sr->SetSpriteSheet(*texture);
-	sr->AddFrame(IntRect(31, 36, 30, 33));
+	sr->AddFrame(IntRect(19, 206, 30, 51));
 	ch->_anims.insert(pair<string, Animation>("Stand Right", *sr));
 
 	Animation* sl = new Animation();
 	sl->SetSpriteSheet(*texture);
-	sl->AddFrame(IntRect(31, 108, 30, 33));
+	sl->AddFrame(IntRect(19, 334, 30, 51));
 	ch->_anims.insert(pair<string, Animation>("Stand Left", *sl));
 
 	Animation* wu = new Animation();
 	wu->SetSpriteSheet(*texture);
-	wu->AddFrame(IntRect(33, 0, 30, 35));
-	wu->AddFrame(IntRect(60, 0, 30, 35));
+	wu->AddFrame(IntRect(145, 524, 30, 51));
+	wu->AddFrame(IntRect(400, 524, 30, 51));
 	ch->_anims.insert(pair<string, Animation>("Walk Up", *wu));
 
 	Animation* wr = new Animation();
 	wr->SetSpriteSheet(*texture);
-	wr->AddFrame(IntRect(0, 38, 28, 33));
-	wr->AddFrame(IntRect(69, 38, 24, 33));
+	wr->AddFrame(IntRect(84, 717, 30, 51));
+	wr->AddFrame(IntRect(335, 717, 30, 51));
 	ch->_anims.insert(pair<string, Animation>("Walk Right", *wr));
 
 	Animation* wd = new Animation();
 	wd->SetSpriteSheet(*texture);
-	wd->AddFrame(IntRect(0, 74, 30, 35));
-	wd->AddFrame(IntRect(64, 74, 30, 35));
+	wd->AddFrame(IntRect(145, 652, 30, 51));
+	wd->AddFrame(IntRect(400, 652, 30, 51));
 	ch->_anims.insert(pair<string, Animation>("Walk Down", *wd));
 
 	Animation* wl = new Animation();
 	wl->SetSpriteSheet(*texture);
-	wl->AddFrame(IntRect(0, 110, 28, 33));
-	wl->AddFrame(IntRect(64, 110, 28, 33));
+	wl->AddFrame(IntRect(82, 589, 30, 51));
+	wl->AddFrame(IntRect(340, 589, 30, 51));
 	ch->_anims.insert(pair<string, Animation>("Walk Left", *wl));
 
 	auto as = ch->AddComponent<AnimatedSpriteComponent>();
@@ -269,9 +282,9 @@ void OverworldScene::Load()
 
 	//ch->SetPosition(Vector2f(2000, 600));
 
+
 	_ents.list.push_back(tm);
 	_ents.list.push_back(ch);
-
 
 }
 
@@ -310,6 +323,8 @@ void OverworldScene::Render()
 	Scene::Render();
 	sf::Texture::bind(&texture);
 	Renderer::Queue(&sprite);
+	sf::Texture::bind(&e2);
+	Renderer::Queue(&e2sprt);
 	sf::Texture::bind(NULL);
 }
 ///////////////////////////////////////////////////////////////
