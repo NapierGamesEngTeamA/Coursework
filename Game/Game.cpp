@@ -291,28 +291,49 @@ void OverworldScene::Load()
 
 void OverworldScene::Update(Time dt)
 {
+	Paused = false;
+	Color color;
 
-
-	//Debug: Back to menu
-	if (InputManager::Back())
+	if (Paused == false)
 	{
-		activeScene = titleScene;
-		//printf("Scene Changed!");
-	}
-
-	if (InputManager::Up() || InputManager::Down() || InputManager::Right() || InputManager::Left())
-	{
-		int d100 = rand() % 100 + 1;
-		if (d100 > 80)
+	
+		//Debug: Back to menu
+		if (InputManager::Back())
 		{
-			//activeScene = combatScene;
-			printf("Scene: Combat Scene");
+			Paused = true;
 		}
+
+		if (InputManager::Up() || InputManager::Down() || InputManager::Right() || InputManager::Left())
+		{
+			int d100 = rand() % 100 + 1;
+			if (d100 > 80)
+			{
+				//activeScene = combatScene;
+				printf("Scene: Combat Scene");
+			}
+		}
+
+		InputManager::GetInstance()->Update();
+
+		Scene::Update(dt);
 	}
+	else
+	{
+		Vector2u size = texture.getSize();
 
-	InputManager::GetInstance()->Update();
+		play.setColor(color.White);
+		font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+		play.setFont(font);
+		play.setCharacterSize(100);
+		play.setString("Play");
+		play.setColor(color.White);
+		play.setOutlineColor(color.Yellow);
+		play.setOutlineThickness(4);
 
-	Scene::Update(dt);
+		const auto textRect = play.getGlobalBounds();
+		play.setOrigin(textRect.width * .5f, textRect.height * .5f);
+		play.setPosition(size.x / 2, size.y / 3.2);
+	}
 }
 
 void OverworldScene::Render()
@@ -325,6 +346,7 @@ void OverworldScene::Render()
 	Renderer::Queue(&sprite);
 	sf::Texture::bind(&e2);
 	Renderer::Queue(&e2sprt);
+	Renderer::Queue(&play);
 	sf::Texture::bind(NULL);
 }
 ///////////////////////////////////////////////////////////////

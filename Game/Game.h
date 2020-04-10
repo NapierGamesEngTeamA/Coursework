@@ -44,10 +44,12 @@ private:
 	Sprite sprite;
 	Texture e2;
 	Sprite e2sprt;
-
+	Text play;
+	Font font;
+	Sprite outline;
 	Texture hbar;
 	Sprite hbarsprite;
-	
+	bool Paused;
 public:
 	OverworldScene() = default;
 	void Update(Time dt) override;
