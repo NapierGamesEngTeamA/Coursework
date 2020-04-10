@@ -68,15 +68,6 @@ void TileMap::GenerateMap(const string& path, const Texture& texture, shared_ptr
 
 void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, shared_ptr<Character> ch)
 {
-	ch->tileX = ch->GetPosition().x / 32;
-	ch->tileY = ch->GetPosition().y / 32;
-
-	int leftTileUp = ch->tileX - 1 + ch->tileY * 200;
-	int leftTileDown = ch->tileX - 1 + (ch->tileY + 1) * 200;
-	int rightTileUp = ch->tileX + 1 + ch->tileY * 200;
-	int rightTileDown = ch->tileX + 1 + (ch->tileY + 1) * 200;
-	int underTile = ch->tileX + (ch->tileY + 2) * 200;
-	int topTile = ch->tileX + (ch->tileY - 1) * 200;
 
 	
 	for (size_t y = 0; y < 95; y++)
