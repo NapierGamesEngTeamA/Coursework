@@ -7,24 +7,29 @@ using namespace std;
 
 void Character::Update(Time dt)
 {
+	bottom = GetPosition().y + 51;
+	left = GetPosition().x;
+	right = GetPosition().x + 30;
+	top = GetPosition().y;
+
 	if (InputManager::GetInstance()->Up())
 	{
-		tileY = GetPosition().y / 32;
+
 		currentState = WALK_UP;
 	}
 	else if (InputManager::GetInstance()->Down())
 	{
-		tileY = GetPosition().y / 32;
+
 		currentState = WALK_DOWN;
 	}
 	else if (InputManager::GetInstance()->Right())
 	{
-		tileX = GetPosition().x / 32;
+
 		currentState = WALK_RIGHT;
 	}
 	else if (InputManager::GetInstance()->Left())
 	{
-		tileX = GetPosition().x / 32;
+
 		currentState = WALK_LEFT;
 	}
 

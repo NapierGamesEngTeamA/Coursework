@@ -49,7 +49,10 @@ private:
 	Sprite outline;
 	Texture hbar;
 	Sprite hbarsprite;
-	bool Paused;
+	bool Paused = false;
+
+	Texture* tileSheet = new Texture();
+
 public:
 	OverworldScene() = default;
 	void Update(Time dt) override;

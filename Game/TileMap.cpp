@@ -78,6 +78,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 	int underTile = ch->tileX + (ch->tileY + 2) * 200;
 	int topTile = ch->tileX + (ch->tileY - 1) * 200;
 
+	
 	for (size_t y = 0; y < 95; y++)
 	{
 		for (size_t x = 0; x < 200; x++)
@@ -100,35 +101,39 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 				s->SetPosition(Vector2f(x * 16, y * 16));
 				s->SetRect(IntRect(463, 334, 32, 32));
 
-				Vector2f r1 = ch->GetPosition();
+				float r1x = ch->tileX;
+				float r1y = ch->tileY;
 				Vector2f r2 = s->GetPosition();
 				int c;
 
-				//if ((ch->GetPosition().x > s->GetPosition().x) && (ch->GetPosition().y > s->GetPosition().y)){
-				//	cout << "Collision Has Worked " << '\n';
-				//}
+				int bottom, left, right, up;
 
-				
+				bottom = y * 16 + 16;
+				up = y * 16;
+				right = x * 16 + 16;
+				left = x * 16;
 
-				if (r1.x <= r2.x + 16 && r1.x + 32 >= r2.x && r1.y <= r2.y + 16 && r1.y + 32 >= r2.y)
+				if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
 				{
-					cout << "Collision Has Worked " << '\n';
+						cout << "No Collision " << '\n';
 				}
 				else
 				{
-					// nothing...
+					cout << "Collision Has Worked " << '\n';
+					break;
 				}
 
 
-			/*	if (rect1.x < rect2.x + 16 &&
-					rect1.x + 30 > rect2.x&&
-					rect1.y < rect2.y + 16 &&
-					rect1.y + 33 > rect2.y) {
-					c++;
+				//if (r1x <= r2.x + 16 && r1x + 32 >= r2.x && r1y <= r2.y + 16 && r1y + 32 >= r2.y)
+				//{
+				//	cout << "Collision Has Worked " << '\n';
+				//}
+				//else
+				//{
+				//	// nothing...
+				//}
 
-					printf("collision detected", c);
-				}
-				*/
+
 			}
 			else if (list[y][x] == 's')
 			{

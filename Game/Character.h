@@ -17,6 +17,9 @@ public:
 	int tileX;
 	int tileY;
 
+	float bottom, left, right, top;
+
+
 
 	Character() 
 	{ 

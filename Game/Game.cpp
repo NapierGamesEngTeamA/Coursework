@@ -215,7 +215,6 @@ void OverworldScene::Load()
 	sprite.setOrigin(0, 0);
 
 
-	Texture* tileSheet = new Texture();
 	tileSheet->loadFromFile("Res/Sprites/A2_Ground.png");
 	auto tm = make_shared<TileMap>();
 	tm->GenerateMap("Res/Maps/TestLevel.txt", *tileSheet, ch);
@@ -291,9 +290,22 @@ void OverworldScene::Load()
 
 void OverworldScene::Update(Time dt)
 {
-	Paused = false;
 	Color color;
 
+	
+	for (int i = 0; i < tileSheet->getSize().x; i++)
+	{
+		for (int j = 0; j < tileSheet->getSize().y; j++)
+		{
+			int bottom, left, right, up;
+
+			bottom = i * 16 + 16;
+			up = i * 16;
+			right = j * 16 + 16;
+			left = j * 16;
+		}
+
+	}
 	if (Paused == false)
 	{
 	
