@@ -70,9 +70,9 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 {
 
 	
-	for (size_t y = 0; y < 95; y++)
+	for (size_t y = 0; y < 93; y++)
 	{
-		for (size_t x = 0; x < 200; x++)
+		for (size_t x = 0; x < 170; x++)
 		{
 			ch->SetPosition(Vector2f(2000, 400));
 
