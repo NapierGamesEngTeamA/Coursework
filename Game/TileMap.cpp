@@ -74,9 +74,9 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 {
 
 	
-	for (size_t y = 0; y < 93; y++)
+	for (size_t y = 0; y < 130; y++)
 	{
-		for (size_t x = 0; x < 170; x++)
+		for (size_t x = 0; x < 250; x++)
 		{
 			ch->SetPosition(Vector2f(ch->tileX * 16, ch->tileY * 16));
 
@@ -146,8 +146,7 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list)
 				auto s = ch->GetComponents<PlayerMovementComponent>();
 
 				Vector2f prevpos;
-				int xpos = ch->GetPosition().x;
-				int ypos = ch->GetPosition().y;
+	
 
 				int movespeed;
 
@@ -156,19 +155,46 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list)
 				int prevtilex = ch->tileX;
 				int prevtiley = ch->tileY;
 
+				int xpos = ch->GetPosition().x;
+				int ypos = ch->GetPosition().y;
+
+
 				if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
 				{
 					//cout << "No Collision " << '\n';
 	
 				}
-				else
+				else if (ch->right > left)
 				{
 					
-					ch->SetPosition(Vector2f(xpos - 10, ypos - 10));
-				//	s[0]->Move(Vector2f(-100, 0));
+					ch->SetPosition(Vector2f(ch->GetPosition().x + 10, 0));
+				//	s[0]->Move(Vector2f(-10, 0));
 		
 					cout << "Collision Has Worked " << '\n';
 					break;
+				}
+				else if (ch->left < right)
+				{
+
+					ch->SetPosition(Vector2f(ch->GetPosition().x - 10, 0));
+						//s[0]->Move(Vector2f(10, 0));
+
+					cout << "Collision Has Worked " << '\n';
+					break;
+				}
+				else if (ch->top < bottom)
+				{
+
+					ch->SetPosition(Vector2f(0, ch->GetPosition().y + 10));
+						//s[0]->Move(Vector2f(0, -10));
+
+					cout << "Collision Has Worked " << '\n';
+					break;
+				}
+				else if (ch->bottom > up)
+				{
+					//s[0]->Move(Vector2f(0, 10));
+					ch->SetPosition(Vector2f(0, ch->GetPosition().y - 10));
 				}
 			
 

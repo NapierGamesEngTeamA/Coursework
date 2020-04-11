@@ -200,14 +200,14 @@ void OverworldScene::Load()
 	sprite.setTextureRect(IntRect(16, 145, 37, 51));
 	const auto textRect = sprite.getGlobalBounds();
 	sprite.setOrigin(textRect.width * .5f, textRect.height * .5f);
-	sprite.setPosition(2000, 300);
+	sprite.setPosition(2000, 1400);
 
 	e2.loadFromFile("Res/Sprites/Skeleton.png");
 	e2sprt.setTexture(e2);
 	e2sprt.setTextureRect(IntRect(16, 145, 37, 51));
 	const auto textRect2 = sprite.getGlobalBounds();
 	e2sprt.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
-	e2sprt.setPosition(1800, 300);
+	e2sprt.setPosition(1800, 1400);
 
 	
 	hbar.loadFromFile("Res/Fonts/HealthBar.png");
@@ -309,6 +309,9 @@ void OverworldScene::Update(Time dt)
 			{
 				Paused = false;
 			}
+
+			InputManager::GetInstance()->Update();
+			Scene::Update(dt);
 		}
 
 		if (InputManager::Up() || InputManager::Down() || InputManager::Right() || InputManager::Left())
