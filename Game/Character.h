@@ -14,8 +14,8 @@ public:
 	map<string, Animation> _anims;
 	Animation* currentAnim;
 
-	int tileX;
-	int tileY;
+	int tileX = 125;
+	int tileY = 25;
 
 	float bottom, left, right, top;
 

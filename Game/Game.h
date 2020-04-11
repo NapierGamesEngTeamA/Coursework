@@ -41,7 +41,9 @@ class OverworldScene : public Scene
 {
 private:
 	Texture texture;
+	Texture ptexture;
 	Sprite sprite;
+	Sprite psprite;
 	Texture e2;
 	Sprite e2sprt;
 	Text play;

@@ -293,26 +293,22 @@ void OverworldScene::Update(Time dt)
 	Color color;
 	
 	
-	for (int i = 0; i < tileSheet->getSize().x; i++)
-	{
-		for (int j = 0; j < tileSheet->getSize().y; j++)
-		{
-			int bottom, left, right, up;
 
-			bottom = i * 16 + 16;
-			up = i * 16;
-			right = j * 16 + 16;
-			left = j * 16;
-		}
+	auto s = _ents.GetEntitys<TileMap>();
+	auto c = _ents.GetEntitys<Character>();
 
-	}
 	if (Paused == false)
 	{
 	
 		//Debug: Back to menu
-		if (InputManager::Back())
+		if (InputManager::Start())
 		{
 			Paused = true;
+
+			if (InputManager::Up())
+			{
+				Paused = false;
+			}
 		}
 
 		if (InputManager::Up() || InputManager::Down() || InputManager::Right() || InputManager::Left())
@@ -327,15 +323,17 @@ void OverworldScene::Update(Time dt)
 
 		InputManager::GetInstance()->Update();
 
-		auto s = _ents.GetEntitys<TileMap>();
-		auto c = _ents.GetEntitys<Character>();
 		s[0]->UpdateColMap(c[0], s[0]->tiles1);
 
 		Scene::Update(dt);
 	}
 	else
 	{
-		Vector2u size = texture.getSize();
+		ptexture.loadFromFile("Res/Sprites/PauseMenu.png");
+		Vector2u size = ptexture.getSize();
+		psprite.setTexture(texture);
+		psprite.setOrigin(c[0]->GetPosition().x, c[0]->GetPosition().y);
+
 
 		play.setColor(color.White);
 		font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
@@ -358,6 +356,8 @@ void OverworldScene::Render()
 
 
 	Scene::Render();
+	sf::Texture::bind(&ptexture);
+	Renderer::Queue(&psprite);
 	sf::Texture::bind(&texture);
 	Renderer::Queue(&sprite);
 	sf::Texture::bind(&e2);

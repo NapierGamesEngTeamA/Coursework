@@ -4,6 +4,7 @@
 #include "Tile.h"
 #include "Character.h"
 #include "Game.h"
+#include "PlayerMovementComponent.h"
 
 using namespace sf;
 using namespace std;
@@ -77,7 +78,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 	{
 		for (size_t x = 0; x < 170; x++)
 		{
-			ch->SetPosition(Vector2f(2000, 400));
+			ch->SetPosition(Vector2f(ch->tileX * 16, ch->tileY * 16));
 
 			if (list[y][x] == 'g')
 			{
@@ -136,20 +137,40 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list)
 			{
 				int bottom, left, right, up;
 
+		
 				bottom = y * 16 + 16;
 				up = y * 16;
 				right = x * 16 + 16;
 				left = x * 16;
 
+				auto s = ch->GetComponents<PlayerMovementComponent>();
+
+				Vector2f prevpos;
+				int xpos = ch->GetPosition().x;
+				int ypos = ch->GetPosition().y;
+
+				int movespeed;
+
+				movespeed = s[0]->GetSpeed();
+
+				int prevtilex = ch->tileX;
+				int prevtiley = ch->tileY;
+
 				if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
 				{
 					//cout << "No Collision " << '\n';
+	
 				}
 				else
 				{
+					
+					ch->SetPosition(Vector2f(xpos - 10, ypos - 10));
+				//	s[0]->Move(Vector2f(-100, 0));
+		
 					cout << "Collision Has Worked " << '\n';
 					break;
 				}
+			
 
 
 			}
