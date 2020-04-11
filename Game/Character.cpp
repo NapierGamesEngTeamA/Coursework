@@ -7,19 +7,19 @@ using namespace std;
 
 void Character::Update(Time dt)
 {
-	if (InputManager::GetInstance()->Up())
+	if (InputManager::GetInstance()->Up(false))
 	{
 		currentState = WALK_UP;
 	}
-	else if (InputManager::GetInstance()->Down())
+	else if (InputManager::GetInstance()->Down(false))
 	{
 		currentState = WALK_DOWN;
 	}
-	else if (InputManager::GetInstance()->Right())
+	else if (InputManager::GetInstance()->Right(false))
 	{
 		currentState = WALK_RIGHT;
 	}
-	else if (InputManager::GetInstance()->Left())
+	else if (InputManager::GetInstance()->Left(false))
 	{
 		currentState = WALK_LEFT;
 	}

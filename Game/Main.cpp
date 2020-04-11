@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "ecm.h"
 #include "SystemRenderer.h"
+#include "InputManager.h"
 
 using namespace sf;
 using namespace std;
@@ -30,11 +31,6 @@ void Load()
 
 void Update(RenderWindow& window)
 {
-	//Reset clock, recalculate deltatime
-	/*static Clock clock;
-	Time dt = clock.getElapsedTime();
-	clock.restart();*/
-
 	//Check and consume events
 	Event event;
 	while (window.pollEvent(event))
@@ -44,6 +40,8 @@ void Update(RenderWindow& window)
 			window.close();
 			return;
 		}
+
+		InputManager::GetInstance()->Update();
 	}
 
 	//Debug exit
@@ -51,6 +49,8 @@ void Update(RenderWindow& window)
 	{
 		window.close();
 	}
+
+	
 
 	//Update current scene
 	activeScene->Update(dt);

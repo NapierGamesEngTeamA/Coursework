@@ -17,10 +17,14 @@ public:
 
 	void Update(Time dt) override;
 	void Render() override;
-	void Setup();
+	void Setup(vector<int> st, string na);
 	void Levelup();
 	int GetStat(string s);
 	string GetName();
 	void SetName(string s);
+	int PhAttack();
+	int MgAttack();
+	void GiveExp(int i);
+	string GetHealthText();
 private:
 };
