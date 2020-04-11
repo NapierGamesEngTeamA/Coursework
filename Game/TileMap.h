@@ -16,6 +16,7 @@ public:
 
 	int _width, _height;
 	int _tileSize;
+	vector<vector<char>> tiles1;
 	TileMap() 
 	{ 
 		_width = 50;
@@ -26,4 +27,6 @@ public:
 	void Render() override;
 	void GenerateMap(const string& path, const Texture& texture, shared_ptr<Character> ch);
 	void BuildSprites(const Texture& texture, vector<vector<char>> list, shared_ptr<Character> ch);
+	void UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list);
+	
 };

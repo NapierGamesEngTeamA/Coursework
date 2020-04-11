@@ -97,4 +97,20 @@ struct EntityManager
 	vector<shared_ptr<Entity>> list;
 	void Update(Time dt);
 	void Render();
+
+	template <typename T>
+	const vector<shared_ptr<T>> GetEntitys() const
+	{
+		static_assert(is_base_of<Entity, T>::value, "T != Entity");
+		vector<shared_ptr<T>> ret;
+		for (const auto c : list)
+		{
+			if (typeid(*c) == typeid(T))
+			{
+				ret.push_back(dynamic_pointer_cast<T>(c));
+			}
+		}
+
+		return move(ret);
+	}
 };

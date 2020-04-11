@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Tile.h"
 #include "Character.h"
+#include "Game.h"
 
 using namespace sf;
 using namespace std;
@@ -63,6 +64,8 @@ void TileMap::GenerateMap(const string& path, const Texture& texture, shared_ptr
 	
 
 	BuildSprites(texture, tiles, ch);
+	
+	tiles1 = tiles;
 
 }
 
@@ -92,37 +95,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 				s->SetPosition(Vector2f(x * 16, y * 16));
 				s->SetRect(IntRect(463, 334, 32, 32));
 
-				float r1x = ch->tileX;
-				float r1y = ch->tileY;
-				Vector2f r2 = s->GetPosition();
-				int c;
-
-				int bottom, left, right, up;
-
-				bottom = y * 16 + 16;
-				up = y * 16;
-				right = x * 16 + 16;
-				left = x * 16;
-
-				if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
-				{
-						cout << "No Collision " << '\n';
-				}
-				else
-				{
-					cout << "Collision Has Worked " << '\n';
-					break;
-				}
-
-
-				//if (r1x <= r2.x + 16 && r1x + 32 >= r2.x && r1y <= r2.y + 16 && r1y + 32 >= r2.y)
-				//{
-				//	cout << "Collision Has Worked " << '\n';
-				//}
-				//else
-				//{
-				//	// nothing...
-				//}
+				
 
 
 			}
@@ -152,4 +125,35 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 			}
 		}
 	}
+}
+void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list)
+{
+	for (size_t y = 0; y < 93; y++)
+	{
+		for (size_t x = 0; x < 170; x++)
+		{
+			if (list[y][x] == 'w')
+			{
+				int bottom, left, right, up;
+
+				bottom = y * 16 + 16;
+				up = y * 16;
+				right = x * 16 + 16;
+				left = x * 16;
+
+				if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
+				{
+					//cout << "No Collision " << '\n';
+				}
+				else
+				{
+					cout << "Collision Has Worked " << '\n';
+					break;
+				}
+
+
+			}
+		}
+	}
+
 }

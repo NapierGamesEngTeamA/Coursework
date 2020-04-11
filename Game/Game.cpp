@@ -291,7 +291,7 @@ void OverworldScene::Load()
 void OverworldScene::Update(Time dt)
 {
 	Color color;
-
+	
 	
 	for (int i = 0; i < tileSheet->getSize().x; i++)
 	{
@@ -326,6 +326,10 @@ void OverworldScene::Update(Time dt)
 		}
 
 		InputManager::GetInstance()->Update();
+
+		auto s = _ents.GetEntitys<TileMap>();
+		auto c = _ents.GetEntitys<Character>();
+		s[0]->UpdateColMap(c[0], s[0]->tiles1);
 
 		Scene::Update(dt);
 	}
