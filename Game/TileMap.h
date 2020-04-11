@@ -19,7 +19,7 @@ public:
 	vector<vector<char>> tiles1;
 	TileMap() 
 	{ 
-		_width = 50;
+		_width = 50 ;
 		_height = 50;
 		_tileSize = 32;
 	};

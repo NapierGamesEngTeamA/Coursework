@@ -129,7 +129,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 }
 void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list)
 {
-	for (size_t y = 0; y < 93; y++)
+	for (size_t y = 0; y < 110; y++)
 	{
 		for (size_t x = 0; x < 170; x++)
 		{
@@ -158,6 +158,7 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list)
 				int xpos = ch->GetPosition().x;
 				int ypos = ch->GetPosition().y;
 
+				float speed = 100;
 
 				if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
 				{
@@ -166,35 +167,38 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list)
 				}
 				else if (ch->right > left)
 				{
-					
-					ch->SetPosition(Vector2f(ch->GetPosition().x + 10, 0));
-				//	s[0]->Move(Vector2f(-10, 0));
+					speed++;
+					//ch->SetPosition(Vector2f(ch->GetPosition().x - 10, 0));
+					s[0]->Move(Vector2f(0, speed));
 		
 					cout << "Collision Has Worked " << '\n';
 					break;
 				}
 				else if (ch->left < right)
 				{
-
-					ch->SetPosition(Vector2f(ch->GetPosition().x - 10, 0));
-						//s[0]->Move(Vector2f(10, 0));
+					speed--;
+					//ch->SetPosition(Vector2f(ch->GetPosition().x + 10, 0));
+						s[0]->Move(Vector2f(0, speed));
 
 					cout << "Collision Has Worked " << '\n';
 					break;
 				}
 				else if (ch->top < bottom)
 				{
-
-					ch->SetPosition(Vector2f(0, ch->GetPosition().y + 10));
-						//s[0]->Move(Vector2f(0, -10));
+					speed++;
+					//ch->SetPosition(Vector2f(0, ch->GetPosition().y - 10));
+						s[0]->Move(Vector2f(speed, 0));
 
 					cout << "Collision Has Worked " << '\n';
 					break;
 				}
 				else if (ch->bottom > up)
 				{
-					//s[0]->Move(Vector2f(0, 10));
-					ch->SetPosition(Vector2f(0, ch->GetPosition().y - 10));
+					speed--;
+					s[0]->Move(Vector2f(speed, 0));
+					cout << "Collision Has Worked " << '\n';
+					break;
+					//ch->SetPosition(Vector2f(0, ch->GetPosition().y + 10));
 				}
 			
 
