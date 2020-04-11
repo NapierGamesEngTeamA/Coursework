@@ -25,4 +25,5 @@ public:
 	void Render() override;
 	void GenerateMap(const string& path, const Texture& texture);
 	void BuildSprites(const Texture& texture, vector<vector<char>> list);
+
 };

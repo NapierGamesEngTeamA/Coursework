@@ -26,5 +26,7 @@ public:
 	int MgAttack();
 	void GiveExp(int i);
 	string GetHealthText();
+	void SetupEnemy(int level);
+	vector<int> GetStatList();
 private:
 };

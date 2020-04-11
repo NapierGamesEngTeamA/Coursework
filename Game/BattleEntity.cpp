@@ -67,6 +67,20 @@ void BattleEntity::Setup(vector<int> st, string na)
 	stats["Level"] = 1;
 }
 
+void BattleEntity::SetupEnemy(int level)
+{
+	stats["Level"] = level;
+	stats["Str"] *= level;
+	stats["Dex"] *= level;
+	stats["Int"] *= level;
+	stats["Con"] *= level;
+
+	stats["MaxHP"] *= level;
+	stats["MaxMP"] *= level;
+	stats["CurrHP"] = stats["MaxHP"];
+	stats["CurrMP"] = stats["MaxMP"];
+}
+
 int BattleEntity::GetStat(string s)
 {
 	int i = stats[s];
@@ -127,4 +141,20 @@ string BattleEntity::GetHealthText()
 	string s = name + "  HP " + to_string(stats["CurrHP"]) + "/" + to_string(stats["MaxHP"]) + "  MP " + to_string(stats["CurrMP"]) + "/" + to_string(stats["MaxMP"]);
 
 	return s;
+}
+
+vector<int> BattleEntity::GetStatList()
+{
+	vector<int> i;
+	i.push_back(stats["Str"]);
+	i.push_back(stats["Dex"]);
+	i.push_back(stats["Int"]);
+	i.push_back(stats["Con"]);
+	i.push_back(stats["MaxHP"]);
+	i.push_back(stats["MaxMP"]);
+	i.push_back(stats["CurrHP"]);
+	i.push_back(stats["CurrMP"]);
+
+	return i;
+
 }

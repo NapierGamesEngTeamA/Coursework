@@ -3,6 +3,7 @@
 #include <list>
 #include <SFML/Audio.hpp>
 #include <functional>
+#include "BattleEntity.h"
 
 using namespace std;
 using namespace sf;
@@ -66,16 +67,18 @@ private:
 	RectangleShape canvas;
 	RectangleShape selector;
 	Vector2f index = Vector2f(0, 0);
+	map<string, shared_ptr<BattleEntity>> enemies;
 public:
 	CombatScene() = default;
 	void Update(Time dt) override;
 	void Render() override;
 	void Load() override;
-	void Setup();
+	void Setup(int count, int type, int level);
 	int ManageMenu();
 	typedef function<bool(pair<string, int>, pair<string, int>)> Comparator;
 	Comparator compFunction = [](pair<string, int> elm1, pair<string, int> elm2)
 	{
 		return elm1.second < elm2.second;
 	};
+	void LoadEnemies();
 };

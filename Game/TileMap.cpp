@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include "Tile.h"
+#include "Game.h"
 
 using namespace sf;
 using namespace std;

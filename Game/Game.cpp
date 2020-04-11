@@ -253,6 +253,9 @@ void OverworldScene::Update(Time dt)
 		}
 	}
 
+	
+	
+
 	Scene::Update(dt);
 }
 
@@ -393,7 +396,7 @@ void CombatScene::Load()
 	_ents.list.push_back(horo);
 #pragma endregion
 
-	currentBS = CombatScene::Combat;
+	currentBS = CombatScene::Start;
 	currentTurn = Turns::PlayerTurn;
 	battleOrder.insert(pair<string, int>("Andrel", andrel->GetStat("Dex")));
 	battleOrder.insert(pair<string, int>("Charity", charity->GetStat("Dex")));
@@ -433,6 +436,8 @@ void CombatScene::Load()
 	battleMusic.setVolume(50);
 	battleMusic.setLoop(true);
 	battleMusic.play();
+
+	LoadEnemies();
 }
 
 void CombatScene::Update(Time dt)
@@ -445,7 +450,8 @@ void CombatScene::Update(Time dt)
 	switch (currentBS)
 	{
 	case CombatScene::Start:
-
+		Setup(4, 1, 1);
+		currentBS = Combat;
 		break;
 	case CombatScene::Combat:
 		switch (currentTurn)
@@ -536,12 +542,96 @@ void CombatScene::Render()
 
 }
 
-void CombatScene::Setup()
+void CombatScene::Setup(int count, int type, int level)
 {
+	string t;
+	if (type == 1)
+	{
+		t = "Orc";
+	}
+	else if (type == 2)
+	{
+		t = "Skeleton";
+	}
+
+	auto a = make_shared<BattleEntity>();
+	a = enemies[t];
+	a->SetupEnemy(level);
+	a->SetPosition(Vector2f(900, 500));
+	_ents.list.push_back(a);
+
+	auto b = make_shared<BattleEntity>();
+	b = enemies[t];
+	b->SetupEnemy(level);
+	b->SetPosition(Vector2f(900, 600));
+	_ents.list.push_back(b);
+
+	auto c = make_shared<BattleEntity>();
+	c = enemies[t];
+	c->SetupEnemy(level);
+	c->SetPosition(Vector2f(900, 700));
+	_ents.list.push_back(c);
+
+	auto d = make_shared<BattleEntity>();
+	d = enemies[t];
+	d->SetupEnemy(level);
+	d->SetPosition(Vector2f(900, 800));
+	_ents.list.push_back(d);
 
 }
 
 int CombatScene::ManageMenu()
 {
 	return 0;
+}
+
+void CombatScene::LoadEnemies()
+{
+	vector<int> stats[4];
+	stats[0].push_back(3); //Strength
+	stats[0].push_back(1); //Dexterity
+	stats[0].push_back(1); //Intellect
+	stats[0].push_back(3); //Constitution
+	stats[0].push_back(12); //Health
+	stats[0].push_back(0); //MP
+
+	stats[1].push_back(1); //Strength
+	stats[1].push_back(2); //Dexterity
+	stats[1].push_back(4); //Intellect
+	stats[1].push_back(3); //Constitution
+	stats[1].push_back(10); //Health
+	stats[1].push_back(10); //MP
+
+	Texture* orcTexture = new Texture();
+	orcTexture->loadFromFile("Res/Sprites/Orc.png");
+
+	auto orc = make_shared<BattleEntity>();
+	orc->Setup(stats[0], "Orc");
+	Animation* idle = new Animation();
+	idle->SetSpriteSheet(*orcTexture);
+	idle->AddFrame(IntRect(22, 340, 24, 48));
+	idle->AddFrame(IntRect(83, 340, 24, 48));
+	orc->_anims.insert(pair<string, Animation>("Idle", *idle));
+	auto c = orc->AddComponent<AnimatedSpriteComponent>();
+	c->SetAnimation(*idle);
+	c->Play();
+	orc->SetPosition(Vector2f(900, 500));
+
+	enemies.insert(pair<string, shared_ptr<BattleEntity>>("Orc", orc));
+
+	Texture* skeTexture = new Texture();
+	skeTexture->loadFromFile("Res/Sprite/Skeleton.png");
+
+	auto skeleton = make_shared<BattleEntity>();
+	skeleton->Setup(stats[1], "Skeleton");
+	Animation* idle2 = new Animation();
+	idle2->SetSpriteSheet(*skeTexture);
+	idle2->AddFrame(IntRect(22, 340, 21, 48));
+	idle2->AddFrame(IntRect(83, 340, 21, 48));
+	skeleton->_anims.insert(pair<string, Animation>("Idle", *idle2));
+	auto a = skeleton->AddComponent<AnimatedSpriteComponent>();
+	a->SetAnimation(*idle);
+	a->Play();
+	skeleton->SetPosition(Vector2f(900, 500));
+	enemies.insert(pair<string, shared_ptr<BattleEntity>>("Skeleton", skeleton));
 }
