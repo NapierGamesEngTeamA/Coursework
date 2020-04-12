@@ -8,6 +8,7 @@ class Camera : public Component
 {
 protected:
 	shared_ptr<View> _view;
+	shared_ptr<View> _view2;
 public:
 	Camera() = delete;
 	explicit Camera(Entity* p);
@@ -23,4 +24,6 @@ public:
 
 	void SetWindow();
 private:
+	Texture texture;
+	Sprite sprite;
 };

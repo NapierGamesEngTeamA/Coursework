@@ -129,9 +129,9 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 }
 void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list)
 {
-	for (size_t y = 0; y < 110; y++)
+	for (size_t y = 0; y < 95; y++)
 	{
-		for (size_t x = 0; x < 170; x++)
+		for (size_t x = 0; x < 190; x++)
 		{
 			if (list[y][x] == 'w')
 			{

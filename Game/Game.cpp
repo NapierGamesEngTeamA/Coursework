@@ -210,9 +210,7 @@ void OverworldScene::Load()
 	e2sprt.setPosition(1800, 300);
 
 	
-	hbar.loadFromFile("Res/Fonts/HealthBar.png");
-	hbarsprite.setTexture(texture);
-	sprite.setOrigin(0, 0);
+
 
 
 	tileSheet->loadFromFile("Res/Sprites/A2_Ground.png");
@@ -227,6 +225,13 @@ void OverworldScene::Load()
 
 	//Add Camera
 	auto cam = ch->AddComponent<Camera>();
+
+	hbar.loadFromFile("Res/Sprites/HealthBar.png");
+	hbarsprite.setTexture(hbar);
+	Vector2u size = hbar.getSize();
+	hbarsprite.setOrigin(size.x , size.y );
+
+	
 	//cam->SetWindow();
 
 	////////////////// Set animations /////////////////////////////////
@@ -296,22 +301,22 @@ void OverworldScene::Update(Time dt)
 
 	auto s = _ents.GetEntitys<TileMap>();
 	auto c = _ents.GetEntitys<Character>();
+	auto s2 = c[0]->GetComponents<Camera>();
 
 	if (Paused == false)
 	{
-	
+
+		play.setCharacterSize(0);
+		quit.setCharacterSize(0);
+		hbarsprite.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y);
+		s[0]->UpdateColMap(c[0], s[0]->tiles1);
 		//Debug: Back to menu
 		if (InputManager::Start())
 		{
 			Paused = true;
 
-			if (InputManager::Up())
-			{
-				Paused = false;
-			}
 
-			InputManager::GetInstance()->Update();
-			Scene::Update(dt);
+
 		}
 
 		if (InputManager::Up() || InputManager::Down() || InputManager::Right() || InputManager::Left())
@@ -326,30 +331,82 @@ void OverworldScene::Update(Time dt)
 
 		InputManager::GetInstance()->Update();
 
-		s[0]->UpdateColMap(c[0], s[0]->tiles1);
+
 
 		Scene::Update(dt);
 	}
 	else
 	{
+
 		ptexture.loadFromFile("Res/Sprites/PauseMenu.png");
 		Vector2u size = ptexture.getSize();
-		psprite.setTexture(texture);
-		psprite.setOrigin(c[0]->GetPosition().x, c[0]->GetPosition().y);
+		psprite.setTexture(ptexture);
+		psprite.setOrigin(size.x, size.y);
+		psprite.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y);
 
 
-		play.setColor(color.White);
-		font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+		play.setColor(color.Red);
+     	font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
 		play.setFont(font);
-		play.setCharacterSize(100);
-		play.setString("Play");
-		play.setColor(color.White);
-		play.setOutlineColor(color.Yellow);
-		play.setOutlineThickness(4);
+		play.setCharacterSize(90);
+		play.setString("Continue");
+
+
 
 		const auto textRect = play.getGlobalBounds();
 		play.setOrigin(textRect.width * .5f, textRect.height * .5f);
-		play.setPosition(size.x / 2, size.y / 3.2);
+		play.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y - 50);
+
+
+		quit.setFont(font);
+		quit.setCharacterSize(90);
+		quit.setString("Quit");
+		quit.setColor(color.Red);
+
+		const auto textRect2 = quit.getGlobalBounds();
+		quit.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
+		quit.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y + 50);
+
+
+		if (InputManager::GetInstance()->Up())
+		{
+			index = 0;
+			outline.setPosition(size.x / 2.38, size.y / 6);
+			play.setColor(color.White);
+			quit.setColor(color.Red);
+			play.setOutlineColor(color.Yellow);
+			play.setOutlineThickness(4);
+			quit.setOutlineThickness(0);
+		}
+		else if (InputManager::GetInstance()->Down())
+		{
+			index = 1;
+			outline.setPosition(Vector2f(size.x / 2.38, size.y / 2.6));
+			play.setColor(color.Red);
+			quit.setColor(color.White);
+			quit.setOutlineColor(color.Yellow);
+			quit.setOutlineThickness(4);
+			play.setOutlineThickness(0);
+		}
+
+		if (InputManager::GetInstance()->Interact() && index == 0)
+		{
+
+			Paused = false;
+			//printf("Scene Changed!");		
+		}
+
+		if (InputManager::GetInstance()->Interact() && index == 1)
+		{
+			activeScene = titleScene;
+		}
+
+
+		if (InputManager::Start())
+		{
+			Paused = false;
+		}
+
 	}
 }
 
@@ -361,11 +418,12 @@ void OverworldScene::Render()
 	Scene::Render();
 	sf::Texture::bind(&ptexture);
 	Renderer::Queue(&psprite);
-	sf::Texture::bind(&texture);
-	Renderer::Queue(&sprite);
+	sf::Texture::bind(&hbar);
+	Renderer::Queue(&hbarsprite);
 	sf::Texture::bind(&e2);
 	Renderer::Queue(&e2sprt);
 	Renderer::Queue(&play);
+	Renderer::Queue(&quit);
 	sf::Texture::bind(NULL);
 }
 ///////////////////////////////////////////////////////////////
