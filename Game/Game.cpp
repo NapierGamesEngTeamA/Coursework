@@ -211,7 +211,10 @@ void OverworldScene::Load()
 
 	
 
-
+	hbar.loadFromFile("Res/Sprites/HealthBar.png");
+	hbarsprite.setTexture(hbar);
+	Vector2u size = hbar.getSize();
+	hbarsprite.setOrigin(size.x * .5f, size.y * .5f);
 
 	tileSheet->loadFromFile("Res/Sprites/A2_Ground.png");
 	auto tm = make_shared<TileMap>();
@@ -226,10 +229,7 @@ void OverworldScene::Load()
 	//Add Camera
 	auto cam = ch->AddComponent<Camera>();
 
-	hbar.loadFromFile("Res/Sprites/HealthBar.png");
-	hbarsprite.setTexture(hbar);
-	Vector2u size = hbar.getSize();
-	hbarsprite.setOrigin(size.x , size.y );
+
 
 	
 	//cam->SetWindow();
@@ -305,12 +305,26 @@ void OverworldScene::Update(Time dt)
 
 	if (Paused == false)
 	{
-		psprite.setPosition(100000000000000000, 10000000000000);
+		psprite.setPosition(100000000000, 10000000000000);
 		play.setPosition(100000000000, 1000000000);
 		quit.setPosition(100000000000, 1000000000);
 
 
+		tile.setColor(color.Red);
+		font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+		play.setFont(font);
+		tile.setCharacterSize(60);
+		tile.setString("Tile : " + c[0]->tileX + c[0]->tileY);
+
+
+
+		const auto textRect = tile.getGlobalBounds();
+		tile.setOrigin(textRect.width * .5f, textRect.height * .5f);
+		tile.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y - 70);
+
+
 		hbarsprite.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y);
+
 		s[0]->UpdateColMap(c[0], s[0]->tiles1);
 		//Debug: Back to menu
 		if (InputManager::Start())
@@ -419,15 +433,16 @@ void OverworldScene::Render()
 
 	Scene::Render();
 
-	sf::Texture::bind(&hbar);
-	Renderer::Queue(&hbarsprite);
+
 	sf::Texture::bind(&e2);
 	Renderer::Queue(&e2sprt);
 	Renderer::Queue(&psprite);
+	Renderer::Queue(&hbarsprite);
 	Renderer::Queue(&play);
 	Renderer::Queue(&quit);
+	Renderer::Queue(&tile);
 	sf::Texture::bind(&ptexture);
-
+	sf::Texture::bind(&hbar);
 	sf::Texture::bind(NULL);
 }
 ///////////////////////////////////////////////////////////////

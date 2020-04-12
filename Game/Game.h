@@ -48,6 +48,7 @@ private:
 	Texture e2;
 	Sprite e2sprt;
 	Text play;
+	Text tile;
 	Text quit;
 	Font font;
 	Sprite outline;
