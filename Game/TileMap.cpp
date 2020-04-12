@@ -70,7 +70,7 @@ void TileMap::GenerateMap(const string& path, const Texture& texture, shared_ptr
 
 }
 
-void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, shared_ptr<Character> ch)
+void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, shared_ptr<Character> ch )
 {
 
 	
@@ -127,7 +127,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 		}
 	}
 }
-void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list)
+void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list, Time dt)
 {
 	for (size_t y = 0; y < 95; y++)
 	{
@@ -144,6 +144,7 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list)
 				left = x * 16;
 
 				auto s = ch->GetComponents<PlayerMovementComponent>();
+
 
 				Vector2f prevpos;
 	
@@ -163,22 +164,25 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list)
 				if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
 				{
 					//cout << "No Collision " << '\n';
+		
 	
 				}
 				else if (ch->right > left)
 				{
 					speed++;
-					//ch->SetPosition(Vector2f(ch->GetPosition().x - 10, 0));
-					s[0]->Move(Vector2f(0, speed));
-		
+					//ch->SetPosition(Vector2f(ch->GetPosition().x + speed, 0));
+					//s[0]->Move(Vector2f(0, speed));
+					s[0]->Move(Vector2f(s[0]->GetSpeed() * dt.asSeconds(), 0));
+					
 					cout << "Collision Has Worked " << '\n';
 					break;
 				}
 				else if (ch->left < right)
 				{
 					speed--;
-					//ch->SetPosition(Vector2f(ch->GetPosition().x + 10, 0));
-						s[0]->Move(Vector2f(0, speed));
+					//ch->SetPosition(Vector2f(ch->GetPosition().x - speed, 0));
+						//s[0]->Move(Vector2f(0, speed));
+					s[0]->Move(Vector2f(s[0]->GetSpeed() * dt.asSeconds(), 0));
 
 					cout << "Collision Has Worked " << '\n';
 					break;
@@ -186,19 +190,20 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list)
 				else if (ch->top < bottom)
 				{
 					speed++;
-					//ch->SetPosition(Vector2f(0, ch->GetPosition().y - 10));
-						s[0]->Move(Vector2f(speed, 0));
-
+					//ch->SetPosition(Vector2f(0, ch->GetPosition().y + speed));
+						//s[0]->Move(Vector2f(speed, 0));
+					s[0]->Move(Vector2f(0, -s[0]->GetSpeed() * dt.asSeconds()));
 					cout << "Collision Has Worked " << '\n';
 					break;
 				}
 				else if (ch->bottom > up)
 				{
 					speed--;
-					s[0]->Move(Vector2f(speed, 0));
+					//s[0]->Move(Vector2f(speed, 0));
 					cout << "Collision Has Worked " << '\n';
+					s[0]->Move(Vector2f(0, s[0]->GetSpeed() * dt.asSeconds()));
 					break;
-					//ch->SetPosition(Vector2f(0, ch->GetPosition().y + 10));
+					//ch->SetPosition(Vector2f(0, ch->GetPosition().y - speed));
 				}
 			
 

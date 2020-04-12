@@ -325,7 +325,7 @@ void OverworldScene::Update(Time dt)
 
 		hbarsprite.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y);
 
-		s[0]->UpdateColMap(c[0], s[0]->tiles1);
+		s[0]->UpdateColMap(c[0], s[0]->tiles1, dt);
 		//Debug: Back to menu
 		if (InputManager::Start())
 		{
