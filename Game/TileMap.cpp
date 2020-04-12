@@ -74,9 +74,9 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 {
 
 	
-	for (size_t y = 0; y < 130; y++)
+	for (size_t y = 0; y < 95; y++)
 	{
-		for (size_t x = 0; x < 250; x++)
+		for (size_t x = 0; x < 190; x++)
 		{
 			ch->SetPosition(Vector2f(ch->tileX * 16, ch->tileY * 16));
 

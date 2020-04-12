@@ -15,7 +15,7 @@ public:
 	Animation* currentAnim;
 
 	int tileX = 125;
-	int tileY = 95;
+	int tileY = 30;
 
 	float bottom, left, right, top;
 
