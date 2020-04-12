@@ -305,9 +305,11 @@ void OverworldScene::Update(Time dt)
 
 	if (Paused == false)
 	{
+		psprite.setPosition(100000000000000000, 10000000000000);
+		play.setPosition(100000000000, 1000000000);
+		quit.setPosition(100000000000, 1000000000);
 
-		play.setCharacterSize(0);
-		quit.setCharacterSize(0);
+
 		hbarsprite.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y);
 		s[0]->UpdateColMap(c[0], s[0]->tiles1);
 		//Debug: Back to menu
@@ -341,14 +343,14 @@ void OverworldScene::Update(Time dt)
 		ptexture.loadFromFile("Res/Sprites/PauseMenu.png");
 		Vector2u size = ptexture.getSize();
 		psprite.setTexture(ptexture);
-		psprite.setOrigin(size.x, size.y);
+		psprite.setOrigin(size.x * .5f , size.y * .5f );
 		psprite.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y);
 
 
 		play.setColor(color.Red);
      	font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
 		play.setFont(font);
-		play.setCharacterSize(90);
+		play.setCharacterSize(60);
 		play.setString("Continue");
 
 
@@ -359,7 +361,7 @@ void OverworldScene::Update(Time dt)
 
 
 		quit.setFont(font);
-		quit.setCharacterSize(90);
+		quit.setCharacterSize(60);
 		quit.setString("Quit");
 		quit.setColor(color.Red);
 
@@ -416,14 +418,16 @@ void OverworldScene::Render()
 
 
 	Scene::Render();
-	sf::Texture::bind(&ptexture);
-	Renderer::Queue(&psprite);
+
 	sf::Texture::bind(&hbar);
 	Renderer::Queue(&hbarsprite);
 	sf::Texture::bind(&e2);
 	Renderer::Queue(&e2sprt);
+	Renderer::Queue(&psprite);
 	Renderer::Queue(&play);
 	Renderer::Queue(&quit);
+	sf::Texture::bind(&ptexture);
+
 	sf::Texture::bind(NULL);
 }
 ///////////////////////////////////////////////////////////////
