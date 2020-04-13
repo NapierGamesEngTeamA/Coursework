@@ -26,6 +26,7 @@ using namespace std;
 using namespace sf;
 
 shared_ptr<Scene> titleScene;
+shared_ptr<Scene> introScene;
 shared_ptr<Scene> overworldScene;
 shared_ptr<Scene> combatScene;
 shared_ptr<Scene> activeScene;
@@ -51,6 +52,7 @@ void Scene::Render()
 //////////////////////// TITLE SCENE ///////////////////////////////
 void TitleScene::Load()
 {
+
 	view.reset(FloatRect(0, 0, 1920, 1080));
 
 	Color color;
@@ -111,6 +113,10 @@ void TitleScene::Load()
 	Controls.setOrigin(textRect3.width * .5f, textRect3.height * .5f);
 	Controls.setPosition(size.x / 1.5, size.y / 2);
 
+	Controlsmenu.loadFromFile("Res/Fonts/Background.png");
+
+	sControlsmenu.setTexture(Controlsmenu);
+	sControlsmenu.setOrigin(size.x / 200, size.y / 10);
 
 
 	/*buffer.loadFromFile("Res/Music/MenuMusic.wav");
@@ -128,70 +134,158 @@ void TitleScene::Load()
 
 void TitleScene::Update(Time dt)
 {
+
+
+		Vector2u size = texture.getSize();
+		Color col;
+		RenderWindow window;
+
+		//Move cursor
+		if (InputManager::GetInstance()->Up())
+		{
+			index = 0;
+			outline.setPosition(size.x / 2.38, size.y / 6);
+			play.setColor(col.White);
+			quit.setColor(col.Red);
+			Controls.setColor(col.Red);
+			play.setOutlineColor(col.Yellow);
+			play.setOutlineThickness(4);
+			quit.setOutlineThickness(0);
+			Controls.setOutlineThickness(0);
+		}
+		else if (InputManager::GetInstance()->Left())
+		{
+			index = 1;
+			outline.setPosition(Vector2f(size.x / 4.38, size.y / 2.6));
+			play.setColor(col.Red);
+			quit.setColor(col.White);
+			quit.setOutlineColor(col.Yellow);
+			quit.setOutlineThickness(4);
+			play.setOutlineThickness(0);
+			Controls.setOutlineThickness(0);
+		}
+		else if (InputManager::GetInstance()->Right())
+		{
+			index = 2;
+			outline.setPosition(Vector2f(size.x / 1.70, size.y / 2.6));
+			play.setColor(col.Red);
+			quit.setColor(col.Red);
+			Controls.setColor(col.White);
+			Controls.setOutlineColor(col.Yellow);
+			Controls.setOutlineThickness(4);
+			play.setOutlineThickness(0);
+			quit.setOutlineThickness(0);
+		}
+
 	
-	Vector2u size = texture.getSize();
-	Color col;
-	RenderWindow window;
+		if (InputManager::GetInstance()->Interact() && index == 0)
+		{
 
-	//Move cursor
-	if (InputManager::GetInstance()->Up())
-	{
-		index = 0;
-		outline.setPosition(size.x / 2.38, size.y / 6);
-		play.setColor(col.White);
-		quit.setColor(col.Red);
-		Controls.setColor(col.Red);
-		play.setOutlineColor(col.Yellow);
-		play.setOutlineThickness(4);
-		quit.setOutlineThickness(0);
-		Controls.setOutlineThickness(0);
-	}
-	else if (InputManager::GetInstance()->Left())
-	{
-		index = 1;
-		outline.setPosition(Vector2f(size.x / 4.38, size.y / 2.6));
-		play.setColor(col.Red);
-		quit.setColor(col.White);
-		quit.setOutlineColor(col.Yellow);
-		quit.setOutlineThickness(4);
-		play.setOutlineThickness(0);
-	}
-
-
-	if (InputManager::GetInstance()->Interact() && index == 0)
-	{	
-
-			activeScene = overworldScene;
+			activeScene = introScene;
 			//printf("Scene Changed!");		
-	}
+		}
 
-	if (InputManager::GetInstance()->Interact() && index == 1)
-	{
-		Renderer::GetWindow().close();
-	}
+		if (InputManager::GetInstance()->Interact() && index == 1)
+		{
+			Renderer::GetWindow().close();
+		}
 
-	Renderer::GetWindow().setView(view);
-	InputManager::GetInstance()->Update();
 
-	Scene::Update(dt);
+
+
+
+	
+
+
+
+
+
+			Renderer::GetWindow().setView(view);
+			InputManager::GetInstance()->Update();
+
+			Scene::Update(dt);
+		
 }
 
 void TitleScene::Render()
 {
 	Scene::Render();
 
-	sf::Texture::bind(&texture);
-	sf::Texture::bind(&ButtonOutline);
-	Renderer::Queue(&sprite);
-	Renderer::Queue(&outline);
-	sf::Texture::bind(NULL);
 
-	Renderer::Queue(&play);
-	Renderer::Queue(&quit);
-	Renderer::Queue(&Controls);
-	Renderer::Queue(&gtitle);
+
+
+		sf::Texture::bind(&texture);
+		sf::Texture::bind(&ButtonOutline);
+		Renderer::Queue(&sprite);
+		Renderer::Queue(&outline);
+		sf::Texture::bind(NULL);
+
+		Renderer::Queue(&play);
+		Renderer::Queue(&quit);
+		Renderer::Queue(&Controls);
+		Renderer::Queue(&gtitle);
+
+		if (InputManager::GetInstance()->Interact() && index == 2)
+		{
+			Scene::Render();
+			sf::Texture::bind(&Controlsmenu);
+			Renderer::Queue(&sControlsmenu);
+
+		}
+
 
 }
+
+
+void IntroScene::Load()
+{
+	Color color;
+
+	view.reset(FloatRect(0, 0, 1920, 1080));
+	texture.loadFromFile("Res/Sprites/IntroScene.png");
+	Vector2u size = texture.getSize();
+	sprite.setTexture(texture);
+	sprite.setOrigin(size.x / 200, size.y / 10);
+
+	play.setColor(color.White);
+	font.loadFromFile("Res/Fonts/AncientModernTales-a7Po.ttf");
+	play.setFont(font);
+	play.setCharacterSize(60);
+	play.setString("Press 'W' To Continue");
+	play.setColor(color.White);
+	play.setOutlineColor(color.Black);
+	play.setOutlineThickness(4);
+
+	const auto textRect = play.getGlobalBounds();
+	play.setOrigin(textRect.width * .5f, textRect.height * .5f);
+	play.setPosition(size.x / 6.2, size.y / 6.2);
+
+
+
+}
+void IntroScene::Update(Time dt)
+{
+
+	if (InputManager::GetInstance()->Up())
+	{
+
+		activeScene = overworldScene;
+		//printf("Scene Changed!");		
+	}
+
+	Scene::Update(dt);
+}
+
+void IntroScene::Render()
+{
+	Scene::Render();
+	sf::Texture::bind(&texture);
+	Renderer::Queue(&sprite);
+	Renderer::Queue(&play);
+	sf::Texture::bind(NULL);
+}
+
+
 ///////////////////////////////////////////////////////////////
 
 ///////////////////////////// OVERWORLD SCENE //////////////////

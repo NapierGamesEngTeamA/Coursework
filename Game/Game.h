@@ -7,6 +7,7 @@ using namespace std;
 using namespace sf;
 
 extern shared_ptr<Scene> titleScene;
+extern shared_ptr<Scene> introScene;
 extern shared_ptr<Scene> overworldScene;
 extern shared_ptr<Scene> combatScene;
 extern shared_ptr<Scene> activeScene;
@@ -36,7 +37,32 @@ private:
 	Text quit;
 	Text Controls;
 	Text gtitle;
+
+
+	Texture Controlsmenu;
+	Sprite sControlsmenu;
 };
+
+
+
+class IntroScene : public Scene
+{
+private:
+	Texture texture;
+	Sprite sprite;
+	View view;
+	Text play;
+	Font font;
+
+public:
+	IntroScene() = default;
+	void Update(Time dt) override;
+	void Render() override;
+	void Load() override;
+};
+
+
+
 
 class OverworldScene : public Scene
 {
@@ -57,6 +83,7 @@ private:
 	Sprite hbarsprite;
 	bool Paused = false;
 
+
 	Texture* tileSheet = new Texture();
 
 public:
@@ -65,6 +92,9 @@ public:
 	void Render() override;
 	void Load() override;
 };
+
+
+
 
 class CombatScene : public Scene
 {

@@ -18,8 +18,10 @@ void Load()
 {
 	// Initialise Scenes
 	titleScene.reset(new TitleScene());
+	introScene.reset(new IntroScene());
 	overworldScene.reset(new OverworldScene());
 	titleScene->Load();
+	introScene->Load();
 	overworldScene->Load();
 
 	// Set current scene
