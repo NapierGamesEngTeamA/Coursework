@@ -93,7 +93,7 @@ void TitleScene::Load()
 
 	const auto textRect2 = quit.getGlobalBounds();
 	quit.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
-	quit.setPosition(size.x / 2, size.y / 2);
+	quit.setPosition(size.x / 3.2, size.y / 2);
 
 	ButtonOutline.loadFromFile("Res/Fonts/Outline.png");
 	Vector2u Outsize = ButtonOutline.getSize();
@@ -101,6 +101,18 @@ void TitleScene::Load()
 	outline.setOrigin(textRect.width * .5f, textRect.height * .5f);
 	outline.setPosition(size.x / 2.38, size.y / 6);
 	
+
+	Controls.setFont(font);
+	Controls.setCharacterSize(60);
+	Controls.setString("Controls");
+	Controls.setColor(color.Red);
+
+	const auto textRect3 = Controls.getGlobalBounds();
+	Controls.setOrigin(textRect3.width * .5f, textRect3.height * .5f);
+	Controls.setPosition(size.x / 1.5, size.y / 2);
+
+
+
 	/*buffer.loadFromFile("Res/Music/MenuMusic.wav");
 	s.setBuffer(buffer);
 	s.play();*/
@@ -128,14 +140,16 @@ void TitleScene::Update(Time dt)
 		outline.setPosition(size.x / 2.38, size.y / 6);
 		play.setColor(col.White);
 		quit.setColor(col.Red);
+		Controls.setColor(col.Red);
 		play.setOutlineColor(col.Yellow);
 		play.setOutlineThickness(4);
 		quit.setOutlineThickness(0);
+		Controls.setOutlineThickness(0);
 	}
-	else if (InputManager::GetInstance()->Down())
+	else if (InputManager::GetInstance()->Left())
 	{
 		index = 1;
-		outline.setPosition(Vector2f(size.x / 2.38, size.y / 2.6));
+		outline.setPosition(Vector2f(size.x / 4.38, size.y / 2.6));
 		play.setColor(col.Red);
 		quit.setColor(col.White);
 		quit.setOutlineColor(col.Yellow);
@@ -174,6 +188,7 @@ void TitleScene::Render()
 
 	Renderer::Queue(&play);
 	Renderer::Queue(&quit);
+	Renderer::Queue(&Controls);
 	Renderer::Queue(&gtitle);
 
 }

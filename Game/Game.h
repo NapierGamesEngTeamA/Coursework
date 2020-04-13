@@ -34,6 +34,7 @@ private:
 	Font gtitlefont;
 	Text play;
 	Text quit;
+	Text Controls;
 	Text gtitle;
 };
 
