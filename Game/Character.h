@@ -13,6 +13,7 @@ public:
 	AnimStates currentState;
 	map<string, Animation> _anims;
 	Animation* currentAnim;
+	vector<Vector2i> tiles;
 
 	int tileX = 125;
 	int tileY = 30;

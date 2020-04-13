@@ -17,6 +17,17 @@ public:
 	int _width, _height;
 	int _tileSize;
 	vector<vector<char>> tiles1;
+
+	Text play;
+	Text quit;
+	Font font;
+
+	Texture ptexture;
+	Sprite psprite;
+
+
+	bool Paued;
+
 	TileMap() 
 	{ 
 		_width = 50 ;

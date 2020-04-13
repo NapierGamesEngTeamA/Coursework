@@ -78,14 +78,14 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 	{
 		for (size_t x = 0; x < 190; x++)
 		{
-			ch->SetPosition(Vector2f(ch->tileX * 16, ch->tileY * 16));
+			ch->SetPosition(Vector2f(ch->tileX * 32, ch->tileY * 32));
 
 			if (list[y][x] == 'g')
 			{
 				auto t = AddComponent<Tile>();
 				//t->SetTexture(texture);
 				t->GetSprite().setTexture(texture);
-				t->SetPosition(Vector2f(x * 16, y *16));
+				t->SetPosition(Vector2f(x * 32, y *32));
 				t->SetRect(IntRect(0, 0, 32, 32));
 			}
 			else if (list[y][x] == 'w')
@@ -93,7 +93,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 				auto s = AddComponent<Tile>();
 				//s->SetTexture(texture);
 				s->GetSprite().setTexture(texture);
-				s->SetPosition(Vector2f(x * 16, y * 16));
+				s->SetPosition(Vector2f(x * 32, y * 32));
 				s->SetRect(IntRect(463, 334, 32, 32));
 
 				
@@ -105,7 +105,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 				auto u = AddComponent<Tile>();
 				//s->SetTexture(texture);
 				u->GetSprite().setTexture(texture);
-				u->SetPosition(Vector2f(x * 16, y * 16));
+				u->SetPosition(Vector2f(x * 32, y * 32));
 				u->SetRect(IntRect(383, 288, 32, 32));
 			}
 			else if (list[y][x] == 'r')
@@ -113,7 +113,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 				auto v = AddComponent<Tile>();
 				//s->SetTexture(texture);
 				v->GetSprite().setTexture(texture);
-				v->SetPosition(Vector2f(x * 16, y * 16));
+				v->SetPosition(Vector2f(x * 32, y * 32));
 				v->SetRect(IntRect(388, 0, 32, 32));
 			}
 			else if (list[y][x] == NULL)
@@ -129,6 +129,14 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 }
 void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list, Time dt)
 {
+
+	int xpos = ch->GetPosition().x - 5;
+	int ypos = ch->GetPosition().y - 5;
+
+
+
+
+
 	for (size_t y = 0; y < 95; y++)
 	{
 		for (size_t x = 0; x < 190; x++)
@@ -137,79 +145,86 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list, 
 			{
 				int bottom, left, right, up;
 
-		
-				bottom = y * 16 + 16;
-				up = y * 16;
-				right = x * 16 + 16;
-				left = x * 16;
+
+				bottom = y * 32 + 32;
+				up = y * 32;
+				right = x * 32 + 32;
+				left = x * 32;
 
 				auto s = ch->GetComponents<PlayerMovementComponent>();
 
 
 				Vector2f prevpos;
-	
+
 
 				int movespeed;
 
 				movespeed = s[0]->GetSpeed();
 
-				int prevtilex = ch->tileX;
+				int prevtilex = ch->tileX - 1;
 				int prevtiley = ch->tileY;
 
-				int xpos = ch->GetPosition().x;
-				int ypos = ch->GetPosition().y;
+
+
 
 				float speed = 100;
 
 				if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
 				{
 					//cout << "No Collision " << '\n';
-		
-	
-				}
-				else if (ch->right > left)
-				{
-					speed++;
-					//ch->SetPosition(Vector2f(ch->GetPosition().x + speed, 0));
-					//s[0]->Move(Vector2f(0, speed));
-					s[0]->Move(Vector2f(s[0]->GetSpeed() * dt.asSeconds(), 0));
-					
-					cout << "Collision Has Worked " << '\n';
-					break;
-				}
-				else if (ch->left < right)
-				{
-					speed--;
-					//ch->SetPosition(Vector2f(ch->GetPosition().x - speed, 0));
-						//s[0]->Move(Vector2f(0, speed));
-					s[0]->Move(Vector2f(s[0]->GetSpeed() * dt.asSeconds(), 0));
 
-					cout << "Collision Has Worked " << '\n';
-					break;
+
 				}
-				else if (ch->top < bottom)
+				else
 				{
-					speed++;
-					//ch->SetPosition(Vector2f(0, ch->GetPosition().y + speed));
-						//s[0]->Move(Vector2f(speed, 0));
-					s[0]->Move(Vector2f(0, -s[0]->GetSpeed() * dt.asSeconds()));
-					cout << "Collision Has Worked " << '\n';
-					break;
+					cout << "Collision Detected" << '\n';
+
 				}
-				else if (ch->bottom > up)
-				{
-					speed--;
-					//s[0]->Move(Vector2f(speed, 0));
-					cout << "Collision Has Worked " << '\n';
-					s[0]->Move(Vector2f(0, s[0]->GetSpeed() * dt.asSeconds()));
-					break;
-					//ch->SetPosition(Vector2f(0, ch->GetPosition().y - speed));
-				}
-			
+
+				//else if (ch->right > left)
+				//{
+				//	//speed++;
+				//	ch->SetPosition(Vector2f(xpos + 10, ypos));
+				//	//s[0]->Move(Vector2f(0, speed));
+				//	//s[0]->Move(Vector2f(s[0]->GetSpeed() * dt.asSeconds(), 0));
+
+				//	cout << "RIGHT Has Worked " << '\n';
+				//	break;
+				//}
+				//else if (ch->left < right)
+				//{
+				//	//speed--;
+				//	ch->SetPosition(Vector2f(xpos - 10, ypos));
+				//	//s[0]->Move(Vector2f(0, speed));
+				////s[0]->Move(Vector2f(s[0]->GetSpeed() * dt.asSeconds(), 0));
+
+				//	cout << "LEFT Has Worked " << '\n';
+				//	break;
+				//}
+				//else if (ch->top < bottom)
+				//{
+				//	//speed++;
+				//	ch->SetPosition(Vector2f(xpos, ypos - 10));
+				//	//s[0]->Move(Vector2f(speed, 0));
+				////s[0]->Move(Vector2f(0, -s[0]->GetSpeed() * dt.asSeconds()));
+				//	cout << "DOWN Has Worked " << '\n';
+				//	break;
+				//}
+				//else if (ch->bottom > up)
+				//{
+				//	//speed--;
+				//	//s[0]->Move(Vector2f(speed, 0));
+				//	cout << "UP Has Worked " << '\n';
+				//	//s[0]->Move(Vector2f(0, s[0]->GetSpeed() * dt.asSeconds()));
+				//	ch->SetPosition(Vector2f(xpos, ypos + 10));
+				//	break;
+				//	//ch->SetPosition(Vector2f(0, ch->GetPosition().y - speed));
+				//}
+
+
 
 
 			}
 		}
 	}
-
 }

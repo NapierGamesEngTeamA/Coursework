@@ -12,6 +12,20 @@ void Character::Update(Time dt)
 	right = GetPosition().x + 30;
 	top = GetPosition().y;
 
+
+	//Vector2i topLeft(Vector2i((int)left / 32, (int)top / 32));
+	//Vector2i topRight(Vector2i((int)right / 32, (int)top / 32));
+	//Vector2i BottomLeft(Vector2i((int)left / 32, (int)bottom / 32));
+	//Vector2i BottomRight(Vector2i((int)right / 32, (int)bottom / 32));
+
+	//tiles.clear();
+
+	//tiles.push_back(topLeft);
+
+	//if (find(tiles.begin(), tiles.end(), topRight) == tiles.end()) tiles.push_back(topRight);
+	//if (find(tiles.begin(), tiles.end(), BottomLeft) == tiles.end()) tiles.push_back(BottomLeft);
+	//if (find(tiles.begin(), tiles.end(), BottomRight) == tiles.end()) tiles.push_back(BottomRight);
+
 	if (InputManager::GetInstance()->Up())
 	{
 		tileY += 1;
