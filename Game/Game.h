@@ -84,7 +84,7 @@ private:
 	int index;
 	Texture texture;
 	Texture ptexture;
-	Sprite sprite;
+	Sprite sprite[5];
 	Sprite psprite;
 	Texture e2;
 	Sprite e2sprt[5];

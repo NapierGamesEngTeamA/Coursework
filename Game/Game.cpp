@@ -354,24 +354,31 @@ void OverworldScene::Load()
 
 	auto ch = make_shared<Character>();
 
-	float x = rand() % 4000 + 100;
-	float y = rand() % 960 + 100;
+	//float x = rand() % 4000 + 100;
+	//float y = rand() % 960 + 100;
 
-	texture.loadFromFile("Res/Sprites/Orc.png");
-	sprite.setTexture(texture);
-	sprite.setTextureRect(IntRect(16, 145, 37, 51));
-	const auto textRect = sprite.getGlobalBounds();
-	sprite.setOrigin(textRect.width * .5f, textRect.height * .5f);
-	sprite.setPosition(2000, 300);
 
+
+	float x = 0.0f;
+	float y = 0.0f;
 	for (int i = 0; i < 5; i++)
 	{
+		x = x + 40;
+
 		e2.loadFromFile("Res/Sprites/Skeleton.png");
 		e2sprt[i].setTexture(e2);
 		e2sprt[i].setTextureRect(IntRect(16, 145, 37, 51));
-		const auto textRect2 = sprite.getGlobalBounds();
+		const auto textRect2 = e2sprt[i].getGlobalBounds();
 		e2sprt[i].setOrigin(textRect2.width * .5f, textRect2.height * .5f);
-		e2sprt[i].setPosition(x, y);
+		e2sprt[i].setPosition(4000 + x, 960);
+
+		texture.loadFromFile("Res/Sprites/Orc.png");
+		sprite[i].setTexture(texture);
+		sprite[i].setTextureRect(IntRect(16, 145, 37, 51));
+		const auto textRect = sprite[i].getGlobalBounds();
+		sprite[i].setOrigin(textRect.width * .5f, textRect.height * .5f);
+		sprite[i].setPosition(4000 + x, 760);
+
 	}
 
 
@@ -601,10 +608,12 @@ void OverworldScene::Render()
 
 
 	sf::Texture::bind(&e2);
+	sf::Texture::bind(&texture);
 
 	for (int i = 0; i < 5; i++)
 	{
 		Renderer::Queue(&e2sprt[i]);
+		Renderer::Queue(&sprite[i]);
 	}
 
 	Renderer::Queue(&psprite);
