@@ -8,6 +8,7 @@ using namespace sf;
 
 extern shared_ptr<Scene> titleScene;
 extern shared_ptr<Scene> introScene;
+extern shared_ptr<Scene> setScene;
 extern shared_ptr<Scene> overworldScene;
 extern shared_ptr<Scene> combatScene;
 extern shared_ptr<Scene> activeScene;
@@ -38,9 +39,6 @@ private:
 	Text Controls;
 	Text gtitle;
 
-
-	Texture Controlsmenu;
-	Sprite sControlsmenu;
 };
 
 
@@ -61,6 +59,21 @@ public:
 	void Load() override;
 };
 
+class SetScene : public Scene
+{
+private:
+	Sprite sprite;
+	View view;
+
+	Texture Controlsmenu;
+	Sprite sControlsmenu;
+
+public:
+	SetScene() = default;
+	void Update(Time dt) override;
+	void Render() override;
+	void Load() override;
+};
 
 
 

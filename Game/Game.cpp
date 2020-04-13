@@ -27,6 +27,7 @@ using namespace sf;
 
 shared_ptr<Scene> titleScene;
 shared_ptr<Scene> introScene;
+shared_ptr<Scene> setScene;
 shared_ptr<Scene> overworldScene;
 shared_ptr<Scene> combatScene;
 shared_ptr<Scene> activeScene;
@@ -113,10 +114,7 @@ void TitleScene::Load()
 	Controls.setOrigin(textRect3.width * .5f, textRect3.height * .5f);
 	Controls.setPosition(size.x / 1.5, size.y / 2);
 
-	Controlsmenu.loadFromFile("Res/Fonts/Background.png");
 
-	sControlsmenu.setTexture(Controlsmenu);
-	sControlsmenu.setOrigin(size.x / 200, size.y / 10);
 
 
 	/*buffer.loadFromFile("Res/Music/MenuMusic.wav");
@@ -190,12 +188,10 @@ void TitleScene::Update(Time dt)
 			Renderer::GetWindow().close();
 		}
 
-
-
-
-
-	
-
+		if (InputManager::GetInstance()->Interact() && index == 2)
+		{
+			activeScene = setScene;
+		}
 
 
 
@@ -225,13 +221,6 @@ void TitleScene::Render()
 		Renderer::Queue(&Controls);
 		Renderer::Queue(&gtitle);
 
-		if (InputManager::GetInstance()->Interact() && index == 2)
-		{
-			Scene::Render();
-			sf::Texture::bind(&Controlsmenu);
-			Renderer::Queue(&sControlsmenu);
-
-		}
 
 
 }
@@ -286,6 +275,34 @@ void IntroScene::Render()
 }
 
 
+
+void SetScene::Load()
+{
+	view.reset(FloatRect(0, 0, 1920, 1080));
+
+	Controlsmenu.loadFromFile("Res/Sprites/Controls.png");
+	Vector2u size = Controlsmenu.getSize();
+	sControlsmenu.setTexture(Controlsmenu);
+	sControlsmenu.setOrigin(size.x / 200, size.y / 10);
+}
+
+void SetScene::Update(Time dt)
+{
+	if (InputManager::GetInstance()->Up())
+	{
+
+		activeScene = titleScene;
+		//printf("Scene Changed!");		
+	}
+}
+
+void SetScene::Render()
+{
+	Scene::Render();
+	sf::Texture::bind(&Controlsmenu);
+	Renderer::Queue(&sControlsmenu);
+	sf::Texture::bind(NULL);
+}
 ///////////////////////////////////////////////////////////////
 
 ///////////////////////////// OVERWORLD SCENE //////////////////
