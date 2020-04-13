@@ -87,7 +87,7 @@ private:
 	Sprite sprite;
 	Sprite psprite;
 	Texture e2;
-	Sprite e2sprt;
+	Sprite e2sprt[5];
 	Text play;
 	Text tile;
 	Text quit;

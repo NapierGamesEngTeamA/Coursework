@@ -351,8 +351,11 @@ void OverworldScene::Load()
 	
 
 
+
 	auto ch = make_shared<Character>();
 
+	float x = rand() % 4000 + 100;
+	float y = rand() % 960 + 100;
 
 	texture.loadFromFile("Res/Sprites/Orc.png");
 	sprite.setTexture(texture);
@@ -361,12 +364,16 @@ void OverworldScene::Load()
 	sprite.setOrigin(textRect.width * .5f, textRect.height * .5f);
 	sprite.setPosition(2000, 300);
 
-	e2.loadFromFile("Res/Sprites/Skeleton.png");
-	e2sprt.setTexture(e2);
-	e2sprt.setTextureRect(IntRect(16, 145, 37, 51));
-	const auto textRect2 = sprite.getGlobalBounds();
-	e2sprt.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
-	e2sprt.setPosition(1800, 300);
+	for (int i = 0; i < 5; i++)
+	{
+		e2.loadFromFile("Res/Sprites/Skeleton.png");
+		e2sprt[i].setTexture(e2);
+		e2sprt[i].setTextureRect(IntRect(16, 145, 37, 51));
+		const auto textRect2 = sprite.getGlobalBounds();
+		e2sprt[i].setOrigin(textRect2.width * .5f, textRect2.height * .5f);
+		e2sprt[i].setPosition(x, y);
+	}
+
 
 	
 
@@ -594,7 +601,12 @@ void OverworldScene::Render()
 
 
 	sf::Texture::bind(&e2);
-	Renderer::Queue(&e2sprt);
+
+	for (int i = 0; i < 5; i++)
+	{
+		Renderer::Queue(&e2sprt[i]);
+	}
+
 	Renderer::Queue(&psprite);
 	Renderer::Queue(&hbarsprite);
 	Renderer::Queue(&play);
