@@ -87,7 +87,7 @@ void TitleScene::Load()
 
 	const auto textRect = play.getGlobalBounds();
 	play.setOrigin(textRect.width * .5f, textRect.height * .5f);
-	play.setPosition(size.x / 2, size.y / 3.2);
+	play.setPosition(size.x / 2, size.y / 4.2);
 
 	quit.setFont(font);
 	quit.setCharacterSize(100);
@@ -96,13 +96,13 @@ void TitleScene::Load()
 
 	const auto textRect2 = quit.getGlobalBounds();
 	quit.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
-	quit.setPosition(size.x / 3.2, size.y / 2);
+	quit.setPosition(size.x / 3.2, size.y / 2.5);
 
 	ButtonOutline.loadFromFile("Res/Fonts/Outline.png");
 	Vector2u Outsize = ButtonOutline.getSize();
 	outline.setTexture(ButtonOutline);
 	outline.setOrigin(textRect.width * .5f, textRect.height * .5f);
-	outline.setPosition(size.x / 2.38, size.y / 6);
+	outline.setPosition(size.x / 2.38, size.y / 7);
 	
 
 	Controls.setFont(font);
@@ -112,7 +112,16 @@ void TitleScene::Load()
 
 	const auto textRect3 = Controls.getGlobalBounds();
 	Controls.setOrigin(textRect3.width * .5f, textRect3.height * .5f);
-	Controls.setPosition(size.x / 1.5, size.y / 2);
+	Controls.setPosition(size.x / 1.5, size.y / 2.5);
+
+	Settings.setFont(font);
+	Settings.setCharacterSize(60);
+	Settings.setString("Settings");
+	Settings.setColor(color.Red);
+
+	const auto textRect4 = Settings.getGlobalBounds();
+	Settings.setOrigin(textRect4.width * .5f, textRect4.height * .5f);
+	Settings.setPosition(size.x / 2, size.y / 1.8);
 
 
 
@@ -142,37 +151,59 @@ void TitleScene::Update(Time dt)
 		if (InputManager::GetInstance()->Up())
 		{
 			index = 0;
-			outline.setPosition(size.x / 2.38, size.y / 6);
+			outline.setPosition(size.x / 2.38, size.y / 7);
 			play.setColor(col.White);
 			quit.setColor(col.Red);
 			Controls.setColor(col.Red);
+			Settings.setColor(col.Red);
 			play.setOutlineColor(col.Yellow);
 			play.setOutlineThickness(4);
 			quit.setOutlineThickness(0);
 			Controls.setOutlineThickness(0);
+			Settings.setOutlineThickness(0);
 		}
 		else if (InputManager::GetInstance()->Left())
 		{
 			index = 1;
-			outline.setPosition(Vector2f(size.x / 4.38, size.y / 2.6));
+			outline.setPosition(Vector2f(size.x / 4.38, size.y / 3.6));
 			play.setColor(col.Red);
+			Controls.setColor(col.Red);
+			Settings.setColor(col.Red);
 			quit.setColor(col.White);
 			quit.setOutlineColor(col.Yellow);
 			quit.setOutlineThickness(4);
 			play.setOutlineThickness(0);
 			Controls.setOutlineThickness(0);
+			Settings.setOutlineThickness(0);
 		}
 		else if (InputManager::GetInstance()->Right())
 		{
 			index = 2;
-			outline.setPosition(Vector2f(size.x / 1.70, size.y / 2.6));
+			outline.setPosition(Vector2f(size.x / 1.70, size.y / 3.6));
 			play.setColor(col.Red);
 			quit.setColor(col.Red);
+			Settings.setOutlineColor(col.Red);
 			Controls.setColor(col.White);
 			Controls.setOutlineColor(col.Yellow);
 			Controls.setOutlineThickness(4);
 			play.setOutlineThickness(0);
 			quit.setOutlineThickness(0);
+			Settings.setOutlineThickness(0);
+		}
+
+		else if (InputManager::GetInstance()->Down())
+		{
+			index = 2;
+			outline.setPosition(Vector2f(size.x / 2.38, size.y / 2.3));
+			play.setColor(col.Red);
+			quit.setColor(col.Red);
+			Controls.setColor(col.Red);
+			Settings.setColor(col.White);
+			Settings.setOutlineColor(col.Yellow);
+			Settings.setOutlineThickness(4);
+			play.setOutlineThickness(0);
+			quit.setOutlineThickness(0);
+			Controls.setOutlineThickness(0);
 		}
 
 	
@@ -213,13 +244,15 @@ void TitleScene::Render()
 		sf::Texture::bind(&texture);
 		sf::Texture::bind(&ButtonOutline);
 		Renderer::Queue(&sprite);
-		Renderer::Queue(&outline);
+
 		sf::Texture::bind(NULL);
 
 		Renderer::Queue(&play);
 		Renderer::Queue(&quit);
 		Renderer::Queue(&Controls);
+		Renderer::Queue(&Settings);
 		Renderer::Queue(&gtitle);
+		Renderer::Queue(&outline);
 
 
 

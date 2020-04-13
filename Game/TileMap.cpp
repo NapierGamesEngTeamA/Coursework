@@ -178,7 +178,7 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list, 
 				else
 				{
 					cout << "Collision Detected" << '\n';
-
+				
 				}
 
 				//else if (ch->right > left)

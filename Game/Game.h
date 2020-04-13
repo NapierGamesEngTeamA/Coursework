@@ -37,6 +37,7 @@ private:
 	Text play;
 	Text quit;
 	Text Controls;
+	Text Settings; 
 	Text gtitle;
 
 };
