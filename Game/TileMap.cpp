@@ -78,14 +78,14 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 	{
 		for (size_t x = 0; x < 190; x++)
 		{
-			ch->SetPosition(Vector2f(ch->tileX * 32, ch->tileY * 32));
+			ch->SetPosition(Vector2f(ch->tileX * 16, ch->tileY * 16));
 
 			if (list[y][x] == 'g')
 			{
 				auto t = AddComponent<Tile>();
 				//t->SetTexture(texture);
 				t->GetSprite().setTexture(texture);
-				t->SetPosition(Vector2f(x * 32, y *32));
+				t->SetPosition(Vector2f(x * 16, y *16));
 				t->SetRect(IntRect(0, 0, 32, 32));
 			}
 			else if (list[y][x] == 'w')
@@ -93,7 +93,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 				auto s = AddComponent<Tile>();
 				//s->SetTexture(texture);
 				s->GetSprite().setTexture(texture);
-				s->SetPosition(Vector2f(x * 32, y * 32));
+				s->SetPosition(Vector2f(x * 16, y * 16));
 				s->SetRect(IntRect(463, 334, 32, 32));
 
 				
@@ -105,7 +105,7 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 				auto u = AddComponent<Tile>();
 				//s->SetTexture(texture);
 				u->GetSprite().setTexture(texture);
-				u->SetPosition(Vector2f(x * 32, y * 32));
+				u->SetPosition(Vector2f(x * 16, y * 16));
 				u->SetRect(IntRect(383, 288, 32, 32));
 			}
 			else if (list[y][x] == 'r')
@@ -113,10 +113,10 @@ void TileMap::BuildSprites(const Texture& texture, vector<vector<char>> list, sh
 				auto v = AddComponent<Tile>();
 				//s->SetTexture(texture);
 				v->GetSprite().setTexture(texture);
-				v->SetPosition(Vector2f(x * 32, y * 32));
+				v->SetPosition(Vector2f(x * 16, y * 16));
 				v->SetRect(IntRect(388, 0, 32, 32));
 			}
-			else if (list[y][x] == NULL)
+			else if (list[y][x] == 'm')
 			{
 				auto u = AddComponent<Tile>();
 				//s->SetTexture(texture);
@@ -146,10 +146,10 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list, 
 				int bottom, left, right, up;
 
 
-				bottom = y * 32 + 32;
-				up = y * 32;
-				right = x * 32 + 32;
-				left = x * 32;
+				bottom = y * 16 + 16;
+				up = y * 16;
+				right = x * 16 + 16;
+				left = x * 16;
 
 				auto s = ch->GetComponents<PlayerMovementComponent>();
 

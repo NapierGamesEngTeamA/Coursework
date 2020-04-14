@@ -350,7 +350,10 @@ void OverworldScene::Load()
 	//}
 
 	
-
+	hbar.loadFromFile("Res/Sprites/HealthBar.png");
+	hbarsprite.setTexture(hbar);
+	Vector2u size = hbar.getSize();
+	hbarsprite.setOrigin(size.x * .5f, size.y * .5f);
 
 
 	auto ch = make_shared<Character>();
@@ -361,35 +364,40 @@ void OverworldScene::Load()
 //	int Random = Randomizer::Random(0, 100);
 
 
-//	float x = 0.0f;
+	float offset = 0.0f;
+
+	float offsety = 0.0f;
 	//float y = 0.0f;
 	for (int i = 0; i < 5; i++)
 	{
-	//	x = x + 40;
+		offset = offset + 50;
+		offsety = offsety + 20;
 
 		e2.loadFromFile("Res/Sprites/Skeleton.png");
 		e2sprt[i].setTexture(e2);
 		e2sprt[i].setTextureRect(IntRect(16, 145, 37, 51));
 		const auto textRect2 = e2sprt[i].getGlobalBounds();
 		e2sprt[i].setOrigin(textRect2.width * .5f, textRect2.height * .5f);
-		e2sprt[i].setPosition(rand() % 600 + 4000, rand() % 300 + 960);
+		e2sprt[i].setPosition((rand() % 1000 + 1500) + offset, (rand() % 150 + 150) + offsety);
 
 		texture.loadFromFile("Res/Sprites/Orc.png");
 		sprite[i].setTexture(texture);
 		sprite[i].setTextureRect(IntRect(16, 145, 37, 51));
 		const auto textRect = sprite[i].getGlobalBounds();
 		sprite[i].setOrigin(textRect.width * .5f, textRect.height * .5f);
-		sprite[i].setPosition(rand() % 700 + 4000, rand() % 1500 - 300);
+		sprite[i].setPosition((rand() % 1000 + 2000) , (rand() % 500 + 750) );
+
+		if (e2sprt[i].getPosition() == e2sprt[i + 1].getPosition())
+		{
+			e2sprt[i].setPosition(e2sprt[i].getPosition().x + 30, e2sprt[i].getPosition().y + 30);
+		}
 
 	}
 
 
 	
 
-	hbar.loadFromFile("Res/Sprites/HealthBar.png");
-	hbarsprite.setTexture(hbar);
-	Vector2u size = hbar.getSize();
-	hbarsprite.setOrigin(size.x * .5f, size.y * .5f);
+	
 
 	tileSheet->loadFromFile("Res/Sprites/A2_Ground.png");
 	auto tm = make_shared<TileMap>();
@@ -480,6 +488,10 @@ void OverworldScene::Update(Time dt)
 
 	if (Paused == false)
 	{
+
+		hbarsprite.setPosition(s2[0]->GetView().getViewport().getPosition().x, s2[0]->GetView().getViewport().getPosition().y);
+
+		
 		psprite.setPosition(100000000000, 10000000000000);
 		play.setPosition(100000000000, 1000000000);
 		quit.setPosition(100000000000, 1000000000);
@@ -495,10 +507,11 @@ void OverworldScene::Update(Time dt)
 
 		const auto textRect = tile.getGlobalBounds();
 		tile.setOrigin(textRect.width * .5f, textRect.height * .5f);
-		tile.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y - 70);
+		tile.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y);
 
 
-		hbarsprite.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y);
+
+
 
 		s[0]->UpdateColMap(c[0], s[0]->tiles1, dt);
 		//Debug: Back to menu
@@ -618,13 +631,14 @@ void OverworldScene::Render()
 		Renderer::Queue(&sprite[i]);
 	}
 
+	sf::Texture::bind(&hbar);
 	Renderer::Queue(&psprite);
 	Renderer::Queue(&hbarsprite);
 	Renderer::Queue(&play);
 	Renderer::Queue(&quit);
 	Renderer::Queue(&tile);
 	sf::Texture::bind(&ptexture);
-	sf::Texture::bind(&hbar);
+
 	sf::Texture::bind(NULL);
 }
 ///////////////////////////////////////////////////////////////
