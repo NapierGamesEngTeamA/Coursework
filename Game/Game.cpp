@@ -367,6 +367,7 @@ void OverworldScene::Load()
 
 	auto ch = make_shared<Character>();
 
+	
 	float x = rand() % 100 + 4000;
 	float y = rand() % 100 + 960;
 
@@ -518,8 +519,20 @@ void OverworldScene::Update(Time dt)
 		tile.setOrigin(textRect.width * .5f, textRect.height * .5f);
 		tile.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y);
 
+		int bottom, top, left, right;
+		bottom = sHH.getPosition().y + 260;
+		left = sHH.getPosition().x;
+		right = sHH.getPosition().x + 260;
+		top = sHH.getPosition().y;
 
-
+		if (c[0]->right < left || c[0]->left > right || c[0]->top > bottom || c[0]->bottom < top)
+		{
+			
+		}
+		else
+		{
+			cout << "Healing" << '\n';
+		}
 
 
 		s[0]->UpdateColMap(c[0], s[0]->tiles1, dt);
