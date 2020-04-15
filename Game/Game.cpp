@@ -349,11 +349,20 @@ void OverworldScene::Load()
 	//	cerr << "Failed to load spritesheet!" << endl;
 	//}
 
-	
-	hbar.loadFromFile("Res/Sprites/HealthBar.png");
-	hbarsprite.setTexture(hbar);
-	Vector2u size = hbar.getSize();
-	hbarsprite.setOrigin(size.x * .5f, size.y * .5f);
+	//
+	//hbar.loadFromFile("Res/Sprites/HealthBar.png");
+	//hbarsprite.setTexture(hbar);
+	//Vector2u size = hbar.getSize();
+	//hbarsprite.setOrigin(size.x * .5f, size.y * .5f);
+
+
+
+	HH.loadFromFile("Res/Sprites/HealthHouse.png");
+	sHH.setTexture(HH);
+	Vector2u size = HH.getSize();
+	sHH.setOrigin(size.x * .5f, size.y * .5f);
+	sHH.setPosition(4000, 2600);
+
 
 
 	auto ch = make_shared<Character>();
@@ -370,22 +379,22 @@ void OverworldScene::Load()
 	//float y = 0.0f;
 	for (int i = 0; i < 5; i++)
 	{
-		offset = offset + 50;
-		offsety = offsety + 20;
+		offset = offset + 100;
+		offsety = offsety + 40;
 
 		e2.loadFromFile("Res/Sprites/Skeleton.png");
 		e2sprt[i].setTexture(e2);
 		e2sprt[i].setTextureRect(IntRect(16, 145, 37, 51));
 		const auto textRect2 = e2sprt[i].getGlobalBounds();
 		e2sprt[i].setOrigin(textRect2.width * .5f, textRect2.height * .5f);
-		e2sprt[i].setPosition((rand() % 1000 + 1500) + offset, (rand() % 150 + 150) + offsety);
+		e2sprt[i].setPosition((rand() % 2000 + 3000) + offset, (rand() % 300 + 300) + offsety);
 
 		texture.loadFromFile("Res/Sprites/Orc.png");
 		sprite[i].setTexture(texture);
 		sprite[i].setTextureRect(IntRect(16, 145, 37, 51));
 		const auto textRect = sprite[i].getGlobalBounds();
 		sprite[i].setOrigin(textRect.width * .5f, textRect.height * .5f);
-		sprite[i].setPosition((rand() % 1000 + 2000) , (rand() % 500 + 750) );
+		sprite[i].setPosition((rand() % 2000 + 4000) , (rand() % 1000 + 1500) );
 
 		if (e2sprt[i].getPosition() == e2sprt[i + 1].getPosition())
 		{
@@ -489,7 +498,7 @@ void OverworldScene::Update(Time dt)
 	if (Paused == false)
 	{
 
-		hbarsprite.setPosition(s2[0]->GetView().getViewport().getPosition().x, s2[0]->GetView().getViewport().getPosition().y);
+		//hbarsprite.setPosition(s2[0]->GetView().getViewport().getPosition().x, s2[0]->GetView().getViewport().getPosition().y);
 
 		
 		psprite.setPosition(100000000000, 10000000000000);
@@ -624,6 +633,8 @@ void OverworldScene::Render()
 
 	sf::Texture::bind(&e2);
 	sf::Texture::bind(&texture);
+	sf::Texture::bind(&HH);
+
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -631,9 +642,8 @@ void OverworldScene::Render()
 		Renderer::Queue(&sprite[i]);
 	}
 
-	sf::Texture::bind(&hbar);
 	Renderer::Queue(&psprite);
-	Renderer::Queue(&hbarsprite);
+	Renderer::Queue(&sHH);
 	Renderer::Queue(&play);
 	Renderer::Queue(&quit);
 	Renderer::Queue(&tile);

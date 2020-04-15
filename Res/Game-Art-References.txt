@@ -2,3 +2,7 @@ All Game Art used:
 http://gaurav.munjal.us/Universal-LPC-Spritesheet-Character-Generator/ - All character sprites
 https://jd-collier.itch.io/mythril-age-tilesets - TileSheet
 made by ansimuz.com - UI Background - https://creativecommons.org/licenses/by/3.0/
+
+House:
+Copyright/Attribution Notice: 
+No attribution necessary, unless you want to. Just credit Shepardskin and/or a link to my twitter. https://twitter.com/Shepardskin

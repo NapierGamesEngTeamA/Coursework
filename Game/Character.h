@@ -16,7 +16,7 @@ public:
 	vector<Vector2i> tiles;
 
 	int tileX = 125;
-	int tileY = 30;
+	int tileY = 85;
 
 	float bottom, left, right, top;
 
