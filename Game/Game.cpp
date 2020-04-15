@@ -519,6 +519,8 @@ void OverworldScene::Update(Time dt)
 		tile.setOrigin(textRect.width * .5f, textRect.height * .5f);
 		tile.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y);
 
+
+		//Collision for the health house
 		int bottom, top, left, right;
 		bottom = sHH.getPosition().y + 260;
 		left = sHH.getPosition().x;
@@ -535,6 +537,25 @@ void OverworldScene::Update(Time dt)
 		}
 
 
+
+		for (int i = 0; i < 5; i++)
+		{
+			int bottom, top, left, right;
+			bottom = sprite[i].getPosition().y + 51;
+			left = sprite[i].getPosition().x;
+			right = sprite[i].getPosition().x + 30;
+			top = sprite[i].getPosition().y;
+
+			if (c[0]->right < left || c[0]->left > right || c[0]->top > bottom || c[0]->bottom < top)
+			{
+
+			}
+			else
+			{
+				cout << "Battle Comencing" << '\n';
+			}
+
+		}
 		s[0]->UpdateColMap(c[0], s[0]->tiles1, dt);
 		//Debug: Back to menu
 		if (InputManager::Start())
@@ -544,6 +565,9 @@ void OverworldScene::Update(Time dt)
 
 
 		}
+
+
+
 
 		if (InputManager::Up() || InputManager::Down() || InputManager::Right() || InputManager::Left())
 		{
