@@ -52,6 +52,7 @@ private:
 	View view;
 	Text play;
 	Font font;
+	RectangleShape fade;
 
 public:
 	IntroScene() = default;

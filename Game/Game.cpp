@@ -131,13 +131,15 @@ void TitleScene::Load()
 	s.setBuffer(buffer);
 	s.play();*/
 	//Music titleMusic;
-	if (!titleMusic.openFromFile("Res/Music/MenuMusic.mp3"))
+	if (!titleMusic.openFromFile("Res/Music/MenuMusic.wav"))
 	{
 		cout << "Can't load title music" << endl;
 	}
+
 	titleMusic.setVolume(50);
 	titleMusic.setLoop(true);
 	titleMusic.play();
+
 }
 
 void TitleScene::Update(Time dt)
@@ -322,6 +324,7 @@ void SetScene::Load()
 
 void SetScene::Update(Time dt)
 {
+
 	if (InputManager::GetInstance()->Up())
 	{
 

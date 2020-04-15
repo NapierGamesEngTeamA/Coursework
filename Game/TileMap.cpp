@@ -5,6 +5,7 @@
 #include "Character.h"
 #include "Game.h"
 #include "PlayerMovementComponent.h"
+#include "InputManager.h"
 
 using namespace sf;
 using namespace std;
@@ -194,6 +195,8 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list, 
 				auto s = ch->GetComponents<PlayerMovementComponent>();
 
 
+			//	auto m = ch->GetComponents<InputManager>();
+
 				Vector2f prevpos;
 
 
@@ -209,16 +212,83 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list, 
 
 				float speed = 100;
 
-				if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
+				if (InputManager::GetInstance()->Up() )
 				{
-					//cout << "No Collision " << '\n';
 
 
+					if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
+					{
+						//cout << "No Collision " << '\n';
+						//s[0]->SetSpeed(100);
+
+					}
+					else
+					{
+						--speed;
+						cout << "Collision Detected" << '\n';
+						//s[0]->Move(Vector2f(0, speed * dt.asSeconds()));
+						ch->SetPosition(Vector2f(xpos, ypos + 50));
+
+
+					}
 				}
-				else
+				else if(InputManager::GetInstance()->Down())
 				{
-					cout << "Collision Detected" << '\n';
-				
+					if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
+					{
+						//cout << "No Collision " << '\n';
+						//s[0]->SetSpeed(100);
+
+					}
+					else
+					{
+						++speed;
+						cout << "Collision Detected" << '\n';
+						//s[0]->Move(Vector2f(0, -speed * dt.asSeconds()));
+
+						ch->SetPosition(Vector2f(xpos, ypos - 50));
+
+
+					}
+				}
+				else if (InputManager::GetInstance()->Right())
+				{
+					if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
+					{
+						//cout << "No Collision " << '\n';
+						//s[0]->SetSpeed(100);
+
+					}
+					else
+					{
+						--speed;
+						cout << "Collision Detected" << '\n';
+						//s[0]->Move(Vector2f(speed * dt.asSeconds(), 0));
+
+
+						ch->SetPosition(Vector2f(xpos - 50, ypos));
+
+					}
+				}
+				else if (InputManager::GetInstance()->Left())
+				{
+					if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
+					{
+						//cout << "No Collision " << '\n';
+						//s[0]->SetSpeed(100);
+
+					}
+					else
+					{
+						--speed;
+						cout << "Collision Detected" << '\n';
+						//s[0]->Move(Vector2f(speed * dt.asSeconds(), 0));
+
+						ch->SetPosition(Vector2f(xpos + 50, ypos));
+
+
+
+					}
 				}
 
 				//else if (ch->right > left)
