@@ -19,11 +19,15 @@ void Load()
 	// Initialise Scenes
 	titleScene.reset(new TitleScene());
 	introScene.reset(new IntroScene());
+	contScene.reset(new ContScene());
 	setScene.reset(new SetScene());
+	htpScene.reset(new HTPScene());
 	overworldScene.reset(new OverworldScene());
 	titleScene->Load();
 	introScene->Load();
+	contScene->Load();
 	setScene->Load();
+	htpScene->Load();
 	overworldScene->Load();
 
 	// Set current scene

@@ -8,7 +8,9 @@ using namespace sf;
 
 extern shared_ptr<Scene> titleScene;
 extern shared_ptr<Scene> introScene;
+extern shared_ptr<Scene> contScene;
 extern shared_ptr<Scene> setScene;
+extern shared_ptr<Scene> htpScene;
 extern shared_ptr<Scene> overworldScene;
 extern shared_ptr<Scene> combatScene;
 extern shared_ptr<Scene> activeScene;
@@ -61,7 +63,9 @@ public:
 	void Load() override;
 };
 
-class SetScene : public Scene
+
+
+class ContScene : public Scene
 {
 private:
 	Sprite sprite;
@@ -70,8 +74,45 @@ private:
 	Texture Controlsmenu;
 	Sprite sControlsmenu;
 
+	Texture HTPmenu;
+	Sprite sHTPmenu;
+
+public:
+	ContScene() = default;
+	void Update(Time dt) override;
+	void Render() override;
+	void Load() override;
+};
+
+
+
+class SetScene : public Scene
+{
+private:
+	Sprite sprite;
+	View view;
+
+	Texture Settingsmenu;
+	Sprite sSettingsmenu;
+
 public:
 	SetScene() = default;
+	void Update(Time dt) override;
+	void Render() override;
+	void Load() override;
+};
+
+class HTPScene : public Scene
+{
+private:
+	Sprite sprite;
+	View view;
+
+	Texture htpsmenu;
+	Sprite shtpsmenu;
+
+public:
+	HTPScene() = default;
 	void Update(Time dt) override;
 	void Render() override;
 	void Load() override;

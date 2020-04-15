@@ -28,7 +28,9 @@ using namespace sf;
 
 shared_ptr<Scene> titleScene;
 shared_ptr<Scene> introScene;
+shared_ptr<Scene> contScene;
 shared_ptr<Scene> setScene;
+shared_ptr<Scene> htpScene;
 shared_ptr<Scene> overworldScene;
 shared_ptr<Scene> combatScene;
 shared_ptr<Scene> activeScene;
@@ -196,7 +198,7 @@ void TitleScene::Update(Time dt)
 
 		else if (InputManager::GetInstance()->Down())
 		{
-			index = 2;
+			index = 3;
 			outline.setPosition(Vector2f(size.x / 2.38, size.y / 2.3));
 			play.setColor(col.Red);
 			quit.setColor(col.Red);
@@ -223,6 +225,11 @@ void TitleScene::Update(Time dt)
 		}
 
 		if (InputManager::GetInstance()->Interact() && index == 2)
+		{
+			activeScene = contScene;
+		}
+
+		if (InputManager::GetInstance()->Interact() && index == 3)
 		{
 			activeScene = setScene;
 		}
@@ -261,6 +268,8 @@ void TitleScene::Render()
 
 }
 
+
+//Introduction Scene
 
 void IntroScene::Load()
 {
@@ -311,8 +320,9 @@ void IntroScene::Render()
 }
 
 
+//Controls Scene
 
-void SetScene::Load()
+void ContScene::Load()
 {
 	view.reset(FloatRect(0, 0, 1920, 1080));
 
@@ -320,6 +330,57 @@ void SetScene::Load()
 	Vector2u size = Controlsmenu.getSize();
 	sControlsmenu.setTexture(Controlsmenu);
 	sControlsmenu.setOrigin(size.x / 200, size.y / 10);
+
+	HTPmenu.loadFromFile("Res/Sprites/htp.png");
+	sHTPmenu.setTexture(HTPmenu);
+	sHTPmenu.setOrigin(size.x / 200, size.y / 10);
+
+}
+
+void ContScene::Update(Time dt)
+{
+
+	if (InputManager::GetInstance()->Up())
+	{
+
+		activeScene = titleScene;
+		//printf("Scene Changed!");		
+	}
+	else if (InputManager::GetInstance()->Right())
+	{
+
+		activeScene = htpScene;
+		//printf("Scene Changed!");		
+	}
+
+}
+
+void ContScene::Render()
+{
+	Scene::Render();
+
+
+
+		sf::Texture::bind(&HTPmenu);
+		Renderer::Queue(&sHTPmenu);
+	
+	sf::Texture::bind(&Controlsmenu);
+	Renderer::Queue(&sControlsmenu);
+	
+	sf::Texture::bind(NULL);
+}
+
+
+
+//Settings Scene
+void SetScene::Load()
+{
+	view.reset(FloatRect(0, 0, 1920, 1080));
+
+	Settingsmenu.loadFromFile("Res/Sprites/Settings.png");
+	Vector2u size = Settingsmenu.getSize();
+	sSettingsmenu.setTexture(Settingsmenu);
+	sSettingsmenu.setOrigin(size.x / 200, size.y / 10);
 }
 
 void SetScene::Update(Time dt)
@@ -331,15 +392,56 @@ void SetScene::Update(Time dt)
 		activeScene = titleScene;
 		//printf("Scene Changed!");		
 	}
+
 }
 
 void SetScene::Render()
 {
 	Scene::Render();
-	sf::Texture::bind(&Controlsmenu);
-	Renderer::Queue(&sControlsmenu);
+	sf::Texture::bind(&Settingsmenu);
+	Renderer::Queue(&sSettingsmenu);
 	sf::Texture::bind(NULL);
 }
+
+
+void HTPScene::Load()
+{
+	view.reset(FloatRect(0, 0, 1920, 1080));
+
+	htpsmenu.loadFromFile("Res/Sprites/htp.png");
+	Vector2u size = htpsmenu.getSize();
+	shtpsmenu.setTexture(htpsmenu);
+	shtpsmenu.setOrigin(size.x / 200, size.y / 10);
+}
+
+void HTPScene::Update(Time dt)
+{
+
+	if (InputManager::GetInstance()->Up())
+	{
+
+		activeScene = titleScene;
+		//printf("Scene Changed!");		
+	}
+	else if (InputManager::GetInstance()->Left())
+	{
+
+		activeScene = contScene;
+		//printf("Scene Changed!");		
+	}
+}
+
+void HTPScene::Render()
+{
+	Scene::Render();
+	sf::Texture::bind(&htpsmenu);
+	Renderer::Queue(&shtpsmenu);
+	sf::Texture::bind(NULL);
+}
+
+
+
+
 ///////////////////////////////////////////////////////////////
 
 ///////////////////////////// OVERWORLD SCENE //////////////////
