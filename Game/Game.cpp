@@ -697,7 +697,7 @@ void OverworldScene::Update(Time dt)
 		Vector2u size = ptexture.getSize();
 		psprite.setTexture(ptexture);
 		psprite.setOrigin(size.x * .5f , size.y * .5f );
-		psprite.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y);
+		psprite.setPosition((s2[0]->GetView().getCenter().x), (s2[0]->GetView().getCenter().y));
 
 
 		play.setColor(color.Red);
