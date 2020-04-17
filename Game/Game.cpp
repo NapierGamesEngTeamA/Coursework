@@ -704,7 +704,7 @@ void OverworldScene::Update(Time dt)
      	font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
 		play.setFont(font);
 		play.setCharacterSize(60);
-		play.setString("Continue");
+		play.setString("Press 'W' To Continue");
 
 
 
@@ -715,7 +715,7 @@ void OverworldScene::Update(Time dt)
 
 		quit.setFont(font);
 		quit.setCharacterSize(60);
-		quit.setString("Quit");
+		quit.setString("Press 'S' To Quit");
 		quit.setColor(color.Red);
 
 		const auto textRect2 = quit.getGlobalBounds();
@@ -744,16 +744,17 @@ void OverworldScene::Update(Time dt)
 			play.setOutlineThickness(0);
 		}
 
-		if (InputManager::GetInstance()->Interact() && index == 0)
+		if (InputManager::GetInstance()->Up() && index == 0)
 		{
 
 			Paused = false;
 			//printf("Scene Changed!");		
 		}
 
-		if (InputManager::GetInstance()->Interact() && index == 1)
+		if (InputManager::GetInstance()->Down() && index == 1)
 		{
 			activeScene = titleScene;
+			Paused = false;
 		}
 
 
@@ -784,8 +785,8 @@ void OverworldScene::Render()
 		Renderer::Queue(&sprite[i]);
 	}
 
-	Renderer::Queue(&psprite);
 	Renderer::Queue(&sHH);
+	Renderer::Queue(&psprite);
 	Renderer::Queue(&play);
 	Renderer::Queue(&quit);
 	Renderer::Queue(&tile);
