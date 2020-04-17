@@ -607,22 +607,22 @@ void OverworldScene::Update(Time dt)
 		//hbarsprite.setPosition(s2[0]->GetView().getViewport().getPosition().x, s2[0]->GetView().getViewport().getPosition().y);
 
 		
-		psprite.setPosition(100000000000, 10000000000000);
-		play.setPosition(100000000000, 1000000000);
-		quit.setPosition(100000000000, 1000000000);
+		psprite.setPosition(10000, 10000);
+		play.setPosition(10000, 10000);
+		quit.setPosition(10000, 10000);
 
-
-		tile.setColor(color.Red);
+	
+	/*	tile.setColor(color.Red);
 		font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
 		play.setFont(font);
 		tile.setCharacterSize(60);
-		tile.setString("Tile : " + c[0]->tileX + c[0]->tileY);
+		tile.setString("Tile : " + c[0]->tileX + c[0]->tileY);*/
 
 
 
-		const auto textRect = tile.getGlobalBounds();
+	/*	const auto textRect = tile.getGlobalBounds();
 		tile.setOrigin(textRect.width * .5f, textRect.height * .5f);
-		tile.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y);
+		tile.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y);*/
 
 
 		//Collision for the health house
@@ -789,7 +789,7 @@ void OverworldScene::Render()
 	Renderer::Queue(&psprite);
 	Renderer::Queue(&play);
 	Renderer::Queue(&quit);
-	Renderer::Queue(&tile);
+//	Renderer::Queue(&tile);
 	sf::Texture::bind(&ptexture);
 
 	sf::Texture::bind(NULL);
