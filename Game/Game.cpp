@@ -35,6 +35,8 @@ shared_ptr<Scene> htpScene;
 shared_ptr<Scene> overworldScene;
 shared_ptr<Scene> combatScene;
 shared_ptr<Scene> activeScene;
+shared_ptr<Scene> winScene;
+shared_ptr<Scene> loseScene;
 
 void Scene::Load()
 {
@@ -633,11 +635,25 @@ void OverworldScene::Update(Time dt)
 
 			if (c[0]->right < left || c[0]->left > right || c[0]->top > bottom || c[0]->bottom < top)
 			{
-
+				heal.setPosition(10000, 10000);
 			}
 			else
 			{
-				cout << "Healing" << '\n';
+				heal.setColor(color.Black);
+				font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+				heal.setFont(font);
+				heal.setCharacterSize(30);
+				heal.setString("Press Enter\nto accept a 1000 credit fee to\nheal your party");
+				heal.setPosition(s2[0]->GetView().getCenter().x - 400, s2[0]->GetView().getCenter().y - 50);
+
+			if (InputManager::GetInstance()->Interact(true))
+			{
+
+				heal.setString("Your party is on full health");
+				
+			}
+
+
 			}
 
 
@@ -657,7 +673,7 @@ void OverworldScene::Update(Time dt)
 				}
 				else
 				{
-					activeScene = combatScene;
+					activeScene = winScene;
 					cout << "Battle Comencing" << '\n';
 				}
 
@@ -698,7 +714,7 @@ void OverworldScene::Update(Time dt)
 		ptexture.loadFromFile("Res/Sprites/PauseMenu.png");
 		Vector2u size = ptexture.getSize();
 		psprite.setTexture(ptexture);
-		psprite.setOrigin(size.x * .5f, size.y * .5f);
+		psprite.setOrigin(size.x / 2, size.y / 2 );
 		psprite.setPosition((s2[0]->GetView().getCenter().x), (s2[0]->GetView().getCenter().y));
 
 
@@ -706,23 +722,23 @@ void OverworldScene::Update(Time dt)
 		font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
 		play.setFont(font);
 		play.setCharacterSize(60);
-		play.setString("Press 'W' To Continue");
+		play.setString("Press 'W'\nTo Continue");
 
 
 
 		const auto textRect = play.getGlobalBounds();
 		play.setOrigin(textRect.width * .5f, textRect.height * .5f);
-		play.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y - 50);
+		play.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y - 100);
 
 
 		quit.setFont(font);
 		quit.setCharacterSize(60);
-		quit.setString("Press 'S' To Quit");
+		quit.setString("Press 'S'\nTo Quit");
 		quit.setColor(color.Red);
 
 		const auto textRect2 = quit.getGlobalBounds();
 		quit.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
-		quit.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y + 50);
+		quit.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y + 100);
 
 
 		if (InputManager::GetInstance()->Up(true))
@@ -792,6 +808,7 @@ void OverworldScene::Render()
 	Renderer::Queue(&psprite);
 	Renderer::Queue(&play);
 	Renderer::Queue(&quit);
+	Renderer::Queue(&heal);
 //	Renderer::Queue(&tile);
 	sf::Texture::bind(&ptexture);
 
@@ -910,4 +927,60 @@ void CombatScene::LoadEnemies()
 void CombatScene::Flee()
 {
 	activeScene = overworldScene;
+}
+
+void WinScene::Load()
+{
+	view.reset(FloatRect(0, 0, 1920, 1080));
+
+	Win.loadFromFile("Res/Sprites/YouWin.png");
+	Vector2u size = Win.getSize();
+	sWin.setTexture(Win);
+	sWin.setOrigin(size.x / 200 , size.y / 10 );
+}
+
+void WinScene::Update(Time dt)
+{
+	Scene::Update(dt);
+}
+
+
+void WinScene::Render()
+{
+	Scene::Render();
+
+	sf::Texture::bind(&Win);
+	Renderer::Queue(&sWin);
+
+
+	sf::Texture::bind(NULL);
+}
+
+
+
+
+void LoseScene::Load()
+{
+	view.reset(FloatRect(0, 0, 1920, 1080));
+
+	Lose.loadFromFile("Res/Sprites/YouLose.png");
+	Vector2u size = Lose.getSize();
+	sLose.setTexture(Lose);
+	sLose.setOrigin(size.x / 2 , size.y / 2);
+}
+
+void LoseScene::Update(Time dt)
+{
+}
+
+
+void LoseScene::Render()
+{
+	Scene::Render();
+
+	sf::Texture::bind(&Lose);
+	Renderer::Queue(&sLose);
+
+
+	sf::Texture::bind(NULL);
 }
