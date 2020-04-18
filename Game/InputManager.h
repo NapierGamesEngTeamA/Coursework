@@ -16,13 +16,13 @@ public:
 	static void SetControl(int index, Keyboard::Key k);
 	static void Update();
 
-	static bool Up();
-	static bool Down();
-	static bool Right();
-	static bool Left();
-	static bool Interact();
-	static bool Back();
-	static bool Start();
+	static bool Up(bool released);
+	static bool Down(bool released);
+	static bool Right(bool released);
+	static bool Left(bool released);
+	static bool Interact(bool released);
+	static bool Back(bool released);
+	static bool Start(bool released);
 	
 
 	

@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "PlayerMovementComponent.h"
 #include "InputManager.h"
+#include "Game.h"
 
 using namespace sf;
 using namespace std;

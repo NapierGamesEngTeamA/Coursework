@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string>
 #include "SystemRenderer.h"
 #include "ecm.h"
 #include "Scene.h"
@@ -19,7 +20,7 @@
 #include <random>
 //#include <SFML/Audio.hpp>
 //#include <SFML/System.hpp>
-
+#include "BattleEntity.h"
 
 #pragma endregion
 
@@ -52,7 +53,7 @@ void Scene::Render()
 	_ents.Render(); 
 }
 
-
+#pragma region TitleScene
 //////////////////////// TITLE SCENE ///////////////////////////////
 void TitleScene::Load()
 {
@@ -106,7 +107,6 @@ void TitleScene::Load()
 	outline.setTexture(ButtonOutline);
 	outline.setOrigin(textRect.width * .5f, textRect.height * .5f);
 	outline.setPosition(size.x / 2.38, size.y / 7);
-	
 
 	Controls.setFont(font);
 	Controls.setCharacterSize(60);
@@ -126,12 +126,6 @@ void TitleScene::Load()
 	Settings.setOrigin(textRect4.width * .5f, textRect4.height * .5f);
 	Settings.setPosition(size.x / 2, size.y / 1.8);
 
-
-
-
-	/*buffer.loadFromFile("Res/Music/MenuMusic.wav");
-	s.setBuffer(buffer);
-	s.play();*/
 	//Music titleMusic;
 	if (!titleMusic.openFromFile("Res/Music/MenuMusic.wav"))
 	{
@@ -141,7 +135,6 @@ void TitleScene::Load()
 	titleMusic.setVolume(50);
 	titleMusic.setLoop(true);
 	titleMusic.play();
-
 }
 
 void TitleScene::Update(Time dt)
@@ -300,15 +293,16 @@ void IntroScene::Load()
 void IntroScene::Update(Time dt)
 {
 
-	if (InputManager::GetInstance()->Up())
+	//Move cursor
+	if (InputManager::GetInstance()->Up(true))
 	{
-
 		activeScene = overworldScene;
 		//printf("Scene Changed!");		
 	}
 
 	Scene::Update(dt);
 }
+
 
 void IntroScene::Render()
 {
@@ -334,24 +328,24 @@ void ContScene::Load()
 	HTPmenu.loadFromFile("Res/Sprites/htp.png");
 	sHTPmenu.setTexture(HTPmenu);
 	sHTPmenu.setOrigin(size.x / 200, size.y / 10);
-
 }
 
 void ContScene::Update(Time dt)
 {
 
-	if (InputManager::GetInstance()->Up())
+	if (InputManager::GetInstance()->Up(true))
 	{
 
 		activeScene = titleScene;
 		//printf("Scene Changed!");		
 	}
-	else if (InputManager::GetInstance()->Right())
+	else if (InputManager::GetInstance()->Right(true))
 	{
-
 		activeScene = htpScene;
 		//printf("Scene Changed!");		
 	}
+
+	//Renderer::GetWindow().setView(view)
 
 }
 
@@ -359,10 +353,8 @@ void ContScene::Render()
 {
 	Scene::Render();
 
-
-
-		sf::Texture::bind(&HTPmenu);
-		Renderer::Queue(&sHTPmenu);
+	sf::Texture::bind(&HTPmenu);
+	Renderer::Queue(&sHTPmenu);
 	
 	sf::Texture::bind(&Controlsmenu);
 	Renderer::Queue(&sControlsmenu);
@@ -392,7 +384,6 @@ void SetScene::Update(Time dt)
 		activeScene = titleScene;
 		//printf("Scene Changed!");		
 	}
-
 }
 
 void SetScene::Render()
@@ -443,9 +434,10 @@ void HTPScene::Render()
 
 
 ///////////////////////////////////////////////////////////////
+#pragma endregion
 
+#pragma region OverworldScene
 ///////////////////////////// OVERWORLD SCENE //////////////////
-
 void OverworldScene::Load()
 {
 	
@@ -593,9 +585,7 @@ void OverworldScene::Load()
 
 void OverworldScene::Update(Time dt)
 {
-	Color color;
-	
-	
+	Color color;	
 
 	auto s = _ents.GetEntitys<TileMap>();
 	auto c = _ents.GetEntitys<Character>();
@@ -603,13 +593,22 @@ void OverworldScene::Update(Time dt)
 
 	if (Paused == false)
 	{
+		//Debug: Back to menu
+		if (InputManager::Back(true))
+		{
+			activeScene = titleScene;
+			printf("Scene Changed!");
+		}
 
-		//hbarsprite.setPosition(s2[0]->GetView().getViewport().getPosition().x, s2[0]->GetView().getViewport().getPosition().y);
+		if (InputManager::Up(false) || InputManager::Down(false) || InputManager::Right(false) || InputManager::Left(false))
+		{
+
+			//hbarsprite.setPosition(s2[0]->GetView().getViewport().getPosition().x, s2[0]->GetView().getViewport().getPosition().y);
 
 		
-		psprite.setPosition(10000, 10000);
-		play.setPosition(10000, 10000);
-		quit.setPosition(10000, 10000);
+			psprite.setPosition(10000, 10000);
+			play.setPosition(10000, 10000);
+			quit.setPosition(10000, 10000);
 
 	
 	/*	tile.setColor(color.Red);
@@ -626,20 +625,20 @@ void OverworldScene::Update(Time dt)
 
 
 		//Collision for the health house
-		int bottom, top, left, right;
-		bottom = sHH.getPosition().y + 260;
-		left = sHH.getPosition().x;
-		right = sHH.getPosition().x + 260;
-		top = sHH.getPosition().y;
+			int bottom, top, left, right;
+			bottom = sHH.getPosition().y + 260;
+			left = sHH.getPosition().x;
+			right = sHH.getPosition().x + 260;
+			top = sHH.getPosition().y;
 
-		if (c[0]->right < left || c[0]->left > right || c[0]->top > bottom || c[0]->bottom < top)
-		{
+			if (c[0]->right < left || c[0]->left > right || c[0]->top > bottom || c[0]->bottom < top)
+			{
 			
-		}
-		else
-		{
-			cout << "Healing" << '\n';
-		}
+			}
+			else
+			{	
+				cout << "Healing" << '\n';
+			}
 
 
 
@@ -795,24 +794,112 @@ void OverworldScene::Render()
 	sf::Texture::bind(NULL);
 }
 ///////////////////////////////////////////////////////////////
+#pragma endregion
 
 //////////////////// Combat Scene /////////////////////////////
 void CombatScene::Load()
 {
+	bgTex.loadFromFile("Res/Sprites/CombatBackground.jpg");
+	//Vector2u size = texture.getSize();
+	background.setTexture(bgTex);
+	background.setOrigin(0, 0);	
+
+	font.loadFromFile("Res/Fonts/BreatheFire-65pg.ttf");
+
+	//Set starting party stats
+
+	//Add text menu
+	canvas.setSize(Vector2f(500, 1080));
+	canvas.setPosition(Vector2f(0, 0));
+	canvas.setFillColor(Color(0, 0, 255, 255/2));
+
+	statText.setFont(font);
+	statText.setColor(Color::White);
+	statText.setCharacterSize(36);
+	statText.setPosition(Vector2f(50, 500));
+	statText.setString(" ");
+	
+	menuText.setFont(font);
+	menuText.setColor(Color::White);
+	menuText.setCharacterSize(36);
+	menuText.setPosition(Vector2f(50, 100));
+	menuText.setString("A:Attack       S:Magic\nD:Flee");
+
+	//Add health 
+
+	if (!battleMusic.openFromFile("Res/Music/BattleMusic.wav"))
+	{
+		cout << "Can't load title music" << endl;
+	}
+	battleMusic.setVolume(1);
+	battleMusic.setLoop(true);
+	battleMusic.play();
+
+	battleManager.Load();
+
+	
 
 }
 
 void CombatScene::Update(Time dt)
 {
+	battleManager.Update(dt);
+
 	Scene::Update(dt);
 }
 
 void CombatScene::Render()
 {
+	vector<shared_ptr<BattleEntity>> e = battleManager.GetEnts();
+
+	string s = e[0]->GetHealthText() + "\n" + 
+		e[1]->GetHealthText() + "\n" +
+		e[2]->GetHealthText() + "\n" +
+		e[3]->GetHealthText();
+
+	statText.setString(s);
+	
+	
+	Renderer::Queue(&background);
+	Renderer::Queue(&canvas);
+	Renderer::Queue(&statText);
+	Renderer::Queue(&menuText);
+	battleManager.Render();
 	Scene::Render();
+
+
 }
 
-void CombatScene::Setup()
+void CombatScene::LoadEnemies()
 {
+	vector<int> stats[4];
 
+	stats[1].push_back(1); //Strength
+	stats[1].push_back(2); //Dexterity
+	stats[1].push_back(4); //Intellect
+	stats[1].push_back(3); //Constitution
+	stats[1].push_back(10); //Health
+	stats[1].push_back(10); //MP
+
+
+	//Texture* skeTexture = new Texture();
+	//skeTexture->loadFromFile("Res/Sprite/Skeleton.png");
+
+	//auto skeleton = make_shared<BattleEntity>();
+	//skeleton->Setup(stats[1], "Skeleton");
+	//Animation* idle2 = new Animation();
+	//idle2->SetSpriteSheet(*skeTexture);
+	//idle2->AddFrame(IntRect(22, 340, 21, 48));
+	//idle2->AddFrame(IntRect(83, 340, 21, 48));
+	//skeleton->_anims.insert(pair<string, Animation>("Idle", *idle2));
+	//auto a = skeleton->AddComponent<AnimatedSpriteComponent>();
+	//a->SetAnimation(*idle);
+	//a->Play();
+	//skeleton->SetPosition(Vector2f(900, 500));
+	//enemies.insert(pair<string, shared_ptr<BattleEntity>>("Skeleton", skeleton));
+}
+
+void CombatScene::Flee()
+{
+	activeScene = overworldScene;
 }

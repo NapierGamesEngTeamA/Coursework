@@ -38,8 +38,12 @@ public:
 	};
 	void Update(Time dt) override;
 	void Render() override;
+
 	void GenerateMap(const string& path, const Texture& texture, shared_ptr<Character> ch);
 	void BuildSprites(const Texture& texture, vector<vector<char>> list, shared_ptr<Character> ch);
 	void UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list, Time dt);
-	
+
+	//void GenerateMap(const string& path, const Texture& texture);
+	//void BuildSprites(const Texture& texture, vector<vector<char>> list);
+
 };
