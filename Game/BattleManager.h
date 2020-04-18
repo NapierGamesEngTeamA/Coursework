@@ -19,9 +19,9 @@ private:
 	int turn = 0;
 public:
 	enum BattleStates { Start, ChooseAction, ChooseTarget, Action, NextTurn, End };
-	BattleStates currentState;
+	BattleStates currentState = BattleStates::Start;;
 	enum ActionTypes { None, aAttack, aMagic, aFlee };
-	ActionTypes currentAction;
+	ActionTypes currentAction = ActionTypes::None;;
 	BattleManager();
 	void Load();
 	void Update(Time dt);

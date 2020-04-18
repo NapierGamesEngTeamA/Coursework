@@ -132,7 +132,7 @@ void TitleScene::Load()
 		cout << "Can't load title music" << endl;
 	}
 
-	titleMusic.setVolume(50);
+	titleMusic.setVolume(1);
 	titleMusic.setLoop(true);
 	titleMusic.play();
 }
@@ -594,11 +594,11 @@ void OverworldScene::Update(Time dt)
 	if (Paused == false)
 	{
 		//Debug: Back to menu
-		if (InputManager::Back(true))
-		{
-			activeScene = titleScene;
-			printf("Scene Changed!");
-		}
+		//if (InputManager::Back(true))
+		//{
+		//	activeScene = titleScene;
+		//	printf("Scene Changed!");
+		//}
 
 		if (InputManager::Up(false) || InputManager::Down(false) || InputManager::Right(false) || InputManager::Left(false))
 		{
@@ -650,12 +650,14 @@ void OverworldScene::Update(Time dt)
 				right = sprite[i].getPosition().x + 30;
 				top = sprite[i].getPosition().y;
 
+				//Enemy collision
 				if (c[0]->right < left || c[0]->left > right || c[0]->top > bottom || c[0]->bottom < top)
 				{
 
 				}
 				else
 				{
+					activeScene = combatScene;
 					cout << "Battle Comencing" << '\n';
 				}
 
@@ -673,15 +675,15 @@ void OverworldScene::Update(Time dt)
 
 
 
-			if (InputManager::Up(true) || InputManager::Down(true) || InputManager::Right(true) || InputManager::Left(true))
-			{
-				int d100 = rand() % 100 + 1;
-				if (d100 > 80)
-				{
-					//activeScene = combatScene;
-					printf("Scene: Combat Scene");
-				}
-			}
+			//if (InputManager::Up(true) || InputManager::Down(true) || InputManager::Right(true) || InputManager::Left(true))
+			//{
+			//	int d100 = rand() % 100 + 1;
+			//	if (d100 > 80)
+			//	{
+			//		//activeScene = combatScene;
+			//		printf("Scene: Combat Scene");
+			//	}
+			//}
 
 			InputManager::GetInstance()->Update();
 
@@ -689,82 +691,83 @@ void OverworldScene::Update(Time dt)
 
 			Scene::Update(dt);
 		}
-		else
+	}
+	else if (Paused == true)
+	{
+
+		ptexture.loadFromFile("Res/Sprites/PauseMenu.png");
+		Vector2u size = ptexture.getSize();
+		psprite.setTexture(ptexture);
+		psprite.setOrigin(size.x * .5f, size.y * .5f);
+		psprite.setPosition((s2[0]->GetView().getCenter().x), (s2[0]->GetView().getCenter().y));
+
+
+		play.setColor(color.Red);
+		font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+		play.setFont(font);
+		play.setCharacterSize(60);
+		play.setString("Press 'W' To Continue");
+
+
+
+		const auto textRect = play.getGlobalBounds();
+		play.setOrigin(textRect.width * .5f, textRect.height * .5f);
+		play.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y - 50);
+
+
+		quit.setFont(font);
+		quit.setCharacterSize(60);
+		quit.setString("Press 'S' To Quit");
+		quit.setColor(color.Red);
+
+		const auto textRect2 = quit.getGlobalBounds();
+		quit.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
+		quit.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y + 50);
+
+
+		if (InputManager::GetInstance()->Up(true))
+		{
+			index = 0;
+			outline.setPosition(size.x / 2.38, size.y / 6);
+			play.setColor(color.White);
+			quit.setColor(color.Red);
+			play.setOutlineColor(color.Yellow);
+			play.setOutlineThickness(4);
+			quit.setOutlineThickness(0);
+		}
+		else if (InputManager::GetInstance()->Down(true))
+		{
+			index = 1;
+			outline.setPosition(Vector2f(size.x / 2.38, size.y / 2.6));
+			play.setColor(color.Red);
+			quit.setColor(color.White);
+			quit.setOutlineColor(color.Yellow);
+			quit.setOutlineThickness(4);
+			play.setOutlineThickness(0);
+		}
+
+		if (InputManager::GetInstance()->Up(true) && index == 0)
 		{
 
-			ptexture.loadFromFile("Res/Sprites/PauseMenu.png");
-			Vector2u size = ptexture.getSize();
-			psprite.setTexture(ptexture);
-			psprite.setOrigin(size.x * .5f, size.y * .5f);
-			psprite.setPosition((s2[0]->GetView().getCenter().x), (s2[0]->GetView().getCenter().y));
+			Paused = false;
+			//printf("Scene Changed!");		
+		}
+
+		if (InputManager::GetInstance()->Down(true) && index == 1)
+		{
+			activeScene = titleScene;
+			Paused = false;
+		}
 
 
-			play.setColor(color.Red);
-			font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
-			play.setFont(font);
-			play.setCharacterSize(60);
-			play.setString("Press 'W' To Continue");
-
-
-
-			const auto textRect = play.getGlobalBounds();
-			play.setOrigin(textRect.width * .5f, textRect.height * .5f);
-			play.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y - 50);
-
-
-			quit.setFont(font);
-			quit.setCharacterSize(60);
-			quit.setString("Press 'S' To Quit");
-			quit.setColor(color.Red);
-
-			const auto textRect2 = quit.getGlobalBounds();
-			quit.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
-			quit.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y + 50);
-
-
-			if (InputManager::GetInstance()->Up(true))
-			{
-				index = 0;
-				outline.setPosition(size.x / 2.38, size.y / 6);
-				play.setColor(color.White);
-				quit.setColor(color.Red);
-				play.setOutlineColor(color.Yellow);
-				play.setOutlineThickness(4);
-				quit.setOutlineThickness(0);
-			}
-			else if (InputManager::GetInstance()->Down(true))
-			{
-				index = 1;
-				outline.setPosition(Vector2f(size.x / 2.38, size.y / 2.6));
-				play.setColor(color.Red);
-				quit.setColor(color.White);
-				quit.setOutlineColor(color.Yellow);
-				quit.setOutlineThickness(4);
-				play.setOutlineThickness(0);
-			}
-
-			if (InputManager::GetInstance()->Up(true) && index == 0)
-			{
-
-				Paused = false;
-				//printf("Scene Changed!");		
-			}
-
-			if (InputManager::GetInstance()->Down(true) && index == 1)
-			{
-				activeScene = titleScene;
-				Paused = false;
-			}
-
-
-			if (InputManager::Start(true))
-			{
-				Paused = false;
-			}
-
+		if (InputManager::Start(true))
+		{
+			Paused = false;
 		}
 	}
 }
+
+
 
 void OverworldScene::Render()
 {
@@ -834,11 +837,11 @@ void CombatScene::Load()
 	}
 	battleMusic.setVolume(1);
 	battleMusic.setLoop(true);
-	battleMusic.play();
+	//battleMusic.play();
 
 	battleManager.Load();
 
-	
+	view.reset(FloatRect(0, 0, 1920, 1080));
 
 }
 
@@ -851,16 +854,20 @@ void CombatScene::Update(Time dt)
 
 void CombatScene::Render()
 {
-	vector<shared_ptr<BattleEntity>> e = battleManager.GetEnts();
-
-	string s = e[0]->GetHealthText() + "\n" + 
-		e[1]->GetHealthText() + "\n" +
-		e[2]->GetHealthText() + "\n" +
-		e[3]->GetHealthText();
-
-	statText.setString(s);
 	
+	if (battleManager.GetEnts().size() > 4)
+	{
+		vector<shared_ptr<BattleEntity>> e = battleManager.GetEnts();
+
+		string s = e[0]->GetHealthText() + "\n" +
+			e[1]->GetHealthText() + "\n" +
+			e[2]->GetHealthText() + "\n" +
+			e[3]->GetHealthText();
+
+		statText.setString(s);
+	}
 	
+	Renderer::GetWindow().setView(view);
 	Renderer::Queue(&background);
 	Renderer::Queue(&canvas);
 	Renderer::Queue(&statText);

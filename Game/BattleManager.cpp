@@ -351,13 +351,16 @@ void BattleManager::Magic()
 {
 	if (battleEntities[selectedTarget]->GetStat("CurrHP") > 0)
 	{
+		cout << currentEntity->GetName() + " is casting at " + battleEntities[selectedTarget]->GetName() << endl;
 		battleEntities[selectedTarget]->SetStat("CurrHP",
 			battleEntities[selectedTarget]->GetStat("CurrHP") - currentEntity->MgAttack());
+		cout << currentEntity->GetName() + " dealt " + to_string(currentEntity->MgAttack()) + " damage to " + battleEntities[selectedTarget]->GetName() << endl;
 	}
 	else
 	{
 		printf("Enemy is already vanquished");
 	}
+	currentState = BattleStates::NextTurn;
 }
 
 void BattleManager::Flee()

@@ -34,7 +34,7 @@ void Load()
 	combatScene->Load();
 
 	// Set current scene
-	activeScene = combatScene;
+	activeScene = titleScene;
 }
 
 void Update(RenderWindow& window)

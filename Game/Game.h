@@ -169,6 +169,7 @@ private:
 	Text menuText;
 	RectangleShape canvas;
 	BattleManager battleManager;
+	View view;
 public:
 	CombatScene() = default;
 	void Update(Time dt) override;
