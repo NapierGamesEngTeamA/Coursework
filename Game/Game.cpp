@@ -673,7 +673,7 @@ void OverworldScene::Update(Time dt)
 				}
 				else
 				{
-					activeScene = winScene;
+					activeScene = combatScene;
 					cout << "Battle Comencing" << '\n';
 				}
 
