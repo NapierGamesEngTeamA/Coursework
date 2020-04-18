@@ -146,7 +146,7 @@ void TitleScene::Update(Time dt)
 		RenderWindow window;
 
 		//Move cursor
-		if (InputManager::GetInstance()->Up())
+		if (InputManager::GetInstance()->Up(true))
 		{
 			index = 0;
 			outline.setPosition(size.x / 2.38, size.y / 7);
@@ -160,7 +160,7 @@ void TitleScene::Update(Time dt)
 			Controls.setOutlineThickness(0);
 			Settings.setOutlineThickness(0);
 		}
-		else if (InputManager::GetInstance()->Left())
+		else if (InputManager::GetInstance()->Left(true))
 		{
 			index = 1;
 			outline.setPosition(Vector2f(size.x / 4.38, size.y / 3.6));
@@ -174,7 +174,7 @@ void TitleScene::Update(Time dt)
 			Controls.setOutlineThickness(0);
 			Settings.setOutlineThickness(0);
 		}
-		else if (InputManager::GetInstance()->Right())
+		else if (InputManager::GetInstance()->Right(true))
 		{
 			index = 2;
 			outline.setPosition(Vector2f(size.x / 1.70, size.y / 3.6));
@@ -189,7 +189,7 @@ void TitleScene::Update(Time dt)
 			Settings.setOutlineThickness(0);
 		}
 
-		else if (InputManager::GetInstance()->Down())
+		else if (InputManager::GetInstance()->Down(true))
 		{
 			index = 3;
 			outline.setPosition(Vector2f(size.x / 2.38, size.y / 2.3));
@@ -205,24 +205,24 @@ void TitleScene::Update(Time dt)
 		}
 
 	
-		if (InputManager::GetInstance()->Interact() && index == 0)
+		if (InputManager::GetInstance()->Interact(true) && index == 0)
 		{
 
 			activeScene = introScene;
 			//printf("Scene Changed!");		
 		}
 
-		if (InputManager::GetInstance()->Interact() && index == 1)
+		if (InputManager::GetInstance()->Interact(true) && index == 1)
 		{
 			Renderer::GetWindow().close();
 		}
 
-		if (InputManager::GetInstance()->Interact() && index == 2)
+		if (InputManager::GetInstance()->Interact(true) && index == 2)
 		{
 			activeScene = contScene;
 		}
 
-		if (InputManager::GetInstance()->Interact() && index == 3)
+		if (InputManager::GetInstance()->Interact(true) && index == 3)
 		{
 			activeScene = setScene;
 		}
@@ -378,7 +378,7 @@ void SetScene::Load()
 void SetScene::Update(Time dt)
 {
 
-	if (InputManager::GetInstance()->Up())
+	if (InputManager::GetInstance()->Up(true))
 	{
 
 		activeScene = titleScene;
@@ -408,13 +408,13 @@ void HTPScene::Load()
 void HTPScene::Update(Time dt)
 {
 
-	if (InputManager::GetInstance()->Up())
+	if (InputManager::GetInstance()->Up(true))
 	{
 
 		activeScene = titleScene;
 		//printf("Scene Changed!");		
 	}
-	else if (InputManager::GetInstance()->Left())
+	else if (InputManager::GetInstance()->Left(true))
 	{
 
 		activeScene = contScene;
@@ -585,7 +585,7 @@ void OverworldScene::Load()
 
 void OverworldScene::Update(Time dt)
 {
-	Color color;	
+	Color color;
 
 	auto s = _ents.GetEntitys<TileMap>();
 	auto c = _ents.GetEntitys<Character>();
@@ -605,26 +605,26 @@ void OverworldScene::Update(Time dt)
 
 			//hbarsprite.setPosition(s2[0]->GetView().getViewport().getPosition().x, s2[0]->GetView().getViewport().getPosition().y);
 
-		
+
 			psprite.setPosition(10000, 10000);
 			play.setPosition(10000, 10000);
 			quit.setPosition(10000, 10000);
 
-	
-	/*	tile.setColor(color.Red);
-		font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
-		play.setFont(font);
-		tile.setCharacterSize(60);
-		tile.setString("Tile : " + c[0]->tileX + c[0]->tileY);*/
+
+			/*	tile.setColor(color.Red);
+				font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+				play.setFont(font);
+				tile.setCharacterSize(60);
+				tile.setString("Tile : " + c[0]->tileX + c[0]->tileY);*/
 
 
 
-	/*	const auto textRect = tile.getGlobalBounds();
-		tile.setOrigin(textRect.width * .5f, textRect.height * .5f);
-		tile.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y);*/
+				/*	const auto textRect = tile.getGlobalBounds();
+					tile.setOrigin(textRect.width * .5f, textRect.height * .5f);
+					tile.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y);*/
 
 
-		//Collision for the health house
+					//Collision for the health house
 			int bottom, top, left, right;
 			bottom = sHH.getPosition().y + 260;
 			left = sHH.getPosition().x;
@@ -633,135 +633,136 @@ void OverworldScene::Update(Time dt)
 
 			if (c[0]->right < left || c[0]->left > right || c[0]->top > bottom || c[0]->bottom < top)
 			{
-			
+
 			}
 			else
-			{	
+			{
 				cout << "Healing" << '\n';
 			}
 
 
 
-		for (int i = 0; i < 5; i++)
-		{
-			int bottom, top, left, right;
-			bottom = sprite[i].getPosition().y + 51;
-			left = sprite[i].getPosition().x;
-			right = sprite[i].getPosition().x + 30;
-			top = sprite[i].getPosition().y;
-
-			if (c[0]->right < left || c[0]->left > right || c[0]->top > bottom || c[0]->bottom < top)
+			for (int i = 0; i < 5; i++)
 			{
+				int bottom, top, left, right;
+				bottom = sprite[i].getPosition().y + 51;
+				left = sprite[i].getPosition().x;
+				right = sprite[i].getPosition().x + 30;
+				top = sprite[i].getPosition().y;
+
+				if (c[0]->right < left || c[0]->left > right || c[0]->top > bottom || c[0]->bottom < top)
+				{
+
+				}
+				else
+				{
+					cout << "Battle Comencing" << '\n';
+				}
 
 			}
-			else
+			s[0]->UpdateColMap(c[0], s[0]->tiles1, dt);
+			//Debug: Back to menu
+			if (InputManager::Start(true))
 			{
-				cout << "Battle Comencing" << '\n';
+				Paused = true;
+
+
+
 			}
 
-		}
-		s[0]->UpdateColMap(c[0], s[0]->tiles1, dt);
-		//Debug: Back to menu
-		if (InputManager::Start())
-		{
-			Paused = true;
 
 
 
-		}
-
-
-
-
-		if (InputManager::Up() || InputManager::Down() || InputManager::Right() || InputManager::Left())
-		{
-			int d100 = rand() % 100 + 1;
-			if (d100 > 80)
+			if (InputManager::Up(true) || InputManager::Down(true) || InputManager::Right(true) || InputManager::Left(true))
 			{
-				//activeScene = combatScene;
-				printf("Scene: Combat Scene");
+				int d100 = rand() % 100 + 1;
+				if (d100 > 80)
+				{
+					//activeScene = combatScene;
+					printf("Scene: Combat Scene");
+				}
 			}
+
+			InputManager::GetInstance()->Update();
+
+
+
+			Scene::Update(dt);
 		}
-
-		InputManager::GetInstance()->Update();
-
-
-
-		Scene::Update(dt);
-	}
-	else
-	{
-
-		ptexture.loadFromFile("Res/Sprites/PauseMenu.png");
-		Vector2u size = ptexture.getSize();
-		psprite.setTexture(ptexture);
-		psprite.setOrigin(size.x * .5f , size.y * .5f );
-		psprite.setPosition((s2[0]->GetView().getCenter().x), (s2[0]->GetView().getCenter().y));
-
-
-		play.setColor(color.Red);
-     	font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
-		play.setFont(font);
-		play.setCharacterSize(60);
-		play.setString("Press 'W' To Continue");
-
-
-
-		const auto textRect = play.getGlobalBounds();
-		play.setOrigin(textRect.width * .5f, textRect.height * .5f);
-		play.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y - 50);
-
-
-		quit.setFont(font);
-		quit.setCharacterSize(60);
-		quit.setString("Press 'S' To Quit");
-		quit.setColor(color.Red);
-
-		const auto textRect2 = quit.getGlobalBounds();
-		quit.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
-		quit.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y + 50);
-
-
-		if (InputManager::GetInstance()->Up())
+		else
 		{
-			index = 0;
-			outline.setPosition(size.x / 2.38, size.y / 6);
-			play.setColor(color.White);
-			quit.setColor(color.Red);
-			play.setOutlineColor(color.Yellow);
-			play.setOutlineThickness(4);
-			quit.setOutlineThickness(0);
-		}
-		else if (InputManager::GetInstance()->Down())
-		{
-			index = 1;
-			outline.setPosition(Vector2f(size.x / 2.38, size.y / 2.6));
+
+			ptexture.loadFromFile("Res/Sprites/PauseMenu.png");
+			Vector2u size = ptexture.getSize();
+			psprite.setTexture(ptexture);
+			psprite.setOrigin(size.x * .5f, size.y * .5f);
+			psprite.setPosition((s2[0]->GetView().getCenter().x), (s2[0]->GetView().getCenter().y));
+
+
 			play.setColor(color.Red);
-			quit.setColor(color.White);
-			quit.setOutlineColor(color.Yellow);
-			quit.setOutlineThickness(4);
-			play.setOutlineThickness(0);
+			font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+			play.setFont(font);
+			play.setCharacterSize(60);
+			play.setString("Press 'W' To Continue");
+
+
+
+			const auto textRect = play.getGlobalBounds();
+			play.setOrigin(textRect.width * .5f, textRect.height * .5f);
+			play.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y - 50);
+
+
+			quit.setFont(font);
+			quit.setCharacterSize(60);
+			quit.setString("Press 'S' To Quit");
+			quit.setColor(color.Red);
+
+			const auto textRect2 = quit.getGlobalBounds();
+			quit.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
+			quit.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y + 50);
+
+
+			if (InputManager::GetInstance()->Up(true))
+			{
+				index = 0;
+				outline.setPosition(size.x / 2.38, size.y / 6);
+				play.setColor(color.White);
+				quit.setColor(color.Red);
+				play.setOutlineColor(color.Yellow);
+				play.setOutlineThickness(4);
+				quit.setOutlineThickness(0);
+			}
+			else if (InputManager::GetInstance()->Down(true))
+			{
+				index = 1;
+				outline.setPosition(Vector2f(size.x / 2.38, size.y / 2.6));
+				play.setColor(color.Red);
+				quit.setColor(color.White);
+				quit.setOutlineColor(color.Yellow);
+				quit.setOutlineThickness(4);
+				play.setOutlineThickness(0);
+			}
+
+			if (InputManager::GetInstance()->Up(true) && index == 0)
+			{
+
+				Paused = false;
+				//printf("Scene Changed!");		
+			}
+
+			if (InputManager::GetInstance()->Down(true) && index == 1)
+			{
+				activeScene = titleScene;
+				Paused = false;
+			}
+
+
+			if (InputManager::Start(true))
+			{
+				Paused = false;
+			}
+
 		}
-
-		if (InputManager::GetInstance()->Up() && index == 0)
-		{
-
-			Paused = false;
-			//printf("Scene Changed!");		
-		}
-
-		if (InputManager::GetInstance()->Down() && index == 1)
-		{
-			activeScene = titleScene;
-			Paused = false;
-		}
-
-
-		if (InputManager::Start())
-		{
-			Paused = false;
-		}
-
 	}
 }
 

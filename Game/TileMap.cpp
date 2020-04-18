@@ -213,7 +213,7 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list, 
 
 				float speed = 100;
 
-				if (InputManager::GetInstance()->Up() )
+				if (InputManager::GetInstance()->Up(true) )
 				{
 
 
@@ -233,7 +233,7 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list, 
 
 					}
 				}
-				else if(InputManager::GetInstance()->Down())
+				else if(InputManager::GetInstance()->Down(true))
 				{
 					if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
 					{
@@ -252,7 +252,7 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list, 
 
 					}
 				}
-				else if (InputManager::GetInstance()->Right())
+				else if (InputManager::GetInstance()->Right(true))
 				{
 					if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
 					{
@@ -271,7 +271,7 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list, 
 
 					}
 				}
-				else if (InputManager::GetInstance()->Left())
+				else if (InputManager::GetInstance()->Left(true))
 				{
 					if (ch->right < left || ch->left > right || ch->top > bottom || ch->bottom < up)
 					{
