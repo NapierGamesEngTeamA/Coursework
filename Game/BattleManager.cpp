@@ -2,6 +2,7 @@
 #include "AnimatedSpriteComponent.h"
 #include "SystemRenderer.h"
 #include "InputManager.h"
+#include "Game.h"
 
 using namespace std;
 using namespace sf;
@@ -294,12 +295,21 @@ void BattleManager::PickAction()
 		if (Keyboard::isKeyPressed(Keyboard::D))
 		{
 			currentAction = ActionTypes::aFlee;
-			currentState = BattleStates::ChooseTarget;
+			currentState = BattleStates::Action;
 		}
 	}
 	else
 	{
-		currentAction = ActionTypes::aAttack;
+		int i = rand() % 2 + 1;
+
+		if (i == 1)
+		{
+			currentAction = ActionTypes::aAttack;
+		}
+		else
+		{
+			currentAction = ActionTypes::aMagic;
+		}
 		currentState = BattleStates::ChooseTarget;
 	}
 }
@@ -339,12 +349,14 @@ void BattleManager::Attack()
 		battleEntities[selectedTarget]->SetStat("CurrHP",
 			battleEntities[selectedTarget]->GetStat("CurrHP") - currentEntity->PhAttack());
 		cout << currentEntity->GetName() + " dealt " + to_string(currentEntity->PhAttack()) + " damage to " + battleEntities[selectedTarget]->GetName() << endl;
+		currentState = BattleStates::NextTurn;
 	}
 	else
 	{
 		printf("Enemy is already vanquished");
+		selectedTarget = -1;
+		currentState = BattleStates::ChooseTarget;
 	}
-	currentState = BattleStates::NextTurn;
 }
 
 void BattleManager::Magic()
@@ -355,47 +367,76 @@ void BattleManager::Magic()
 		battleEntities[selectedTarget]->SetStat("CurrHP",
 			battleEntities[selectedTarget]->GetStat("CurrHP") - currentEntity->MgAttack());
 		cout << currentEntity->GetName() + " dealt " + to_string(currentEntity->MgAttack()) + " damage to " + battleEntities[selectedTarget]->GetName() << endl;
+		currentState = BattleStates::NextTurn;
 	}
 	else
 	{
 		printf("Enemy is already vanquished");
+		selectedTarget = -1;
+		currentState = BattleStates::ChooseTarget;
 	}
-	currentState = BattleStates::NextTurn;
 }
 
 void BattleManager::Flee()
 {
+	int i = rand() % 100 + 1;
 
+	if (i > 60)
+	{
+		activeScene = overworldScene;
+	}
+	else
+	{
+		cout << "Party failed to flee\n" << endl;
+		currentState = BattleStates::NextTurn;
+	}
 }
 
 void BattleManager::ChangeTurn()
 {
-	selectedTarget = -1;
-	if (index < 7)
+	if (battleEntities[4]->GetStat("CurrHP") <= 0 && battleEntities[5]->GetStat("CurrHP") <= 0 &&
+		battleEntities[6]->GetStat("CurrHP") <= 0 && battleEntities[7]->GetStat("CurrHP") <= 0)
 	{
-		index++;
+		Win();
+	}
+	else if (battleEntities[0]->GetStat("CurrHP") <= 0 && battleEntities[1]->GetStat("CurrHP") <= 0 &&
+		battleEntities[2]->GetStat("CurrHP") <= 0 && battleEntities[3]->GetStat("CurrHP") <= 0)
+	{
+		Lose();
 	}
 	else
 	{
-		index = 0;
+		selectedTarget = -1;
+		if (index < 7)
+		{
+			index++;
+		}
+		else
+		{
+			index = 0;
+		}
+		if (battleEntities[index]->GetStat("CurrHP") > 0)
+		{
+			currentEntity = battleEntities[index];
+			currentAction = ActionTypes::None;
+			currentState = BattleStates::ChooseAction;
+		}
+		else
+		{
+			ChangeTurn();
+		}
 	}
-	if (battleEntities[index]->GetStat("CurrHP") > 0)
-	{
-		currentEntity = battleEntities[index];
-	}
-	else
-	{
-		ChangeTurn();
-	}
-	currentAction = ActionTypes::None;
-	currentState = BattleStates::ChooseAction;
-
 }
 
 void BattleManager::Reset()
 {
 	battleEntities.clear();
 	enemies.clear();
+	currentState = BattleStates::Start;
+	currentAction = ActionTypes::None;
+	selectedTarget = -1;
+	index = 0;
+	turn = 0;
 }
 
 void BattleManager::Render()
@@ -411,7 +452,48 @@ vector<shared_ptr<BattleEntity>> BattleManager::GetEnts()
 	return battleEntities;
 }
 
-void BattleManager::CalcEnd()
+void BattleManager::Win()
 {
+	if (battleEntities[0]->GetStat("CurrHP") > 0)
+	{
+		players[0]->GiveExp((2 * battleEntities[4]->GetStat("Level")) * 4);
+	}
+	if (battleEntities[1]->GetStat("CurrHP") > 0)
+	{
+		players[1]->GiveExp((2 * battleEntities[4]->GetStat("Level")) * 4);
+	}
+	if (battleEntities[2]->GetStat("CurrHP") > 0)
+	{
+		players[2]->GiveExp((2 * battleEntities[4]->GetStat("Level")) * 4);
+	}
+	if (battleEntities[3]->GetStat("CurrHP") > 0)
+	{
+		players[3]->GiveExp((2 * battleEntities[4]->GetStat("Level")) * 4);
+	}
 
+	if (players[0]->GetStat("Level") > battleEntities[0]->GetStat("Level"))
+	{
+		cout << "Andrel leveled up\n" << endl;
+	}
+	if (players[1]->GetStat("Level") > battleEntities[1]->GetStat("Level"))
+	{
+		cout << "Charity leveled up\n" << endl;
+	}
+	if (players[2]->GetStat("Level") > battleEntities[2]->GetStat("Level"))
+	{
+		cout << "Helmaer leveled up\n" << endl;
+	}
+	if (players[3]->GetStat("Level") > battleEntities[3]->GetStat("Level"))
+	{
+		cout << "Horo leveled up\n" << endl;
+	}
+
+	Reset();
+	activeScene = overworldScene;
+}
+
+void BattleManager::Lose()
+{
+	Reset();
+	// Go to game over screen
 }

@@ -797,6 +797,7 @@ void OverworldScene::Render()
 
 	sf::Texture::bind(NULL);
 }
+
 ///////////////////////////////////////////////////////////////
 #pragma endregion
 
@@ -907,7 +908,3 @@ void CombatScene::LoadEnemies()
 	//enemies.insert(pair<string, shared_ptr<BattleEntity>>("Skeleton", skeleton));
 }
 
-void CombatScene::Flee()
-{
-	activeScene = overworldScene;
-}

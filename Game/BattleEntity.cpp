@@ -121,7 +121,7 @@ void BattleEntity::GiveExp(int i)
 {
 	stats["Exp"] += i;
 
-	if (stats["Exp"] >= stats["Level"] * 100)
+	if (stats["Exp"] >= stats["Level"] * 10)
 	{
 		Levelup();
 	}
@@ -137,7 +137,7 @@ void BattleEntity::Levelup()
 	stats["MaxMP"] += rand() % 3 + 1;
 	stats["CurrHP"] = stats["MaxHP"];
 	stats["CurrMP"] = stats["MaxMP"];
-	stats["Exp"] -= stats["Level"] * 100;
+	stats["Exp"] = 0;;
 	stats["Level"] += 1;
 }
 

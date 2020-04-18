@@ -34,6 +34,7 @@ public:
 	void Flee();
 	void ChangeTurn();
 	void Render();
-	void CalcEnd();
+	void Win();
+	void Lose();
 	vector<shared_ptr<BattleEntity>> GetEnts();
 };

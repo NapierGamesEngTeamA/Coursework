@@ -144,7 +144,6 @@ private:
 	Sprite hbarsprite;
 	bool Paused = false;
 
-
 	Texture* tileSheet = new Texture();
 
 public:
@@ -153,9 +152,6 @@ public:
 	void Render() override;
 	void Load() override;
 };
-
-
-
 
 class CombatScene : public Scene
 {
@@ -181,5 +177,4 @@ public:
 		return elm1.second < elm2.second;
 	};
 	void LoadEnemies();
-	void Flee();
 };
