@@ -25,6 +25,8 @@ void Load()
 	htpScene.reset(new HTPScene());
 	overworldScene.reset(new OverworldScene());
 	combatScene.reset(new CombatScene());
+	loseScene.reset(new LoseScene());
+	winScene.reset(new WinScene());
 	titleScene->Load();
 	introScene->Load();
 	contScene->Load();
@@ -32,6 +34,8 @@ void Load()
 	htpScene->Load();
 	overworldScene->Load();
 	combatScene->Load();
+	loseScene->Load();
+	winScene->Load();
 
 	// Set current scene
 	activeScene = titleScene;

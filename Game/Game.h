@@ -16,6 +16,8 @@ extern shared_ptr<Scene> setScene;
 extern shared_ptr<Scene> htpScene;
 extern shared_ptr<Scene> overworldScene;
 extern shared_ptr<Scene> combatScene;
+extern shared_ptr<Scene> winScene;
+extern shared_ptr<Scene> loseScene;
 extern shared_ptr<Scene> activeScene;
 extern sf::Texture spritesheet;
 
@@ -138,6 +140,7 @@ private:
 	Text play;
 	Text tile;
 	Text quit;
+	Text heal;
 	Font font;
 	Sprite outline;
 	Texture hbar;
@@ -178,3 +181,37 @@ public:
 	};
 	void LoadEnemies();
 };
+
+class WinScene : public Scene
+{
+private:
+	Sprite sprite;
+	View view;
+
+	Texture Win;
+	Sprite sWin;
+
+public:
+	WinScene() = default;
+	void Update(Time dt) override;
+	void Render() override;
+	void Load() override;
+};
+
+
+class LoseScene : public Scene
+{
+private:
+	Sprite sprite;
+	View view;
+
+	Texture Lose;
+	Sprite sLose;
+
+public:
+	LoseScene() = default;
+	void Update(Time dt) override;
+	void Render() override;
+	void Load() override;
+};
+
