@@ -7,6 +7,8 @@ class BattleEntity : public Entity
 {
 public:
 	enum AnimStates { IDLE, ATTACK, DEATH };
+	enum Type { Player, Enemy };
+	Type type;
 	AnimStates currentState;
 	map<string, Animation> _anims;
 	Animation* currentAnim;
@@ -20,6 +22,7 @@ public:
 	void Setup(vector<int> st, string na);
 	void Levelup();
 	int GetStat(string s);
+	void SetStat(string s, int i);
 	string GetName();
 	void SetName(string s);
 	int PhAttack();
@@ -28,5 +31,6 @@ public:
 	string GetHealthText();
 	void SetupEnemy(int level);
 	vector<int> GetStatList();
+	bool TurnEnded = false;
 private:
 };

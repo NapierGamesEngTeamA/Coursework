@@ -4,6 +4,7 @@
 #include <SFML/Audio.hpp>
 #include <functional>
 #include "BattleEntity.h"
+#include "BattleManager.h"
 
 using namespace std;
 using namespace sf;
@@ -52,33 +53,25 @@ public:
 class CombatScene : public Scene
 {
 private:
-	enum BattleState { Start, Combat, End };
-	enum Turns { PlayerTurn, EnemyTurn };
-	BattleState currentBS;
-	Turns currentTurn;
 	Texture bgTex;
 	Sprite background;
 	Music battleMusic;
-	map<string, int> battleOrder;
 	int turn = 1;
 	Font font;
 	Text statText;
 	Text menuText;
 	RectangleShape canvas;
-	RectangleShape selector;
-	Vector2f index = Vector2f(0, 0);
-	map<string, shared_ptr<BattleEntity>> enemies;
+	BattleManager battleManager;
 public:
 	CombatScene() = default;
 	void Update(Time dt) override;
 	void Render() override;
 	void Load() override;
-	void Setup(int count, int type, int level);
-	int ManageMenu();
 	typedef function<bool(pair<string, int>, pair<string, int>)> Comparator;
 	Comparator compFunction = [](pair<string, int> elm1, pair<string, int> elm2)
 	{
 		return elm1.second < elm2.second;
 	};
 	void LoadEnemies();
+	void Flee();
 };

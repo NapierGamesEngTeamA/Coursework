@@ -88,6 +88,11 @@ int BattleEntity::GetStat(string s)
 	return i;
 }
 
+void BattleEntity::SetStat(string s, int i)
+{
+	stats[s] = i;
+}
+
 string BattleEntity::GetName()
 {
 	return name;
@@ -100,14 +105,14 @@ void BattleEntity::SetName(string s)
 
 int BattleEntity::PhAttack()
 {
-	int i = 1 + (stats["Str"] * 1.5f);
+	int i = 1 + (stats["Str"]);
 
 	return i;
 }
 
 int BattleEntity::MgAttack()
 {
-	int i = 5 + (stats["Int"] * 1.5f);
+	int i = 3 + (stats["Int"]);
 
 	return i;
 }

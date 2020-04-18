@@ -17,8 +17,6 @@
 #include "InputManager.h"
 #include "AudioManager.h"
 #include "BattleEntity.h"
-
-
 #pragma endregion
 
 using namespace std;
@@ -282,138 +280,12 @@ void CombatScene::Load()
 
 	font.loadFromFile("Res/Fonts/BreatheFire-65pg.ttf");
 
-	Texture* texture1[4];
-	texture1[0] = new Texture();
-	texture1[0]->loadFromFile("Res/Sprites/Andrel.png");
-	texture1[1] = new Texture();
-	texture1[1]->loadFromFile("Res/Sprites/Charity.png");
-	texture1[2] = new Texture();
-	texture1[2]->loadFromFile("Res/Sprites/Helmaer.png");
-	texture1[3] = new Texture();
-	texture1[3]->loadFromFile("Res/Sprites/Horo.png");
-
-	vector<int> stats[4];
-	stats[0].push_back(2); //Strength
-	stats[0].push_back(3); //Dexterity
-	stats[0].push_back(1); //Intellect
-	stats[0].push_back(2); //Constitution
-	stats[0].push_back(10); //Health
-	stats[0].push_back(0); //MP
-
-	stats[1].push_back(1);
-	stats[1].push_back(2);
-	stats[1].push_back(3);
-	stats[1].push_back(2);
-	stats[1].push_back(10);
-	stats[1].push_back(15);
-
-	stats[2].push_back(3);
-	stats[2].push_back(1);
-	stats[2].push_back(1);
-	stats[2].push_back(3);
-	stats[2].push_back(20);
-	stats[2].push_back(0);
-	
-	stats[3].push_back(1);
-	stats[3].push_back(2);
-	stats[3].push_back(4);
-	stats[3].push_back(2);
-	stats[3].push_back(10);
-	stats[3].push_back(20);
-
-#pragma region Andrel
-	auto andrel = make_shared<BattleEntity>();
-	andrel->Setup(stats[0], "Andrel");
-
-	Animation* idle = new Animation();
-	idle->SetSpriteSheet(*texture1[0]);
-	idle->AddFrame(IntRect(21, 205, 21, 48));
-	idle->AddFrame(IntRect(84, 205, 21, 48));
-	andrel->_anims.insert(pair<string, Animation>("Idle", *idle));
-
-	auto a = andrel->AddComponent<AnimatedSpriteComponent>();
-	a->SetAnimation(*idle);
-	a->Play();
-
-	andrel->SetPosition(Vector2f(600, 500));
-	_ents.list.push_back(andrel); 
-#pragma endregion
-
-#pragma region Charity
-	//Charity
-	auto charity = make_shared<BattleEntity>();
-	charity->Setup(stats[1], "Charity");
-
-	Animation* idle1 = new Animation();
-	idle1->SetSpriteSheet(*texture1[1]);
-	idle1->AddFrame(IntRect(21, 205, 21, 48));
-	idle1->AddFrame(IntRect(84, 205, 21, 48));
-	charity->_anims.insert(pair<string, Animation>("Idle", *idle1));
-
-	auto b = charity->AddComponent<AnimatedSpriteComponent>();
-	b->SetAnimation(*idle1);
-	b->Play();
-
-	charity->SetPosition(Vector2f(600, 600));
-	_ents.list.push_back(charity);
-#pragma endregion
-
-#pragma region Helmaer
-	//Helmaer
-	auto helmaer = make_shared<BattleEntity>();
-	helmaer->Setup(stats[2], "Helmaer");
-
-	Animation* idle2 = new Animation();
-	idle2->SetSpriteSheet(*texture1[2]);
-	idle2->AddFrame(IntRect(21, 205, 21, 48));
-	idle2->AddFrame(IntRect(84, 205, 21, 48));
-	helmaer->_anims.insert(pair<string, Animation>("Idle", *idle2));
-
-	auto c = helmaer->AddComponent<AnimatedSpriteComponent>();
-	c->SetAnimation(*idle2);
-	c->Play();
-
-	helmaer->SetPosition(Vector2f(600, 700));
-	_ents.list.push_back(helmaer);
-#pragma endregion
-
-#pragma region Horo
-	//Horo
-	auto horo = make_shared<BattleEntity>();
-	horo->Setup(stats[3], "Horo");
-
-	Animation* idle3 = new Animation();
-	idle3->SetSpriteSheet(*texture1[3]);
-	idle3->AddFrame(IntRect(21, 205, 21, 48));
-	idle3->AddFrame(IntRect(84, 205, 21, 48));
-	horo->_anims.insert(pair<string, Animation>("Idle", *idle3));
-
-	auto d = horo->AddComponent<AnimatedSpriteComponent>();
-	d->SetAnimation(*idle3);
-	d->Play();
-
-	horo->SetPosition(Vector2f(600, 800));
-	_ents.list.push_back(horo);
-#pragma endregion
-
-	currentBS = CombatScene::Start;
-	currentTurn = Turns::PlayerTurn;
-	battleOrder.insert(pair<string, int>("Andrel", andrel->GetStat("Dex")));
-	battleOrder.insert(pair<string, int>("Charity", charity->GetStat("Dex")));
-	battleOrder.insert(pair<string, int>("Helmaer", helmaer->GetStat("Dex")));
-	battleOrder.insert(pair<string, int>("Horo", horo->GetStat("Dex")));
-
 	//Set starting party stats
 
 	//Add text menu
 	canvas.setSize(Vector2f(500, 1080));
 	canvas.setPosition(Vector2f(0, 0));
 	canvas.setFillColor(Color(0, 0, 255, 255/2));
-
-	selector.setSize(Vector2f(25, 25));
-	selector.setRotation(45);
-	selector.setPosition(Vector2f(150, 100));
-	selector.setFillColor(Color::White);
 
 	statText.setFont(font);
 	statText.setColor(Color::White);
@@ -425,7 +297,7 @@ void CombatScene::Load()
 	menuText.setColor(Color::White);
 	menuText.setCharacterSize(36);
 	menuText.setPosition(Vector2f(50, 100));
-	menuText.setString("Attack       Spell\nItem           Flee");
+	menuText.setString("A:Attack       S:Magic\nD:Flee");
 
 	//Add health 
 
@@ -433,96 +305,26 @@ void CombatScene::Load()
 	{
 		cout << "Can't load title music" << endl;
 	}
-	battleMusic.setVolume(50);
+	battleMusic.setVolume(1);
 	battleMusic.setLoop(true);
 	battleMusic.play();
 
-	LoadEnemies();
+	battleManager.Load();
+
+	
+
 }
 
 void CombatScene::Update(Time dt)
 {
-	if (turn == 1)
-	{
-		set<pair<string, int>, Comparator> order(battleOrder.begin(), battleOrder.end(), compFunction);
-	}
+	battleManager.Update(dt);
 
-	switch (currentBS)
-	{
-	case CombatScene::Start:
-		Setup(4, 1, 1);
-		currentBS = Combat;
-		break;
-	case CombatScene::Combat:
-		switch (currentTurn)
-		{
-		case CombatScene::PlayerTurn:
-			if (InputManager::GetInstance()->Down(true))
-			{
-				if (selector.getPosition().y == 150)
-				{
-
-				}
-				else
-				{
-					selector.setPosition(Vector2f(selector.getPosition().x, selector.getPosition().y + 50));
-					index.y += 1;
-					cout << index << endl;
-				}
-			}
-			else if (InputManager::GetInstance()->Up(true))
-			{
-				if (selector.getPosition().y == 100)
-				{
-					
-				}
-				else
-				{
-					selector.setPosition(Vector2f(selector.getPosition().x, selector.getPosition().y - 50));
-					index.y -= 1;
-					cout << index << endl;
-				}
-			}
-			else if (InputManager::GetInstance()->Right(true))
-			{
-				if (selector.getPosition().x == 300)
-				{
-
-				}
-				else
-				{
-					selector.setPosition(Vector2f(selector.getPosition().x + 150, selector.getPosition().y));
-					index.x += 1;
-					cout << index << endl;
-				}
-			}
-			else if (InputManager::GetInstance()->Left(true))
-			{
-				if (selector.getPosition().x == 150)
-				{
-
-				}
-				else
-				{
-					selector.setPosition(Vector2f(selector.getPosition().x - 150, selector.getPosition().y));
-					index.x -= 1;
-					cout << index << endl;
-				}
-			}
-			break;
-		case CombatScene::EnemyTurn:
-			break;
-		}
-		break;
-	case CombatScene::End:
-		break;
-	}
 	Scene::Update(dt);
 }
 
 void CombatScene::Render()
 {
-	vector<shared_ptr<BattleEntity>> e = _ents.GetEntitys<BattleEntity>();
+	vector<shared_ptr<BattleEntity>> e = battleManager.GetEnts();
 
 	string s = e[0]->GetHealthText() + "\n" + 
 		e[1]->GetHealthText() + "\n" +
@@ -536,64 +338,15 @@ void CombatScene::Render()
 	Renderer::Queue(&canvas);
 	Renderer::Queue(&statText);
 	Renderer::Queue(&menuText);
-	Renderer::Queue(&selector);
+	battleManager.Render();
 	Scene::Render();
 
 
 }
 
-void CombatScene::Setup(int count, int type, int level)
-{
-	string t;
-	if (type == 1)
-	{
-		t = "Orc";
-	}
-	else if (type == 2)
-	{
-		t = "Skeleton";
-	}
-
-	auto a = make_shared<BattleEntity>();
-	a = enemies[t];
-	a->SetupEnemy(level);
-	a->SetPosition(Vector2f(900, 500));
-	_ents.list.push_back(a);
-
-	auto b = make_shared<BattleEntity>();
-	b = enemies[t];
-	b->SetupEnemy(level);
-	b->SetPosition(Vector2f(900, 600));
-	_ents.list.push_back(b);
-
-	auto c = make_shared<BattleEntity>();
-	c = enemies[t];
-	c->SetupEnemy(level);
-	c->SetPosition(Vector2f(900, 700));
-	_ents.list.push_back(c);
-
-	auto d = make_shared<BattleEntity>();
-	d = enemies[t];
-	d->SetupEnemy(level);
-	d->SetPosition(Vector2f(900, 800));
-	_ents.list.push_back(d);
-
-}
-
-int CombatScene::ManageMenu()
-{
-	return 0;
-}
-
 void CombatScene::LoadEnemies()
 {
 	vector<int> stats[4];
-	stats[0].push_back(3); //Strength
-	stats[0].push_back(1); //Dexterity
-	stats[0].push_back(1); //Intellect
-	stats[0].push_back(3); //Constitution
-	stats[0].push_back(12); //Health
-	stats[0].push_back(0); //MP
 
 	stats[1].push_back(1); //Strength
 	stats[1].push_back(2); //Dexterity
@@ -602,36 +355,25 @@ void CombatScene::LoadEnemies()
 	stats[1].push_back(10); //Health
 	stats[1].push_back(10); //MP
 
-	Texture* orcTexture = new Texture();
-	orcTexture->loadFromFile("Res/Sprites/Orc.png");
 
-	auto orc = make_shared<BattleEntity>();
-	orc->Setup(stats[0], "Orc");
-	Animation* idle = new Animation();
-	idle->SetSpriteSheet(*orcTexture);
-	idle->AddFrame(IntRect(22, 340, 24, 48));
-	idle->AddFrame(IntRect(83, 340, 24, 48));
-	orc->_anims.insert(pair<string, Animation>("Idle", *idle));
-	auto c = orc->AddComponent<AnimatedSpriteComponent>();
-	c->SetAnimation(*idle);
-	c->Play();
-	orc->SetPosition(Vector2f(900, 500));
+	//Texture* skeTexture = new Texture();
+	//skeTexture->loadFromFile("Res/Sprite/Skeleton.png");
 
-	enemies.insert(pair<string, shared_ptr<BattleEntity>>("Orc", orc));
+	//auto skeleton = make_shared<BattleEntity>();
+	//skeleton->Setup(stats[1], "Skeleton");
+	//Animation* idle2 = new Animation();
+	//idle2->SetSpriteSheet(*skeTexture);
+	//idle2->AddFrame(IntRect(22, 340, 21, 48));
+	//idle2->AddFrame(IntRect(83, 340, 21, 48));
+	//skeleton->_anims.insert(pair<string, Animation>("Idle", *idle2));
+	//auto a = skeleton->AddComponent<AnimatedSpriteComponent>();
+	//a->SetAnimation(*idle);
+	//a->Play();
+	//skeleton->SetPosition(Vector2f(900, 500));
+	//enemies.insert(pair<string, shared_ptr<BattleEntity>>("Skeleton", skeleton));
+}
 
-	Texture* skeTexture = new Texture();
-	skeTexture->loadFromFile("Res/Sprite/Skeleton.png");
-
-	auto skeleton = make_shared<BattleEntity>();
-	skeleton->Setup(stats[1], "Skeleton");
-	Animation* idle2 = new Animation();
-	idle2->SetSpriteSheet(*skeTexture);
-	idle2->AddFrame(IntRect(22, 340, 21, 48));
-	idle2->AddFrame(IntRect(83, 340, 21, 48));
-	skeleton->_anims.insert(pair<string, Animation>("Idle", *idle2));
-	auto a = skeleton->AddComponent<AnimatedSpriteComponent>();
-	a->SetAnimation(*idle);
-	a->Play();
-	skeleton->SetPosition(Vector2f(900, 500));
-	enemies.insert(pair<string, shared_ptr<BattleEntity>>("Skeleton", skeleton));
+void CombatScene::Flee()
+{
+	activeScene = overworldScene;
 }
