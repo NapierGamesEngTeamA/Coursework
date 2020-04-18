@@ -600,8 +600,8 @@ void OverworldScene::Update(Time dt)
 		//	printf("Scene Changed!");
 		//}
 
-		if (InputManager::Up(false) || InputManager::Down(false) || InputManager::Right(false) || InputManager::Left(false))
-		{
+	/*	if (InputManager::Up(false) || InputManager::Down(false) || InputManager::Right(false) || InputManager::Left(false))
+		{*/
 
 			//hbarsprite.setPosition(s2[0]->GetView().getViewport().getPosition().x, s2[0]->GetView().getViewport().getPosition().y);
 
@@ -664,11 +664,10 @@ void OverworldScene::Update(Time dt)
 			}
 			s[0]->UpdateColMap(c[0], s[0]->tiles1, dt);
 			//Debug: Back to menu
+
 			if (InputManager::Start(true))
 			{
 				Paused = true;
-
-
 
 			}
 
@@ -690,9 +689,10 @@ void OverworldScene::Update(Time dt)
 
 
 			Scene::Update(dt);
-		}
+		/*}*/
 	}
-	else if (Paused == true)
+
+	else
 	{
 
 		ptexture.loadFromFile("Res/Sprites/PauseMenu.png");
@@ -760,10 +760,10 @@ void OverworldScene::Update(Time dt)
 		}
 
 
-		if (InputManager::Start(true))
-		{
-			Paused = false;
-		}
+		//if (InputManager::Start(true))
+		//{
+		//	Paused = false;
+		//}
 	}
 }
 
