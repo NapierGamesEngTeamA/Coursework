@@ -128,6 +128,7 @@ public:
 class OverworldScene : public Scene
 {
 private:
+	BattleManager battleManager;
 	int index;
 	Texture texture;
 	Texture ptexture;
@@ -141,6 +142,7 @@ private:
 	Text tile;
 	Text quit;
 	Text heal;
+	Text h1;
 	Font font;
 	Sprite outline;
 	Texture hbar;
