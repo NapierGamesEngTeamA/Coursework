@@ -178,6 +178,7 @@ private:
 	Font font;
 	Text statText;
 	Text menuText[3];
+	Text enemyText[4];
 	RectangleShape canvas;
 	BattleManager battleManager;
 	View view;

@@ -209,20 +209,20 @@ void BattleManager::Load()
 	skelStats.push_back(10); //Health
 	skelStats.push_back(10); //MP
 
-	Texture* orcTexture = new Texture();
-	orcTexture->loadFromFile("Res/Sprites/Skeleton.png");
+	Texture* skelTexture = new Texture();
+	skelTexture->loadFromFile("Res/Sprites/Skeleton.png");
 
 	//Skeleton 1
 	auto skel1 = make_shared<BattleEntity>();
 	skel1->Setup(skelStats, "Skeleton");
 	skel1->type = BattleEntity::Type::Enemy;
-	Animation* idle1 = new Animation();
-	idle1->SetSpriteSheet(*orcTexture);
-	idle1->AddFrame(IntRect(22, 340, 24, 48));
-	idle1->AddFrame(IntRect(83, 340, 24, 48));
-	skel1->_anims.insert(pair<string, Animation>("Idle", *idle1));
+	Animation* idle5 = new Animation();
+	idle5->SetSpriteSheet(*skelTexture);
+	idle5->AddFrame(IntRect(22, 340, 24, 48));
+	idle5->AddFrame(IntRect(83, 340, 24, 48));
+	skel1->_anims.insert(pair<string, Animation>("Idle", *idle5));
 	auto c5 = skel1->AddComponent<AnimatedSpriteComponent>();
-	c5->SetAnimation(*idle1);
+	c5->SetAnimation(*idle5);
 	c5->Play();
 	skel1->SetPosition(Vector2f(900, 500));
 
@@ -232,11 +232,11 @@ void BattleManager::Load()
 	auto skel2 = make_shared<BattleEntity>();
 	skel2->Setup(skelStats, "Skeleton");
 	skel2->type = BattleEntity::Type::Enemy;
-	skel2->_anims.insert(pair<string, Animation>("Idle", *idle1));
+	skel2->_anims.insert(pair<string, Animation>("Idle", *idle5));
 	auto c6 = skel2->AddComponent<AnimatedSpriteComponent>();
-	c6->SetAnimation(*idle1);
+	c6->SetAnimation(*idle5);
 	c6->Play();
-	skel2->SetPosition(Vector2f(900, 500));
+	skel2->SetPosition(Vector2f(900, 600));
 
 	skeletons.push_back(skel2);
 
@@ -244,11 +244,11 @@ void BattleManager::Load()
 	auto skel3 = make_shared<BattleEntity>();
 	skel3->Setup(skelStats, "Skeleton");
 	skel3->type = BattleEntity::Type::Enemy;
-	skel3->_anims.insert(pair<string, Animation>("Idle", *idle1));
+	skel3->_anims.insert(pair<string, Animation>("Idle", *idle5));
 	auto c7 = skel3->AddComponent<AnimatedSpriteComponent>();
-	c7->SetAnimation(*idle1);
+	c7->SetAnimation(*idle5);
 	c7->Play();
-	skel3->SetPosition(Vector2f(900, 500));
+	skel3->SetPosition(Vector2f(900, 700));
 
 	skeletons.push_back(skel3);
 
@@ -256,11 +256,11 @@ void BattleManager::Load()
 	auto skel4 = make_shared<BattleEntity>();
 	skel4->Setup(skelStats, "Skeleton");
 	skel4->type = BattleEntity::Type::Enemy;
-	skel4->_anims.insert(pair<string, Animation>("Idle", *idle1));
-	auto c8 = skel3->AddComponent<AnimatedSpriteComponent>();
-	c8->SetAnimation(*idle1);
+	skel4->_anims.insert(pair<string, Animation>("Idle", *idle5));
+	auto c8 = skel4->AddComponent<AnimatedSpriteComponent>();
+	c8->SetAnimation(*idle5);
 	c8->Play();
-	skel4->SetPosition(Vector2f(900, 500));
+	skel4->SetPosition(Vector2f(900, 800));
 
 	skeletons.push_back(skel4);
 #pragma endregion

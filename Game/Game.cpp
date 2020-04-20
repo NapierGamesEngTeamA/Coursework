@@ -682,12 +682,12 @@ void OverworldScene::Update(Time dt)
 				heal.setString("Press Enter\nto accept a 1000 credit fee to\nheal your party");
 				heal.setPosition(s2[0]->GetView().getCenter().x - 400, s2[0]->GetView().getCenter().y - 50);
 
-			if (InputManager::GetInstance()->Interact(true))
-			{
+				if (InputManager::GetInstance()->Interact(true))
+				{
 
-				heal.setString("Your party is on full health");
+					heal.setString("Your party is on full health");
 				
-			}
+				}
 
 
 			}
@@ -914,6 +914,15 @@ void CombatScene::Load()
 	menuText[2].setPosition(Vector2f(200, 100));
 	menuText[2].setString(">:Magic");
 
+	for (int i = 0; i < 4; i++)
+	{
+		enemyText[i].setFont(font);
+		enemyText[i].setColor(Color::White);
+		enemyText[i].setCharacterSize(36);
+		enemyText[i].setPosition(Vector2f(950, 500 + (100 * i)));
+		enemyText[i].setString(to_string(i + 1));
+	}
+
 	//Add health 
 
 	if (!battleMusic.openFromFile("Res/Music/BossFight.ogg"))
@@ -959,39 +968,14 @@ void CombatScene::Render()
 	Renderer::Queue(&menuText[0]);
 	Renderer::Queue(&menuText[1]);
 	Renderer::Queue(&menuText[2]);
+	for (int i = 0; i < 4; i++)
+	{
+		Renderer::Queue(&enemyText[i]);
+	}
 	battleManager.Render();
 	Scene::Render();
 
 
-}
-
-void CombatScene::LoadEnemies()
-{
-	vector<int> stats[4];
-
-	stats[1].push_back(1); //Strength
-	stats[1].push_back(2); //Dexterity
-	stats[1].push_back(4); //Intellect
-	stats[1].push_back(3); //Constitution
-	stats[1].push_back(10); //Health
-	stats[1].push_back(10); //MP
-
-
-	//Texture* skeTexture = new Texture();
-	//skeTexture->loadFromFile("Res/Sprite/Skeleton.png");
-
-	//auto skeleton = make_shared<BattleEntity>();
-	//skeleton->Setup(stats[1], "Skeleton");
-	//Animation* idle2 = new Animation();
-	//idle2->SetSpriteSheet(*skeTexture);
-	//idle2->AddFrame(IntRect(22, 340, 21, 48));
-	//idle2->AddFrame(IntRect(83, 340, 21, 48));
-	//skeleton->_anims.insert(pair<string, Animation>("Idle", *idle2));
-	//auto a = skeleton->AddComponent<AnimatedSpriteComponent>();
-	//a->SetAnimation(*idle);
-	//a->Play();
-	//skeleton->SetPosition(Vector2f(900, 500));
-	//enemies.insert(pair<string, shared_ptr<BattleEntity>>("Skeleton", skeleton));
 }
 
 void WinScene::Load()
