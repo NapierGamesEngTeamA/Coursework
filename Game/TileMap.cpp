@@ -183,7 +183,7 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list, 
 	{
 		for (size_t x = 0; x < 200; x++)
 		{
-			if (list[y][x] == 'w')
+			if (list[y][x] == 'w' || list[y][x] == 'f')
 			{
 				int bottom, left, right, up;
 
