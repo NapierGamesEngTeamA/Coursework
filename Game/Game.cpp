@@ -697,13 +697,33 @@ void OverworldScene::Update(Time dt)
 			for (int i = 0; i < 5; i++)
 			{
 				int bottom, top, left, right;
+				int bottom2, top2, left2, right2;
+			
+
 				bottom = sprite[i].getPosition().y + 51;
 				left = sprite[i].getPosition().x;
 				right = sprite[i].getPosition().x + 30;
 				top = sprite[i].getPosition().y;
 
-				//Enemy collision
+				bottom2 = e2sprt[i].getPosition().y + 51;
+				left2 = e2sprt[i].getPosition().x;
+				right2 = e2sprt[i].getPosition().x + 30;
+				top2 = e2sprt[i].getPosition().y;
+
+				//Orc collision
 				if (c[0]->right < left || c[0]->left > right || c[0]->top > bottom || c[0]->bottom < top)
+				{
+
+				}
+				else
+				{
+					sprite[i].setPosition(Vector2f(-1000, -1000));
+					activeScene = combatScene;
+					cout << "Battle Comencing" << '\n';
+				}
+
+				//Skel Collision
+				if (c[0]->right < left2 || c[0]->left > right2 || c[0]->top > bottom2 || c[0]->bottom < top2)
 				{
 
 				}
@@ -959,6 +979,12 @@ void CombatScene::Update(Time dt)
 		menuText[0].setOutlineThickness(0);
 		menuText[1].setOutlineThickness(0);
 		menuText[2].setOutlineThickness(0);
+		for (int i = 0; i < 4; i++)
+		{
+			enemyText[i].setOutlineColor(color.Red);
+			enemyText[i].setOutlineThickness(4);
+		}
+
 
 	}
 	else if (Keyboard::isKeyPressed(Keyboard::Num1) || Keyboard::isKeyPressed(Keyboard::Num2) || Keyboard::isKeyPressed(Keyboard::Num3) || Keyboard::isKeyPressed(Keyboard::Num4))
@@ -966,6 +992,12 @@ void CombatScene::Update(Time dt)
 		menuText[0].setOutlineThickness(4);
 		menuText[1].setOutlineThickness(4);
 		menuText[2].setOutlineThickness(4);
+
+		for (int i = 0; i < 4; i++)
+		{
+			enemyText[i].setOutlineColor(color.Red);
+			enemyText[i].setOutlineThickness(0);
+		}
 	}
 
 
