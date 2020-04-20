@@ -876,6 +876,8 @@ void OverworldScene::Render()
 //////////////////// Combat Scene /////////////////////////////
 void CombatScene::Load()
 {
+
+
 	bgTex.loadFromFile("Res/Sprites/CombatBackground.png");
 	//Vector2u size = texture.getSize();
 	background.setTexture(bgTex);
@@ -901,18 +903,27 @@ void CombatScene::Load()
 	menuText[0].setCharacterSize(36);
 	menuText[0].setPosition(Vector2f(50, 100));
 	menuText[0].setString("<:Attack");
+	menuText[0].setOutlineColor(color.Red);
+	menuText[0].setOutlineThickness(4);
 
 	menuText[1].setFont(font);
 	menuText[1].setColor(Color::White);
 	menuText[1].setCharacterSize(36);
 	menuText[1].setPosition(Vector2f(125, 150));
 	menuText[1].setString("\\/:Flee");
+	menuText[1].setOutlineColor(color.Red);
+	menuText[1].setOutlineThickness(4);
 
 	menuText[2].setFont(font);
 	menuText[2].setColor(Color::White);
 	menuText[2].setCharacterSize(36);
 	menuText[2].setPosition(Vector2f(200, 100));
 	menuText[2].setString(">:Magic");
+	menuText[2].setOutlineColor(color.Red);
+	menuText[2].setOutlineThickness(4);
+
+
+
 
 	//Add health 
 
@@ -933,6 +944,26 @@ void CombatScene::Load()
 void CombatScene::Update(Time dt)
 {
 	battleManager.Update(dt);
+
+	if (Keyboard::isKeyPressed(Keyboard::Left) || Keyboard::isKeyPressed(Keyboard::Right) || Keyboard::isKeyPressed(Keyboard::Down))
+	{
+		menuText[0].setOutlineThickness(0);
+		menuText[1].setOutlineThickness(0);
+		menuText[2].setOutlineThickness(0);
+
+	}
+	else if (Keyboard::isKeyPressed(Keyboard::Num1) || Keyboard::isKeyPressed(Keyboard::Num2) || Keyboard::isKeyPressed(Keyboard::Num3) || Keyboard::isKeyPressed(Keyboard::Num4))
+	{
+		menuText[0].setOutlineThickness(4);
+		menuText[1].setOutlineThickness(4);
+		menuText[2].setOutlineThickness(4);
+	}
+
+
+	if (battleManager.Lose() == true)
+	{
+		activeScene == loseScene;
+	}
 
 	Scene::Update(dt);
 }
