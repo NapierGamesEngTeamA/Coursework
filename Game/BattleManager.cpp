@@ -569,12 +569,12 @@ void BattleManager::Win()
 	activeScene = overworldScene;
 }
 
-bool BattleManager::Lose()
+void BattleManager::Lose()
 {
 	Reset();
 	// Go to game over screen
+	
 
-	return true;
 }
 
 vector<shared_ptr<BattleEntity>> BattleManager::GetBattleEnts()

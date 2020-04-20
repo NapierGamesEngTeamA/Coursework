@@ -969,10 +969,10 @@ void CombatScene::Update(Time dt)
 	}
 
 
-	if (battleManager.Lose() == true)
-	{
-		activeScene == loseScene;
-	}
+	//if (battleManager.Lose() == true)
+	//{
+	//	activeScene == loseScene;
+	//}
 
 	Scene::Update(dt);
 }
