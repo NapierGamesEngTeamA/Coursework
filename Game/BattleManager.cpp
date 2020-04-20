@@ -449,7 +449,7 @@ void BattleManager::Render()
 
 vector<shared_ptr<BattleEntity>> BattleManager::GetEnts()
 {
-	return battleEntities;
+	return players;
 }
 
 void BattleManager::Win()
