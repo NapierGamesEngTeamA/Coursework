@@ -191,7 +191,6 @@ public:
 	{
 		return elm1.second < elm2.second;
 	};
-	void LoadEnemies();
 };
 
 class WinScene : public Scene

@@ -201,7 +201,68 @@ void BattleManager::Load()
 #pragma endregion
 
 #pragma region Skeleton Party
+	vector<int> skelStats;
+	skelStats.push_back(1); //Strength
+	skelStats.push_back(2); //Dexterity
+	skelStats.push_back(4); //Intellect
+	skelStats.push_back(3); //Constitution
+	skelStats.push_back(10); //Health
+	skelStats.push_back(10); //MP
 
+	Texture* orcTexture = new Texture();
+	orcTexture->loadFromFile("Res/Sprites/Skeleton.png");
+
+	//Skeleton 1
+	auto skel1 = make_shared<BattleEntity>();
+	skel1->Setup(skelStats, "Skeleton");
+	skel1->type = BattleEntity::Type::Enemy;
+	Animation* idle1 = new Animation();
+	idle1->SetSpriteSheet(*orcTexture);
+	idle1->AddFrame(IntRect(22, 340, 24, 48));
+	idle1->AddFrame(IntRect(83, 340, 24, 48));
+	skel1->_anims.insert(pair<string, Animation>("Idle", *idle1));
+	auto c5 = skel1->AddComponent<AnimatedSpriteComponent>();
+	c5->SetAnimation(*idle1);
+	c5->Play();
+	skel1->SetPosition(Vector2f(900, 500));
+
+	skeletons.push_back(skel1);
+
+	//Skeleton 2
+	auto skel2 = make_shared<BattleEntity>();
+	skel2->Setup(skelStats, "Skeleton");
+	skel2->type = BattleEntity::Type::Enemy;
+	skel2->_anims.insert(pair<string, Animation>("Idle", *idle1));
+	auto c6 = skel2->AddComponent<AnimatedSpriteComponent>();
+	c6->SetAnimation(*idle1);
+	c6->Play();
+	skel2->SetPosition(Vector2f(900, 500));
+
+	skeletons.push_back(skel2);
+
+	//Skeleton 3
+	auto skel3 = make_shared<BattleEntity>();
+	skel3->Setup(skelStats, "Skeleton");
+	skel3->type = BattleEntity::Type::Enemy;
+	skel3->_anims.insert(pair<string, Animation>("Idle", *idle1));
+	auto c7 = skel3->AddComponent<AnimatedSpriteComponent>();
+	c7->SetAnimation(*idle1);
+	c7->Play();
+	skel3->SetPosition(Vector2f(900, 500));
+
+	skeletons.push_back(skel3);
+
+	//Skeleton 4
+	auto skel4 = make_shared<BattleEntity>();
+	skel4->Setup(skelStats, "Skeleton");
+	skel4->type = BattleEntity::Type::Enemy;
+	skel4->_anims.insert(pair<string, Animation>("Idle", *idle1));
+	auto c8 = skel3->AddComponent<AnimatedSpriteComponent>();
+	c8->SetAnimation(*idle1);
+	c8->Play();
+	skel4->SetPosition(Vector2f(900, 500));
+
+	skeletons.push_back(skel4);
 #pragma endregion
 
 	currentState = BattleStates::Start;
