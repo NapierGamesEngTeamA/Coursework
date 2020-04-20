@@ -325,9 +325,32 @@ void ContScene::Load()
 	sControlsmenu.setTexture(Controlsmenu);
 	sControlsmenu.setOrigin(size.x / 200, size.y / 10);
 
-	HTPmenu.loadFromFile("Res/Sprites/htp.png");
-	sHTPmenu.setTexture(HTPmenu);
-	sHTPmenu.setOrigin(size.x / 200, size.y / 10);
+	play.setColor(color.White);
+	font.loadFromFile("Res/Fonts/AncientModernTales-a7Po.ttf");
+	play.setFont(font);
+	play.setCharacterSize(60);
+	play.setString("Press 'W'\nTo Exit");
+	play.setColor(color.White);
+	play.setOutlineColor(color.Black);
+	play.setOutlineThickness(4);
+
+	const auto textRect = play.getGlobalBounds();
+	play.setOrigin(textRect.width * .5f, textRect.height * .5f);
+	play.setPosition(size.x / 10.2, size.y / 6.2);
+
+	play2.setColor(color.White);
+	font.loadFromFile("Res/Fonts/AncientModernTales-a7Po.ttf");
+	play2.setFont(font);
+	play2.setCharacterSize(60);
+	play2.setString("Press 'D'\nTo View\nHow To Play");
+	play2.setColor(color.White);
+	play2.setOutlineColor(color.Black);
+	play2.setOutlineThickness(4);
+
+	const auto textRect2 = play2.getGlobalBounds();
+	play2.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
+	play2.setPosition(size.x / 10.2, size.y / 2);
+
 }
 
 void ContScene::Update(Time dt)
@@ -358,6 +381,8 @@ void ContScene::Render()
 	
 	sf::Texture::bind(&Controlsmenu);
 	Renderer::Queue(&sControlsmenu);
+	Renderer::Queue(&play);
+	Renderer::Queue(&play2);
 	
 	sf::Texture::bind(NULL);
 }
@@ -373,6 +398,8 @@ void SetScene::Load()
 	Vector2u size = Settingsmenu.getSize();
 	sSettingsmenu.setTexture(Settingsmenu);
 	sSettingsmenu.setOrigin(size.x / 200, size.y / 10);
+
+
 }
 
 void SetScene::Update(Time dt)
@@ -397,12 +424,41 @@ void SetScene::Render()
 
 void HTPScene::Load()
 {
+	Color color;
+
 	view.reset(FloatRect(0, 0, 1920, 1080));
 
 	htpsmenu.loadFromFile("Res/Sprites/htp.png");
 	Vector2u size = htpsmenu.getSize();
 	shtpsmenu.setTexture(htpsmenu);
 	shtpsmenu.setOrigin(size.x / 200, size.y / 10);
+
+	play.setColor(color.White);
+	font.loadFromFile("Res/Fonts/AncientModernTales-a7Po.ttf");
+	play.setFont(font);
+	play.setCharacterSize(60);
+	play.setString("Press 'S'\nTo View\nCombat Controls");
+	play.setColor(color.White);
+	play.setOutlineColor(color.Black);
+	play.setOutlineThickness(4);
+
+	const auto textRect = play.getGlobalBounds();
+	play.setOrigin(textRect.width * .5f, textRect.height * .5f);
+	play.setPosition(size.x / 10.2, size.y / 6.2);
+
+
+	play2.setColor(color.White);
+	font.loadFromFile("Res/Fonts/AncientModernTales-a7Po.ttf");
+	play2.setFont(font);
+	play2.setCharacterSize(60);
+	play2.setString("Press 'A'\nTo View\nControls");
+	play2.setColor(color.White);
+	play2.setOutlineColor(color.Black);
+	play2.setOutlineThickness(4);
+
+	const auto textRect2 = play2.getGlobalBounds();
+	play2.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
+	play2.setPosition(size.x / 10.2, size.y / 2);
 }
 
 void HTPScene::Update(Time dt)
@@ -410,14 +466,21 @@ void HTPScene::Update(Time dt)
 
 	if (InputManager::GetInstance()->Up(true))
 	{
-
-		activeScene = titleScene;
+		play.setString("Press 'S'\nTo View\nCombat Controls");
+		htpsmenu.loadFromFile("Res/Sprites/htp.png");
 		//printf("Scene Changed!");		
 	}
 	else if (InputManager::GetInstance()->Left(true))
 	{
 
 		activeScene = contScene;
+		//printf("Scene Changed!");		
+	}
+	else if (InputManager::GetInstance()->Down(true))
+	{
+
+		play.setString("Press 'W'\nTo View\nHow To Play\nGeneral");
+		htpsmenu.loadFromFile("Res/Sprites/htpc.png");
 		//printf("Scene Changed!");		
 	}
 }
@@ -427,6 +490,8 @@ void HTPScene::Render()
 	Scene::Render();
 	sf::Texture::bind(&htpsmenu);
 	Renderer::Queue(&shtpsmenu);
+	Renderer::Queue(&play);
+	Renderer::Queue(&play2);
 	sf::Texture::bind(NULL);
 }
 
@@ -812,7 +877,7 @@ void OverworldScene::Render()
 //////////////////// Combat Scene /////////////////////////////
 void CombatScene::Load()
 {
-	bgTex.loadFromFile("Res/Sprites/CombatBackground.jpg");
+	bgTex.loadFromFile("Res/Sprites/CombatBackground.png");
 	//Vector2u size = texture.getSize();
 	background.setTexture(bgTex);
 	background.setOrigin(0, 0);	

@@ -82,6 +82,11 @@ private:
 	Texture HTPmenu;
 	Sprite sHTPmenu;
 
+	Color color;
+	Text play;
+	Text play2;
+	Font font;
+
 public:
 	ContScene() = default;
 	void Update(Time dt) override;
@@ -113,6 +118,11 @@ private:
 	Sprite sprite;
 	View view;
 
+
+	Color color;
+	Text play;
+	Text play2;
+	Font font;
 	Texture htpsmenu;
 	Sprite shtpsmenu;
 
