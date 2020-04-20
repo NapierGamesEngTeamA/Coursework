@@ -129,12 +129,12 @@ void TitleScene::Load()
 	Settings.setPosition(size.x / 2, size.y / 1.8);
 
 	//Music titleMusic;
-	if (!titleMusic.openFromFile("Res/Music/MenuMusic.wav"))
+	if (!titleMusic.openFromFile("Res/Music/Overworld.ogg"))
 	{
 		cout << "Can't load title music" << endl;
 	}
 
-	titleMusic.setVolume(1);
+	titleMusic.setVolume(50);
 	titleMusic.setLoop(true);
 	titleMusic.play();
 }
@@ -555,7 +555,7 @@ void OverworldScene::Load()
 		sprite[i].setTextureRect(IntRect(16, 145, 37, 51));
 		const auto textRect = sprite[i].getGlobalBounds();
 		sprite[i].setOrigin(textRect.width * .5f, textRect.height * .5f);
-		sprite[i].setPosition((rand() % 2000 + 4000) , (rand() % 1000 + 1500) );
+		sprite[i].setPosition((rand() % 2000 + 4000) , (rand() % 1000 + 1500) - 80);
 
 		if (e2sprt[i].getPosition() == e2sprt[i + 1].getPosition())
 		{
@@ -903,11 +903,11 @@ void CombatScene::Load()
 
 	//Add health 
 
-	if (!battleMusic.openFromFile("Res/Music/BattleMusic.wav"))
+	if (!battleMusic.openFromFile("Res/Music/BossFight.ogg"))
 	{
-		cout << "Can't load title music" << endl;
+		cout << "Can't load battle music" << endl;
 	}
-	battleMusic.setVolume(1);
+	battleMusic.setVolume(100);
 	battleMusic.setLoop(true);
 	//battleMusic.play();
 
