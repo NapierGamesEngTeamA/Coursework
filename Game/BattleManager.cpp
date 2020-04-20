@@ -325,7 +325,7 @@ void BattleManager::Update(Time dt)
 
 void BattleManager::StartBattle(int type, int level)
 {
-	switch (type)
+	switch (EnemyType)
 	{
 	case 0:
 		enemies = orcs;

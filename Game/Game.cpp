@@ -37,6 +37,7 @@ shared_ptr<Scene> combatScene;
 shared_ptr<Scene> activeScene;
 shared_ptr<Scene> winScene;
 shared_ptr<Scene> loseScene;
+int EnemyType;
 
 void Scene::Load()
 {
@@ -718,6 +719,7 @@ void OverworldScene::Update(Time dt)
 				else
 				{
 					sprite[i].setPosition(Vector2f(-1000, -1000));
+					EnemyType = 0;
 					activeScene = combatScene;
 					cout << "Battle Comencing" << '\n';
 				}
@@ -1000,11 +1002,6 @@ void CombatScene::Update(Time dt)
 		}
 	}
 
-
-	//if (battleManager.Lose() == true)
-	//{
-	//	activeScene == loseScene;
-	//}
 
 	Scene::Update(dt);
 }
