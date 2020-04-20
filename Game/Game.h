@@ -20,6 +20,7 @@ extern shared_ptr<Scene> winScene;
 extern shared_ptr<Scene> loseScene;
 extern shared_ptr<Scene> activeScene;
 extern sf::Texture spritesheet;
+extern int EnemyType;
 
 class TitleScene : public Scene
 {
