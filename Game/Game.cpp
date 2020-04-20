@@ -711,6 +711,7 @@ void OverworldScene::Update(Time dt)
 				}
 				else
 				{
+					sprite[i].setPosition(Vector2f(-1000, -1000));
 					activeScene = combatScene;
 					cout << "Battle Comencing" << '\n';
 				}
@@ -897,11 +898,23 @@ void CombatScene::Load()
 	statText.setPosition(Vector2f(50, 500));
 	statText.setString(" ");
 	
-	menuText.setFont(font);
-	menuText.setColor(Color::White);
-	menuText.setCharacterSize(36);
-	menuText.setPosition(Vector2f(50, 100));
-	menuText.setString("A:Attack       S:Magic\nD:Flee");
+	menuText[0].setFont(font);
+	menuText[0].setColor(Color::White);
+	menuText[0].setCharacterSize(36);
+	menuText[0].setPosition(Vector2f(50, 100));
+	menuText[0].setString("<:Attack");
+
+	menuText[1].setFont(font);
+	menuText[1].setColor(Color::White);
+	menuText[1].setCharacterSize(36);
+	menuText[1].setPosition(Vector2f(125, 150));
+	menuText[1].setString("\\/:Flee");
+
+	menuText[2].setFont(font);
+	menuText[2].setColor(Color::White);
+	menuText[2].setCharacterSize(36);
+	menuText[2].setPosition(Vector2f(200, 100));
+	menuText[2].setString(">:Magic");
 
 	//Add health 
 
@@ -929,9 +942,9 @@ void CombatScene::Update(Time dt)
 void CombatScene::Render()
 {
 	
-	if (battleManager.GetEnts().size() > 4)
+	if (battleManager.GetBattleEnts().size() > 4)
 	{
-		vector<shared_ptr<BattleEntity>> e = battleManager.GetEnts();
+		vector<shared_ptr<BattleEntity>> e = battleManager.GetBattleEnts();
 
 		string s = e[0]->GetHealthText() + "\n" +
 			e[1]->GetHealthText() + "\n" +
@@ -945,7 +958,9 @@ void CombatScene::Render()
 	Renderer::Queue(&background);
 	Renderer::Queue(&canvas);
 	Renderer::Queue(&statText);
-	Renderer::Queue(&menuText);
+	Renderer::Queue(&menuText[0]);
+	Renderer::Queue(&menuText[1]);
+	Renderer::Queue(&menuText[2]);
 	battleManager.Render();
 	Scene::Render();
 

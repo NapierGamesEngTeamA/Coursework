@@ -177,7 +177,7 @@ private:
 	int turn = 1;
 	Font font;
 	Text statText;
-	Text menuText;
+	Text menuText[3];
 	RectangleShape canvas;
 	BattleManager battleManager;
 	View view;

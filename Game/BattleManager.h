@@ -17,6 +17,9 @@ private:
 	int selectedTarget = -1;
 	int index = 0;
 	int turn = 0;
+	Font font;
+	Text battleLog;
+	string slog;
 public:
 	enum BattleStates { Start, ChooseAction, ChooseTarget, Action, NextTurn, End };
 	BattleStates currentState = BattleStates::Start;;
@@ -37,4 +40,5 @@ public:
 	void Win();
 	void Lose();
 	vector<shared_ptr<BattleEntity>> GetEnts();
+	vector<shared_ptr<BattleEntity>> GetBattleEnts();
 };

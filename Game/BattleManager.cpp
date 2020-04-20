@@ -206,6 +206,14 @@ void BattleManager::Load()
 
 	currentState = BattleStates::Start;
 	currentAction = ActionTypes::None;
+
+	slog = " ";
+	font.loadFromFile("Res/Fonts/BreatheFire-65pg.ttf");
+	battleLog.setFont(font);
+	battleLog.setColor(Color::White);
+	battleLog.setCharacterSize(24);
+	battleLog.setPosition(Vector2f(1600, 900));
+	battleLog.setString(" ");
 }
 
 void BattleManager::Update(Time dt)
@@ -282,17 +290,17 @@ void BattleManager::PickAction()
 {
 	if (currentEntity->type == BattleEntity::Type::Player)
 	{
-		if (Keyboard::isKeyPressed(Keyboard::A))
+		if (Keyboard::isKeyPressed(Keyboard::Left))
 		{
 			currentAction = ActionTypes::aAttack;
 			currentState = BattleStates::ChooseTarget;
 		}
-		if (Keyboard::isKeyPressed(Keyboard::S))
+		if (Keyboard::isKeyPressed(Keyboard::Right))
 		{
 			currentAction = ActionTypes::aMagic;
 			currentState = BattleStates::ChooseTarget;
 		}
-		if (Keyboard::isKeyPressed(Keyboard::D))
+		if (Keyboard::isKeyPressed(Keyboard::Down))
 		{
 			currentAction = ActionTypes::aFlee;
 			currentState = BattleStates::Action;
@@ -345,15 +353,18 @@ void BattleManager::Attack()
 {
 	if (battleEntities[selectedTarget]->GetStat("CurrHP") > 0)
 	{
-		cout << currentEntity->GetName() + " is attacking " + battleEntities[selectedTarget]->GetName() << endl;
+		slog = " ";
+		slog = currentEntity->GetName() + " is attacking " + battleEntities[selectedTarget]->GetName() + "\n";
 		battleEntities[selectedTarget]->SetStat("CurrHP",
 			battleEntities[selectedTarget]->GetStat("CurrHP") - currentEntity->PhAttack());
-		cout << currentEntity->GetName() + " dealt " + to_string(currentEntity->PhAttack()) + " damage to " + battleEntities[selectedTarget]->GetName() << endl;
+		slog += currentEntity->GetName() + " dealt " + to_string(currentEntity->PhAttack()) + " damage to " + battleEntities[selectedTarget]->GetName() + "\n";
+		battleLog.setString(slog);
 		currentState = BattleStates::NextTurn;
 	}
 	else
 	{
-		printf("Enemy is already vanquished");
+		slog = "Enemy is already vanquished";
+		battleLog.setString(slog);
 		selectedTarget = -1;
 		currentState = BattleStates::ChooseTarget;
 	}
@@ -363,15 +374,18 @@ void BattleManager::Magic()
 {
 	if (battleEntities[selectedTarget]->GetStat("CurrHP") > 0)
 	{
-		cout << currentEntity->GetName() + " is casting at " + battleEntities[selectedTarget]->GetName() << endl;
+		slog = " ";
+		slog = currentEntity->GetName() + " is casting at " + battleEntities[selectedTarget]->GetName() + "\n";
 		battleEntities[selectedTarget]->SetStat("CurrHP",
 			battleEntities[selectedTarget]->GetStat("CurrHP") - currentEntity->MgAttack());
-		cout << currentEntity->GetName() + " dealt " + to_string(currentEntity->MgAttack()) + " damage to " + battleEntities[selectedTarget]->GetName() << endl;
+		slog += currentEntity->GetName() + " dealt " + to_string(currentEntity->MgAttack()) + " damage to " + battleEntities[selectedTarget]->GetName() + "\n";
+		battleLog.setString(slog);
 		currentState = BattleStates::NextTurn;
 	}
 	else
 	{
-		printf("Enemy is already vanquished");
+		slog = "Enemy is already vanquished";
+		battleLog.setString(slog);
 		selectedTarget = -1;
 		currentState = BattleStates::ChooseTarget;
 	}
@@ -387,7 +401,8 @@ void BattleManager::Flee()
 	}
 	else
 	{
-		cout << "Party failed to flee\n" << endl;
+		slog = "Party failed to flee\n";
+		battleLog.setString(slog);
 		currentState = BattleStates::NextTurn;
 	}
 }
@@ -445,6 +460,7 @@ void BattleManager::Render()
 	{
 		s->Render();
 	}
+	Renderer::Queue(&battleLog);
 }
 
 vector<shared_ptr<BattleEntity>> BattleManager::GetEnts()
@@ -496,4 +512,9 @@ void BattleManager::Lose()
 {
 	Reset();
 	// Go to game over screen
+}
+
+vector<shared_ptr<BattleEntity>> BattleManager::GetBattleEnts()
+{
+	return battleEntities;
 }
