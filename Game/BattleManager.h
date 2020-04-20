@@ -38,7 +38,7 @@ public:
 	void ChangeTurn();
 	void Render();
 	void Win();
-	void Lose();
+	bool Lose();
 	vector<shared_ptr<BattleEntity>> GetEnts();
 	vector<shared_ptr<BattleEntity>> GetBattleEnts();
 };

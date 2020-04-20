@@ -182,6 +182,7 @@ private:
 	RectangleShape canvas;
 	BattleManager battleManager;
 	View view;
+	Color color;
 public:
 	CombatScene() = default;
 	void Update(Time dt) override;
