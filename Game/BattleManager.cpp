@@ -613,7 +613,7 @@ void BattleManager::Lose()
 {
 	Reset();
 	// Go to game over screen
-	
+	activeScene = loseScene;
 
 }
 

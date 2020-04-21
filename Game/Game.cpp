@@ -669,6 +669,10 @@ void OverworldScene::Update(Time dt)
 
 	if (Paused == false)
 	{
+		if (GoldCount >= 10000)
+		{
+			activeScene == winScene;
+		}
 
 			psprite.setPosition(10000, 10000);
 			play.setPosition(10000, 10000);
@@ -924,6 +928,8 @@ void OverworldScene::Update(Time dt)
 		}
 
 
+
+	
 		//if (InputManager::Start(true))
 		//{
 		//	Paused = false;
