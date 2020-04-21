@@ -32,5 +32,6 @@ public:
 	void SetupEnemy(int level);
 	vector<int> GetStatList();
 	bool TurnEnded = false;
+	string GetSaveString();
 private:
 };
