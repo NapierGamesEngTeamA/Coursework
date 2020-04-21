@@ -33,5 +33,6 @@ public:
 	vector<int> GetStatList();
 	bool TurnEnded = false;
 	string GetSaveString();
+	void LoadChar(string s);
 private:
 };

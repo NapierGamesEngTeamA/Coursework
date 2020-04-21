@@ -161,5 +161,15 @@ vector<int> BattleEntity::GetStatList()
 	i.push_back(stats["CurrMP"]);
 
 	return i;
+}
 
+string BattleEntity::GetSaveString()
+{
+	string s;
+	s += name + ",";
+	for each (pair<string, int> i in stats)
+	{
+		s += to_string(i.second) + ",";
+	}
+	return s;
 }

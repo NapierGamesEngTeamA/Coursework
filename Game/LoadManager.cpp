@@ -8,13 +8,17 @@ LoadManager::LoadManager()
 
 }
 
-void LoadManager::SaveFile()
+void LoadManager::SaveFile(string s)
 {
 	file.open(location);
-	//file << 
+	file << s;
+	file.close();
 }
 
 void LoadManager::LoadFile(string loc)
 {
-
+	string s;
+	file.open(location);
+	
+	file.close();
 }

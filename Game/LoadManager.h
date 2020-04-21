@@ -8,9 +8,9 @@ class LoadManager
 {
 private:
 	ofstream file;
-	string location;
+	string location = "SaveFile.txt";
 public:
 	LoadManager();
-	void SaveFile();
+	void SaveFile(string s);
 	void LoadFile(string loc);
 };
