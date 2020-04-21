@@ -156,12 +156,13 @@ private:
 	Text tile;
 	Text quit;
 	Text heal;
-	Text h1;
+	Text h1[5];
 	Font font;
 	Sprite outline;
 	Texture hbar;
 	Sprite hbarsprite;
 	bool Paused = false;
+	Color color;
 
 	Texture* tileSheet = new Texture();
 

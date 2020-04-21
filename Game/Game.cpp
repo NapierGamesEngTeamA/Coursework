@@ -559,16 +559,22 @@ void OverworldScene::Load()
 		sprite[i].setTextureRect(IntRect(16, 145, 37, 51));
 		const auto textRect = sprite[i].getGlobalBounds();
 		sprite[i].setOrigin(textRect.width * .5f, textRect.height * .5f);
-		sprite[i].setPosition((rand() % 2000 + 4000) , (rand() % 1000 + 1500) - 80);
 
 		if (e2sprt[i].getPosition() == e2sprt[i + 1].getPosition())
 		{
 			e2sprt[i].setPosition(e2sprt[i].getPosition().x + 30, e2sprt[i].getPosition().y + 30);
 		}
 
+
+
 	}
 
 
+	sprite[0].setPosition(4200, 2300);
+	sprite[1].setPosition(4700, 2000);
+	sprite[2].setPosition(4500, 1700);
+	sprite[3].setPosition(3800, 1700);
+	sprite[4].setPosition(2800, 1400);
 	
 
 	
@@ -666,6 +672,11 @@ void OverworldScene::Update(Time dt)
 			psprite.setPosition(10000, 10000);
 			play.setPosition(10000, 10000);
 			quit.setPosition(10000, 10000);
+			h1[0].setPosition(10000, 10000);
+			h1[1].setPosition(10000, 10000);
+			h1[2].setPosition(10000, 10000);
+			h1[3].setPosition(10000, 10000);
+			h1[4].setPosition(10000, 10000);
 
 		
 	
@@ -804,21 +815,69 @@ void OverworldScene::Update(Time dt)
 
 
 
-		for (auto s : battleManager.GetEnts())
-		{
-			string str = s->GetHealthText();
+		string str = party[0]->GetHealthText();
 
-			h1.setFont(font);
-			h1.setCharacterSize(30);
-			h1.setString(str);
-			h1.setColor(color.Red);
-		}
+		string str1 = party[1]->GetHealthText();
+
+		string str2 = party[2]->GetHealthText();
+
+		string str3 = party[3]->GetHealthText();
+
+		string gold = to_string(GoldCount);
+
+			h1[0].setFont(font);
+			h1[0].setCharacterSize(10);
+			h1[0].setString(str);
+			h1[0].setColor(color.Red);
+		
+			h1[1].setFont(font);
+			h1[1].setCharacterSize(8);
+			h1[1].setString(str3);
+			h1[1].setColor(color.Red);
+
+			h1[2].setFont(font);
+			h1[2].setCharacterSize(8);
+			h1[2].setString(str2);
+			h1[2].setColor(color.Red);
+
+			h1[3].setFont(font);
+			h1[3].setCharacterSize(8);
+			h1[3].setString(str1);
+			h1[3].setColor(color.Red);
+
+			h1[4].setFont(font);
+			h1[4].setCharacterSize(20);
+			h1[4].setString(gold);
+			h1[4].setColor(color.Yellow);
+			h1[4].setOutlineColor(color.Black);
+			h1[4].setOutlineThickness(3);
 	
 		
 
-		const auto textRect3 = h1.getGlobalBounds();
-		h1.setOrigin(textRect3.width * .5f, textRect3.height * .5f);
-		h1.setPosition(s2[0]->GetView().getCenter().x , s2[0]->GetView().getCenter().y );
+		const auto textRect3 = h1[0].getGlobalBounds();
+		h1[0].setOrigin(textRect3.width * .5f, textRect3.height * .5f);
+		h1[0].setPosition(s2[0]->GetView().getCenter().x + 380 , s2[0]->GetView().getCenter().y - 310  );
+
+
+		const auto textRect4 = h1[1].getGlobalBounds();
+		h1[1].setOrigin(textRect3.width * .5f, textRect3.height * .5f);
+		h1[1].setPosition(s2[0]->GetView().getCenter().x - 345, s2[0]->GetView().getCenter().y - 175);
+
+
+		const auto textRect5 = h1[2].getGlobalBounds();
+		h1[2].setOrigin(textRect5.width * .5f, textRect5.height * .5f);
+		h1[2].setPosition(s2[0]->GetView().getCenter().x - 345, s2[0]->GetView().getCenter().y - 85);
+
+
+		const auto textRect6 = h1[3].getGlobalBounds();
+		h1[3].setOrigin(textRect3.width * .5f, textRect3.height * .5f);
+		h1[3].setPosition(s2[0]->GetView().getCenter().x - 345, s2[0]->GetView().getCenter().y + 15);
+
+		const auto textRect7 = h1[4].getGlobalBounds();
+		h1[4].setOrigin(textRect3.width * .5f, textRect3.height * .5f);
+		h1[4].setPosition(s2[0]->GetView().getCenter().x - 325, s2[0]->GetView().getCenter().y + 105);
+
+
 
 		if (InputManager::GetInstance()->Up(true))
 		{
@@ -888,7 +947,11 @@ void OverworldScene::Render()
 	Renderer::Queue(&play);
 	Renderer::Queue(&quit);
 	Renderer::Queue(&heal);
-	Renderer::Queue(&h1);
+	Renderer::Queue(&h1[0]);
+	Renderer::Queue(&h1[1]);
+	Renderer::Queue(&h1[2]);
+	Renderer::Queue(&h1[3]);
+	Renderer::Queue(&h1[4]);
 //	Renderer::Queue(&tile);
 	sf::Texture::bind(&ptexture);
 
