@@ -429,6 +429,10 @@ void BattleManager::Attack()
 		slog = currentEntity->GetName() + " is attacking " + battleEntities[selectedTarget]->GetName() + "\n";
 		battleEntities[selectedTarget]->SetStat("CurrHP",
 			battleEntities[selectedTarget]->GetStat("CurrHP") - currentEntity->PhAttack());
+		if (battleEntities[selectedTarget]->GetStat("CurrHP") < 0)
+		{
+			battleEntities[selectedTarget]->SetStat("CurrHP", 0);
+		}
 		slog += currentEntity->GetName() + " dealt " + to_string(currentEntity->PhAttack()) + " damage to " + battleEntities[selectedTarget]->GetName() + "\n";
 		battleLog.setString(slog);
 		currentState = BattleStates::NextTurn;
@@ -450,9 +454,13 @@ void BattleManager::Magic()
 		slog = currentEntity->GetName() + " is casting at " + battleEntities[selectedTarget]->GetName() + "\n";
 		battleEntities[selectedTarget]->SetStat("CurrHP",
 			battleEntities[selectedTarget]->GetStat("CurrHP") - currentEntity->MgAttack());
+		if (battleEntities[selectedTarget]->GetStat("CurrHP") < 0)
+		{
+			battleEntities[selectedTarget]->SetStat("CurrHP", 0);
+		}
 		slog += currentEntity->GetName() + " dealt " + to_string(currentEntity->MgAttack()) + " damage to " + battleEntities[selectedTarget]->GetName() + "\n";
 		battleLog.setString(slog);
-		currentEntity->SetStat("CurrMP", currentEntity->GetStat("CurrMP") - 5);
+		battleEntities[index]->SetStat("CurrMP", currentEntity->GetStat("CurrMP") - 5);
 		currentState = BattleStates::NextTurn;
 	}
 	else if (battleEntities[selectedTarget]->GetStat("CurrHP") <= 0)

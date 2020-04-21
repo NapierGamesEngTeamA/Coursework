@@ -568,11 +568,6 @@ void OverworldScene::Load()
 
 	}
 
-
-	
-
-	
-
 	tileSheet->loadFromFile("Res/Sprites/A2_Ground.png");
 	auto tm = make_shared<TileMap>();
 	tm->GenerateMap("Res/Maps/TestLevel.txt", *tileSheet, ch);
@@ -693,6 +688,15 @@ void OverworldScene::Update(Time dt)
 					
 					heal.setString("Your party is on full health");	
 					GoldCount -= 10;
+					party[0]->SetStat("CurrHP", party[0]->GetStat("MaxHP"));
+					party[1]->SetStat("CurrHP", party[1]->GetStat("MaxHP"));
+					party[2]->SetStat("CurrHP", party[2]->GetStat("MaxHP"));
+					party[3]->SetStat("CurrHP", party[3]->GetStat("MaxHP"));
+					party[0]->SetStat("CurrMP", party[0]->GetStat("MaxMP"));
+					party[1]->SetStat("CurrMP", party[1]->GetStat("MaxMP"));
+					party[2]->SetStat("CurrMP", party[2]->GetStat("MaxMP"));
+					party[3]->SetStat("CurrMP", party[3]->GetStat("MaxMP"));
+					cout << party[1]->GetStat("CurrHP") << endl;
 					HasHealed = true;
 				}
 			}
