@@ -275,6 +275,11 @@ void BattleManager::Load()
 	battleLog.setCharacterSize(24);
 	battleLog.setPosition(Vector2f(1600, 900));
 	battleLog.setString(" ");
+
+	party.push_back(players[0]);
+	party.push_back(players[1]);
+	party.push_back(players[2]);
+	party.push_back(players[3]);
 }
 
 void BattleManager::Update(Time dt)
@@ -333,6 +338,12 @@ void BattleManager::StartBattle(int type, int level)
 	case 1:
 		enemies = skeletons;
 		break;
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		players[i]->SetStat("CurrHP", party[i]->GetStat("CurrHP"));
+		players[i]->SetStat("CurrMP", party[i]->GetStat("CurrMP"));
 	}
 
 	for each (shared_ptr<BattleEntity> i in players)
@@ -433,7 +444,7 @@ void BattleManager::Attack()
 
 void BattleManager::Magic()
 {
-	if (battleEntities[selectedTarget]->GetStat("CurrHP") > 0)
+	if (battleEntities[selectedTarget]->GetStat("CurrHP") > 0 && currentEntity->GetStat("CurrMP") >= 5)
 	{
 		slog = " ";
 		slog = currentEntity->GetName() + " is casting at " + battleEntities[selectedTarget]->GetName() + "\n";
@@ -441,14 +452,23 @@ void BattleManager::Magic()
 			battleEntities[selectedTarget]->GetStat("CurrHP") - currentEntity->MgAttack());
 		slog += currentEntity->GetName() + " dealt " + to_string(currentEntity->MgAttack()) + " damage to " + battleEntities[selectedTarget]->GetName() + "\n";
 		battleLog.setString(slog);
+		currentEntity->SetStat("CurrMP", currentEntity->GetStat("CurrMP") - 5);
 		currentState = BattleStates::NextTurn;
 	}
-	else
+	else if (battleEntities[selectedTarget]->GetStat("CurrHP") <= 0)
 	{
-		slog = "Enemy is already vanquished";
+		slog = "Enemy is already vanquished. Choose another.";
 		battleLog.setString(slog);
 		selectedTarget = -1;
 		currentState = BattleStates::ChooseTarget;
+	}
+	else if (currentEntity->GetStat("CurrMP") < 5)
+	{
+		slog = "Not enough mana to cast magic. Try something else.";
+		battleLog.setString(slog);
+		selectedTarget = -1;
+		currentAction = ActionTypes::None;
+		currentState = BattleStates::ChooseAction;
 	}
 }
 
@@ -534,18 +554,22 @@ void BattleManager::Win()
 	if (battleEntities[0]->GetStat("CurrHP") > 0)
 	{
 		players[0]->GiveExp((2 * battleEntities[4]->GetStat("Level")) * 4);
+		players[0]->SetStat("CurrHP", battleEntities[0]->GetStat("CurrHP"));
 	}
 	if (battleEntities[1]->GetStat("CurrHP") > 0)
 	{
 		players[1]->GiveExp((2 * battleEntities[4]->GetStat("Level")) * 4);
+		players[1]->SetStat("CurrHP", battleEntities[1]->GetStat("CurrHP"));
 	}
 	if (battleEntities[2]->GetStat("CurrHP") > 0)
 	{
 		players[2]->GiveExp((2 * battleEntities[4]->GetStat("Level")) * 4);
+		players[2]->SetStat("CurrHP", battleEntities[2]->GetStat("CurrHP"));
 	}
 	if (battleEntities[3]->GetStat("CurrHP") > 0)
 	{
 		players[3]->GiveExp((2 * battleEntities[4]->GetStat("Level")) * 4);
+		players[3]->SetStat("CurrHP", battleEntities[3]->GetStat("CurrHP"));
 	}
 
 	if (players[0]->GetStat("Level") > battleEntities[0]->GetStat("Level"))
@@ -564,6 +588,14 @@ void BattleManager::Win()
 	{
 		cout << "Horo leveled up\n" << endl;
 	}
+
+	party.clear();
+	party.push_back(players[0]);
+	party.push_back(players[1]);
+	party.push_back(players[2]);
+	party.push_back(players[3]);
+
+	GoldCount += 100 * battleEntities[4]->GetStat("Level");
 
 	Reset();
 	activeScene = overworldScene;

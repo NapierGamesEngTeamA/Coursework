@@ -21,6 +21,9 @@ extern shared_ptr<Scene> loseScene;
 extern shared_ptr<Scene> activeScene;
 extern sf::Texture spritesheet;
 extern int EnemyType;
+extern int GoldCount;
+extern bool HasHealed;
+extern vector<shared_ptr<BattleEntity>> party;
 
 class TitleScene : public Scene
 {

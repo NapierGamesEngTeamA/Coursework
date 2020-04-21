@@ -38,6 +38,9 @@ shared_ptr<Scene> activeScene;
 shared_ptr<Scene> winScene;
 shared_ptr<Scene> loseScene;
 int EnemyType;
+int GoldCount;
+bool HasHealed;
+vector<shared_ptr<BattleEntity>> party;
 
 void Scene::Load()
 {
@@ -644,6 +647,8 @@ void OverworldScene::Load()
 	_ents.list.push_back(tm);
 	_ents.list.push_back(ch);
 
+	GoldCount = 0;
+	HasHealed = false;
 }
 
 
@@ -680,20 +685,17 @@ void OverworldScene::Update(Time dt)
 				font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
 				heal.setFont(font);
 				heal.setCharacterSize(30);
-				heal.setString("Press Enter\nto accept a 1000 credit fee to\nheal your party");
+				heal.setString("Press Enter\nto pay 10 gold to\nheal your party");
 				heal.setPosition(s2[0]->GetView().getCenter().x - 400, s2[0]->GetView().getCenter().y - 50);
 
-				if (InputManager::GetInstance()->Interact(true))
+				if (InputManager::GetInstance()->Interact(true) && HasHealed == false)
 				{
-
-					heal.setString("Your party is on full health");
-				
+					
+					heal.setString("Your party is on full health");	
+					GoldCount -= 10;
+					HasHealed = true;
 				}
-
-
 			}
-
-
 
 			for (int i = 0; i < 5; i++)
 			{
@@ -732,6 +734,7 @@ void OverworldScene::Update(Time dt)
 				else
 				{
 					sprite[i].setPosition(Vector2f(-1000, -1000));
+					EnemyType = 1;
 					activeScene = combatScene;
 					cout << "Battle Comencing" << '\n';
 				}
