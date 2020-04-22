@@ -6,7 +6,7 @@
 class BattleEntity : public Entity
 {
 public:
-	enum AnimStates { IDLE, ATTACK, DEATH };
+	enum AnimStates { IDLE, ATTACK, MAGIC, DEATH };
 	enum Type { Player, Enemy };
 	Type type;
 	AnimStates currentState;
@@ -14,6 +14,7 @@ public:
 	Animation* currentAnim;
 	string name;
 	map<string, int> stats;
+	bool hasLeveled = false;
 
 	BattleEntity();
 

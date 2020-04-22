@@ -89,10 +89,10 @@ void AnimatedSpriteComponent::SetFrame(size_t newFrame, bool resetTime)
 
 	}
 
-	/*if (resetTime)
-	{
-		_currentTime = Time::Zero;
-	}*/
+ //   if (resetTime)
+	//{
+	//	_currentTime = Time::Zero;
+	//}
 }
 
 void AnimatedSpriteComponent::Update(Time dt)
@@ -102,30 +102,22 @@ void AnimatedSpriteComponent::Update(Time dt)
 	if (!_isPaused && _animation)
 	{
 		_currentTime += dt;
-		
-		//printf("Delta Time: %f \n", dt.asMicroseconds());
-		//printf("Current Time: %f \n", _currentTime.asSeconds());
 
 		if (_currentTime >= _frameTime)
 		{
-			//_currentTime = microseconds(_currentTime.asMicroseconds() % _frameTime.asMicroseconds());
 			_currentTime = Time::Zero;
-
-			//printf("%f", _currentTime.asSeconds());
-			//printf("Current Time (After): %f \n", _currentTime.asSeconds());
-
 
 			if (_currentFrame + 1 != _animation->GetSize())
 			{
 				_currentFrame++;
-				//printf("%zu ", _currentFrame);
-
 			}
 			else
 			{
+				if (!_isLooped)
+				{
+					_isPaused = true;
+				}
 				_currentFrame = 0;
-				//printf("%zu ", _currentFrame);
-
 			}
 
 
