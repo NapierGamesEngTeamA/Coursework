@@ -20,6 +20,7 @@ private:
 	Font font;
 	Text battleLog;
 	string slog;
+	bool won;
 public:
 	enum BattleStates { Start, ChooseAction, ChooseTarget, Action, NextTurn, End };
 	BattleStates currentState = BattleStates::Start;;

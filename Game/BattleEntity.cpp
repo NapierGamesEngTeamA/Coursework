@@ -24,20 +24,56 @@ void BattleEntity::Update(Time dt)
 	switch (currentState)
 	{
 	case BattleEntity::IDLE:
-		currentAnim = &_anims["Idle"];
-		GetComponents<AnimatedSpriteComponent>()[0]->SetAnimation(*currentAnim);
-		GetComponents<AnimatedSpriteComponent>()[0]->Play(*currentAnim);
-		GetComponents<AnimatedSpriteComponent>()[0]->IsLooped();
+		if (currentAnim != &_anims["Idle"])
+		{
+			currentAnim = &_anims["Idle"];
+			GetComponents<AnimatedSpriteComponent>()[0]->SetAnimation(*currentAnim);
+			GetComponents<AnimatedSpriteComponent>()[0]->Play(*currentAnim);
+			GetComponents<AnimatedSpriteComponent>()[0]->SetLooped(true);
+		}
 		break;
 	case BattleEntity::ATTACK:
-		currentAnim = &_anims["Attack"];
-		GetComponents<AnimatedSpriteComponent>()[0]->SetAnimation(*currentAnim);
-		GetComponents<AnimatedSpriteComponent>()[0]->Play(*currentAnim);
+		if (currentAnim != &_anims["Attack"])
+		{
+			currentAnim = &_anims["Attack"];
+			GetComponents<AnimatedSpriteComponent>()[0]->SetAnimation(*currentAnim);
+			GetComponents<AnimatedSpriteComponent>()[0]->SetFrame(0);
+			GetComponents<AnimatedSpriteComponent>()[0]->SetLooped(false);
+			GetComponents<AnimatedSpriteComponent>()[0]->Play(*currentAnim);
+		}
+		if (!GetComponents<AnimatedSpriteComponent>()[0]->IsPlaying())
+		{
+			currentState = BattleEntity::IDLE;
+		}
+		
+		break;
+	case BattleEntity::MAGIC:
+		if (currentAnim != &_anims["Magic"])
+		{
+			currentAnim = &_anims["Magic"];
+			GetComponents<AnimatedSpriteComponent>()[0]->SetAnimation(*currentAnim);
+			GetComponents<AnimatedSpriteComponent>()[0]->SetFrame(0);
+			GetComponents<AnimatedSpriteComponent>()[0]->SetLooped(false);
+			GetComponents<AnimatedSpriteComponent>()[0]->Play(*currentAnim);
+		}
+		if (!GetComponents<AnimatedSpriteComponent>()[0]->IsPlaying())
+		{
+			currentState = BattleEntity::IDLE;
+		}
 		break;
 	case BattleEntity::DEATH:
-		currentAnim = &_anims["Death"];
-		GetComponents<AnimatedSpriteComponent>()[0]->SetAnimation(*currentAnim);
-		GetComponents<AnimatedSpriteComponent>()[0]->Play(*currentAnim);
+		if (currentAnim != &_anims["Death"])
+		{
+			currentAnim = &_anims["Death"];
+			GetComponents<AnimatedSpriteComponent>()[0]->SetAnimation(*currentAnim);
+			GetComponents<AnimatedSpriteComponent>()[0]->SetFrame(0);
+			GetComponents<AnimatedSpriteComponent>()[0]->SetLooped(false);
+			GetComponents<AnimatedSpriteComponent>()[0]->Play(*currentAnim);
+		}
+		if (!GetComponents<AnimatedSpriteComponent>()[0]->IsPlaying())
+		{
+			GetComponents<AnimatedSpriteComponent>()[0]->SetFrame(5);
+		}
 		break;
 	}
 
@@ -121,7 +157,7 @@ void BattleEntity::GiveExp(int i)
 {
 	stats["Exp"] += i;
 
-	if (stats["Exp"] >= stats["Level"] * 10)
+	if (stats["Exp"] >= stats["Level"] * 5)
 	{
 		Levelup();
 	}
@@ -129,12 +165,13 @@ void BattleEntity::GiveExp(int i)
 
 void BattleEntity::Levelup()
 {
+	hasLeveled = true;
 	stats["Str"] += rand() % 3;
 	stats["Dex"] += rand() % 2;
 	stats["Int"] += rand() % 3;
 	stats["Con"] += rand() % 3;
 	stats["MaxHP"] += rand() % 5 + 1;
-	stats["MaxMP"] += rand() % 3 + 1;
+	stats["MaxMP"] += rand() % 5 + 1;
 	stats["CurrHP"] = stats["MaxHP"];
 	stats["CurrMP"] = stats["MaxMP"];
 	stats["Exp"] = 0;;

@@ -64,7 +64,34 @@ void BattleManager::Load()
 	idle->SetSpriteSheet(*texture1[0]);
 	idle->AddFrame(IntRect(21, 205, 21, 48));
 	idle->AddFrame(IntRect(84, 205, 21, 48));
+	Animation* attack = new Animation();
+	attack->SetSpriteSheet(*texture1[0]);
+	attack->AddFrame(IntRect(85, 1997, 75, 48));
+	attack->AddFrame(IntRect(278, 1999, 75, 48));
+	attack->AddFrame(IntRect(468, 1997, 75, 48));
+	attack->AddFrame(IntRect(659, 1997, 75, 48));
+	attack->AddFrame(IntRect(852, 1997, 75, 48));
+	attack->AddFrame(IntRect(1044, 1997, 75, 48));
+	Animation* magic = new Animation();
+	magic->SetSpriteSheet(*texture1[0]);
+	magic->AddFrame(IntRect(20, 973, 35, 48));
+	magic->AddFrame(IntRect(85, 975, 35, 48));
+	magic->AddFrame(IntRect(149, 974, 35, 48));
+	magic->AddFrame(IntRect(212, 974, 35, 48));
+	magic->AddFrame(IntRect(276, 973, 52, 48));
+	magic->AddFrame(IntRect(340, 973, 53, 48));
+	Animation* death = new Animation();
+	death->SetSpriteSheet(*texture1[0]);
+	death->AddFrame(IntRect(17, 1292, 29, 48));
+	death->AddFrame(IntRect(82, 1292, 29, 48));
+	death->AddFrame(IntRect(147, 1292, 29, 48));
+	death->AddFrame(IntRect(211, 1292, 29, 48));
+	death->AddFrame(IntRect(275, 1292, 29, 48));
+	death->AddFrame(IntRect(338, 1292, 29, 48));
 	andrel->_anims.insert(pair<string, Animation>("Idle", *idle));
+	andrel->_anims.insert(pair<string, Animation>("Attack", *attack));
+	andrel->_anims.insert(pair<string, Animation>("Magic", *magic));
+	andrel->_anims.insert(pair<string, Animation>("Death", *death));
 
 	auto a = andrel->AddComponent<AnimatedSpriteComponent>();
 	a->SetAnimation(*idle);
@@ -84,7 +111,33 @@ void BattleManager::Load()
 	idle1->SetSpriteSheet(*texture1[1]);
 	idle1->AddFrame(IntRect(21, 205, 21, 48));
 	idle1->AddFrame(IntRect(84, 205, 21, 48));
+	Animation* attack1 = new Animation();
+	attack1->SetSpriteSheet(*texture1[1]);
+	attack1->AddFrame(IntRect(19, 1228, 34, 48));
+	attack1->AddFrame(IntRect(83, 1228, 34, 48));
+	attack1->AddFrame(IntRect(145, 1228, 34, 48));
+	attack1->AddFrame(IntRect(208, 1228, 34, 48));
+	attack1->AddFrame(IntRect(272, 1228, 34, 48));
+	Animation* magic1 = new Animation();
+	magic1->SetSpriteSheet(*texture1[1]);
+	magic1->AddFrame(IntRect(20, 973, 35, 48));
+	magic1->AddFrame(IntRect(85, 975, 35, 48));
+	magic1->AddFrame(IntRect(149, 974, 35, 48));
+	magic1->AddFrame(IntRect(212, 974, 35, 48));
+	magic1->AddFrame(IntRect(276, 973, 52, 48));
+	magic1->AddFrame(IntRect(340, 973, 53, 48));
+	Animation* death1 = new Animation();
+	death1->SetSpriteSheet(*texture1[1]);
+	death1->AddFrame(IntRect(17, 1292, 29, 48));
+	death1->AddFrame(IntRect(82, 1292, 29, 48));
+	death1->AddFrame(IntRect(147, 1292, 29, 48));
+	death1->AddFrame(IntRect(211, 1292, 29, 48));
+	death1->AddFrame(IntRect(275, 1292, 29, 48));
+	death1->AddFrame(IntRect(338, 1292, 29, 48));
 	charity->_anims.insert(pair<string, Animation>("Idle", *idle1));
+	charity->_anims.insert(pair<string, Animation>("Attack", *attack1));
+	charity->_anims.insert(pair<string, Animation>("Magic", *magic1));
+	charity->_anims.insert(pair<string, Animation>("Death", *death1));
 
 	auto b = charity->AddComponent<AnimatedSpriteComponent>();
 	b->SetAnimation(*idle1);
@@ -104,7 +157,34 @@ void BattleManager::Load()
 	idle2->SetSpriteSheet(*texture1[2]);
 	idle2->AddFrame(IntRect(21, 205, 21, 48));
 	idle2->AddFrame(IntRect(84, 205, 21, 48));
+	Animation* attack2 = new Animation();
+	attack2->SetSpriteSheet(*texture1[2]);
+	attack2->AddFrame(IntRect(85, 1997, 75, 48));
+	attack2->AddFrame(IntRect(278, 1999, 75, 48));
+	attack2->AddFrame(IntRect(468, 1997, 75, 48));
+	attack2->AddFrame(IntRect(659, 1997, 75, 48));
+	attack2->AddFrame(IntRect(852, 1997, 75, 48));
+	attack2->AddFrame(IntRect(1044, 1997, 75, 48));
+	Animation* magic2 = new Animation();
+	magic2->SetSpriteSheet(*texture1[2]);
+	magic2->AddFrame(IntRect(20, 973, 35, 48));
+	magic2->AddFrame(IntRect(85, 975, 35, 48));
+	magic2->AddFrame(IntRect(149, 974, 35, 48));
+	magic2->AddFrame(IntRect(212, 974, 35, 48));
+	magic2->AddFrame(IntRect(276, 973, 52, 48));
+	magic2->AddFrame(IntRect(340, 973, 53, 48));
+	Animation* death2 = new Animation();
+	death2->SetSpriteSheet(*texture1[2]);
+	death2->AddFrame(IntRect(17, 1292, 29, 48));
+	death2->AddFrame(IntRect(82, 1292, 29, 48));
+	death2->AddFrame(IntRect(147, 1292, 29, 48));
+	death2->AddFrame(IntRect(211, 1292, 29, 48));
+	death2->AddFrame(IntRect(275, 1292, 29, 48));
+	death2->AddFrame(IntRect(338, 1292, 29, 48));
 	helmaer->_anims.insert(pair<string, Animation>("Idle", *idle2));
+	helmaer->_anims.insert(pair<string, Animation>("Attack", *attack2));
+	helmaer->_anims.insert(pair<string, Animation>("Magic", *magic2));
+	helmaer->_anims.insert(pair<string, Animation>("Death", *death2));
 
 	auto c = helmaer->AddComponent<AnimatedSpriteComponent>();
 	c->SetAnimation(*idle2);
@@ -124,7 +204,35 @@ void BattleManager::Load()
 	idle3->SetSpriteSheet(*texture1[3]);
 	idle3->AddFrame(IntRect(21, 205, 21, 48));
 	idle3->AddFrame(IntRect(84, 205, 21, 48));
+	Animation* attack3 = new Animation();
+	attack3->SetSpriteSheet(*texture1[3]);
+	attack3->AddFrame(IntRect(19, 1228, 34, 48));
+	attack3->AddFrame(IntRect(83, 1228, 34, 48));
+	attack3->AddFrame(IntRect(145, 1228, 34, 48));
+	attack3->AddFrame(IntRect(208, 1228, 34, 48));
+	attack3->AddFrame(IntRect(272, 1228, 34, 48));
+	Animation* magic3 = new Animation();
+	magic3->SetSpriteSheet(*texture1[3]);
+	magic3->AddFrame(IntRect(10, 458, 50, 48));
+	magic3->AddFrame(IntRect(68, 458, 52, 48));
+	magic3->AddFrame(IntRect(132, 458, 53, 48));
+	magic3->AddFrame(IntRect(193, 458, 53, 48));
+	magic3->AddFrame(IntRect(263, 458, 53, 48));
+	magic3->AddFrame(IntRect(330, 458, 53, 48));
+	magic3->AddFrame(IntRect(391, 458, 53, 48));
+	magic3->AddFrame(IntRect(449, 458, 53, 48));
+	Animation* death3 = new Animation();
+	death3->SetSpriteSheet(*texture1[3]);
+	death3->AddFrame(IntRect(17, 1292, 29, 48));
+	death3->AddFrame(IntRect(82, 1292, 29, 48));
+	death3->AddFrame(IntRect(147, 1292, 29, 48));
+	death3->AddFrame(IntRect(211, 1292, 29, 48));
+	death3->AddFrame(IntRect(275, 1292, 29, 48));
+	death3->AddFrame(IntRect(338, 1292, 29, 48));
 	horo->_anims.insert(pair<string, Animation>("Idle", *idle3));
+	horo->_anims.insert(pair<string, Animation>("Attack", *attack3));
+	horo->_anims.insert(pair<string, Animation>("Magic", *magic3));
+	horo->_anims.insert(pair<string, Animation>("Death", *death3));
 
 	auto d = horo->AddComponent<AnimatedSpriteComponent>();
 	d->SetAnimation(*idle3);
@@ -155,7 +263,35 @@ void BattleManager::Load()
 	idle0->SetSpriteSheet(*orcTexture);
 	idle0->AddFrame(IntRect(22, 340, 24, 48));
 	idle0->AddFrame(IntRect(83, 340, 24, 48));
+	Animation* attack0 = new Animation();
+	attack0->SetSpriteSheet(*orcTexture);
+	attack0->AddFrame(IntRect(12, 852, 30, 48));
+	attack0->AddFrame(IntRect(75, 852, 30, 48));
+	attack0->AddFrame(IntRect(141, 852, 30, 48));
+	attack0->AddFrame(IntRect(199, 852, 30, 48));
+	attack0->AddFrame(IntRect(256, 852, 45, 48));
+	attack0->AddFrame(IntRect(321, 852, 45, 48));
+	Animation* magic0 = new Animation();
+	magic0->SetSpriteSheet(*orcTexture);
+	magic0->AddFrame(IntRect(12, 852, 30, 48));
+	magic0->AddFrame(IntRect(75, 852, 30, 48));
+	magic0->AddFrame(IntRect(141, 852, 30, 48));
+	magic0->AddFrame(IntRect(199, 852, 30, 48));
+	magic0->AddFrame(IntRect(256, 852, 45, 48));
+	magic0->AddFrame(IntRect(321, 852, 45, 48));
+	Animation* death0 = new Animation();
+	death0->SetSpriteSheet(*orcTexture);
+	death0->AddFrame(IntRect(17, 1292, 29, 48));
+	death0->AddFrame(IntRect(82, 1292, 29, 48));
+	death0->AddFrame(IntRect(147, 1292, 29, 48));
+	death0->AddFrame(IntRect(211, 1292, 29, 48));
+	death0->AddFrame(IntRect(275, 1292, 29, 48));
+	death0->AddFrame(IntRect(338, 1292, 29, 48));
+
 	orc1->_anims.insert(pair<string, Animation>("Idle", *idle0));
+	orc1->_anims.insert(pair<string, Animation>("Attack", *attack0));
+	orc1->_anims.insert(pair<string, Animation>("Magic", *magic0));
+	orc1->_anims.insert(pair<string, Animation>("Death", *death0));
 	auto c0 = orc1->AddComponent<AnimatedSpriteComponent>();
 	c0->SetAnimation(*idle0);
 	c0->Play();
@@ -168,6 +304,9 @@ void BattleManager::Load()
 	orc2->Setup(orcStats, "Orc");
 	orc2->type = BattleEntity::Type::Enemy;
 	orc2->_anims.insert(pair<string, Animation>("Idle", *idle0));
+	orc2->_anims.insert(pair<string, Animation>("Attack", *attack0));
+	orc2->_anims.insert(pair<string, Animation>("Magic", *magic0));
+	orc2->_anims.insert(pair<string, Animation>("Death", *death0));
 	auto c1 = orc2->AddComponent<AnimatedSpriteComponent>();
 	c1->SetAnimation(*idle0);
 	c1->Play();
@@ -180,6 +319,9 @@ void BattleManager::Load()
 	orc3->Setup(orcStats, "Orc");
 	orc3->type = BattleEntity::Type::Enemy;
 	orc3->_anims.insert(pair<string, Animation>("Idle", *idle0));
+	orc3->_anims.insert(pair<string, Animation>("Attack", *attack0));
+	orc3->_anims.insert(pair<string, Animation>("Magic", *magic0));
+	orc3->_anims.insert(pair<string, Animation>("Death", *death0));
 	auto c2 = orc3->AddComponent<AnimatedSpriteComponent>();
 	c2->SetAnimation(*idle0);
 	c2->Play();
@@ -192,6 +334,9 @@ void BattleManager::Load()
 	orc4->Setup(orcStats, "Orc");
 	orc4->type = BattleEntity::Type::Enemy;
 	orc4->_anims.insert(pair<string, Animation>("Idle", *idle0));
+	orc4->_anims.insert(pair<string, Animation>("Attack", *attack0));
+	orc4->_anims.insert(pair<string, Animation>("Magic", *magic0));
+	orc4->_anims.insert(pair<string, Animation>("Death", *death0));
 	auto c3 = orc4->AddComponent<AnimatedSpriteComponent>();
 	c3->SetAnimation(*idle0);
 	c3->Play();
@@ -220,7 +365,37 @@ void BattleManager::Load()
 	idle5->SetSpriteSheet(*skelTexture);
 	idle5->AddFrame(IntRect(22, 340, 24, 48));
 	idle5->AddFrame(IntRect(83, 340, 24, 48));
+	Animation* attack5 = new Animation();
+	attack5->SetSpriteSheet(*skelTexture);
+	attack5->AddFrame(IntRect(49, 1615, 79, 48));
+	attack5->AddFrame(IntRect(226, 1615, 79, 48));
+	attack5->AddFrame(IntRect(416, 1615, 79, 48));
+	attack5->AddFrame(IntRect(611, 1615, 79, 48));
+	attack5->AddFrame(IntRect(795, 1615, 79, 48));
+	attack5->AddFrame(IntRect(985, 1615, 79, 48));
+	attack5->AddFrame(IntRect(1181, 1615, 79, 48));
+	attack5->AddFrame(IntRect(1379, 1615, 79, 48));
+	Animation* magic5 = new Animation();
+	magic5->SetSpriteSheet(*skelTexture);
+	magic5->AddFrame(IntRect(17, 143, 32, 48));
+	magic5->AddFrame(IntRect(81, 143, 32, 48));
+	magic5->AddFrame(IntRect(147, 143, 32, 48));
+	magic5->AddFrame(IntRect(206, 143, 32, 48));
+	magic5->AddFrame(IntRect(258, 143, 60, 48));
+	magic5->AddFrame(IntRect(328, 143, 60, 48));
+	magic5->AddFrame(IntRect(393, 143, 32, 48));
+	Animation* death5 = new Animation();
+	death5->SetSpriteSheet(*skelTexture);
+	death5->AddFrame(IntRect(17, 1292, 29, 48));
+	death5->AddFrame(IntRect(82, 1292, 29, 48));
+	death5->AddFrame(IntRect(147, 1292, 29, 48));
+	death5->AddFrame(IntRect(211, 1292, 29, 48));
+	death5->AddFrame(IntRect(275, 1292, 29, 48));
+	death5->AddFrame(IntRect(338, 1292, 29, 48));
 	skel1->_anims.insert(pair<string, Animation>("Idle", *idle5));
+	skel1->_anims.insert(pair<string, Animation>("Attack", *attack5));
+	skel1->_anims.insert(pair<string, Animation>("Magic", *magic5));
+	skel1->_anims.insert(pair<string, Animation>("Death", *death5));
 	auto c5 = skel1->AddComponent<AnimatedSpriteComponent>();
 	c5->SetAnimation(*idle5);
 	c5->Play();
@@ -233,6 +408,9 @@ void BattleManager::Load()
 	skel2->Setup(skelStats, "Skeleton");
 	skel2->type = BattleEntity::Type::Enemy;
 	skel2->_anims.insert(pair<string, Animation>("Idle", *idle5));
+	skel2->_anims.insert(pair<string, Animation>("Attack", *attack5));
+	skel2->_anims.insert(pair<string, Animation>("Magic", *magic5));
+	skel2->_anims.insert(pair<string, Animation>("Death", *death5));
 	auto c6 = skel2->AddComponent<AnimatedSpriteComponent>();
 	c6->SetAnimation(*idle5);
 	c6->Play();
@@ -245,6 +423,9 @@ void BattleManager::Load()
 	skel3->Setup(skelStats, "Skeleton");
 	skel3->type = BattleEntity::Type::Enemy;
 	skel3->_anims.insert(pair<string, Animation>("Idle", *idle5));
+	skel3->_anims.insert(pair<string, Animation>("Attack", *attack5));
+	skel3->_anims.insert(pair<string, Animation>("Magic", *magic5));
+	skel3->_anims.insert(pair<string, Animation>("Death", *death5));
 	auto c7 = skel3->AddComponent<AnimatedSpriteComponent>();
 	c7->SetAnimation(*idle5);
 	c7->Play();
@@ -257,6 +438,9 @@ void BattleManager::Load()
 	skel4->Setup(skelStats, "Skeleton");
 	skel4->type = BattleEntity::Type::Enemy;
 	skel4->_anims.insert(pair<string, Animation>("Idle", *idle5));
+	skel4->_anims.insert(pair<string, Animation>("Attack", *attack5));
+	skel4->_anims.insert(pair<string, Animation>("Magic", *magic5));
+	skel4->_anims.insert(pair<string, Animation>("Death", *death5));
 	auto c8 = skel4->AddComponent<AnimatedSpriteComponent>();
 	c8->SetAnimation(*idle5);
 	c8->Play();
@@ -356,6 +540,17 @@ void BattleManager::StartBattle(int type, int level)
 		i->SetupEnemy(level);
 		battleEntities.push_back(i);
 	}
+
+	for each (shared_ptr<BattleEntity> i in battleEntities)
+	{
+		if (i->GetStat("CurrHP") > 0)
+		{
+			i->currentState = BattleEntity::IDLE;
+		}
+	}
+
+	battleLog.setPosition(Vector2f(1600, 900));
+	won = false;
 }
 
 void BattleManager::PickAction()
@@ -380,7 +575,7 @@ void BattleManager::PickAction()
 	}
 	else
 	{
-		int i = rand() % 2 + 1;
+		int i  = rand() % 2 + 1;
 
 		if (i == 1)
 		{
@@ -429,13 +624,18 @@ void BattleManager::Attack()
 		slog = currentEntity->GetName() + " is attacking " + battleEntities[selectedTarget]->GetName() + "\n";
 		battleEntities[selectedTarget]->SetStat("CurrHP",
 			battleEntities[selectedTarget]->GetStat("CurrHP") - currentEntity->PhAttack());
-		if (battleEntities[selectedTarget]->GetStat("CurrHP") < 0)
+		if (battleEntities[selectedTarget]->GetStat("CurrHP") <= 0)
 		{
 			battleEntities[selectedTarget]->SetStat("CurrHP", 0);
+			battleEntities[selectedTarget]->currentState = BattleEntity::DEATH;
 		}
 		slog += currentEntity->GetName() + " dealt " + to_string(currentEntity->PhAttack()) + " damage to " + battleEntities[selectedTarget]->GetName() + "\n";
 		battleLog.setString(slog);
+
+		battleEntities[index]->currentState = BattleEntity::ATTACK;
+
 		currentState = BattleStates::NextTurn;
+
 	}
 	else
 	{
@@ -454,13 +654,15 @@ void BattleManager::Magic()
 		slog = currentEntity->GetName() + " is casting at " + battleEntities[selectedTarget]->GetName() + "\n";
 		battleEntities[selectedTarget]->SetStat("CurrHP",
 			battleEntities[selectedTarget]->GetStat("CurrHP") - currentEntity->MgAttack());
-		if (battleEntities[selectedTarget]->GetStat("CurrHP") < 0)
+		if (battleEntities[selectedTarget]->GetStat("CurrHP") <= 0)
 		{
 			battleEntities[selectedTarget]->SetStat("CurrHP", 0);
+			battleEntities[selectedTarget]->currentState = BattleEntity::DEATH;
 		}
 		slog += currentEntity->GetName() + " dealt " + to_string(currentEntity->MgAttack()) + " damage to " + battleEntities[selectedTarget]->GetName() + "\n";
 		battleLog.setString(slog);
 		battleEntities[index]->SetStat("CurrMP", currentEntity->GetStat("CurrMP") - 5);
+		battleEntities[index]->currentState = BattleEntity::MAGIC;
 		currentState = BattleStates::NextTurn;
 	}
 	else if (battleEntities[selectedTarget]->GetStat("CurrHP") <= 0)
@@ -510,24 +712,28 @@ void BattleManager::ChangeTurn()
 	}
 	else
 	{
-		selectedTarget = -1;
-		if (index < 7)
+		if (battleEntities[index]->currentState == BattleEntity::IDLE ||
+			battleEntities[index]->currentState == BattleEntity::DEATH)
 		{
-			index++;
-		}
-		else
-		{
-			index = 0;
-		}
-		if (battleEntities[index]->GetStat("CurrHP") > 0)
-		{
-			currentEntity = battleEntities[index];
-			currentAction = ActionTypes::None;
-			currentState = BattleStates::ChooseAction;
-		}
-		else
-		{
-			ChangeTurn();
+			selectedTarget = -1;
+			if (index < 7)
+			{
+				index++;
+			}
+			else
+			{
+				index = 0;
+			}
+			if (battleEntities[index]->GetStat("CurrHP") > 0)
+			{
+				currentEntity = battleEntities[index];
+				currentAction = ActionTypes::None;
+				currentState = BattleStates::ChooseAction;
+			}
+			else
+			{
+				ChangeTurn();
+			}
 		}
 	}
 }
@@ -541,6 +747,14 @@ void BattleManager::Reset()
 	selectedTarget = -1;
 	index = 0;
 	turn = 0;
+	for each (shared_ptr<BattleEntity> i in battleEntities)
+	{
+		if (i->GetStat("CurrHP") > 0)
+		{
+			i->currentState = BattleEntity::IDLE;
+		}
+	}
+
 }
 
 void BattleManager::Render()
@@ -559,60 +773,87 @@ vector<shared_ptr<BattleEntity>> BattleManager::GetEnts()
 
 void BattleManager::Win()
 {
-	if (battleEntities[0]->GetStat("CurrHP") > 0)
+	if (won == false)
 	{
-		players[0]->GiveExp((2 * battleEntities[4]->GetStat("Level")) * 4);
-		players[0]->SetStat("CurrHP", battleEntities[0]->GetStat("CurrHP"));
-	}
-	if (battleEntities[1]->GetStat("CurrHP") > 0)
-	{
-		players[1]->GiveExp((2 * battleEntities[4]->GetStat("Level")) * 4);
-		players[1]->SetStat("CurrHP", battleEntities[1]->GetStat("CurrHP"));
-	}
-	if (battleEntities[2]->GetStat("CurrHP") > 0)
-	{
-		players[2]->GiveExp((2 * battleEntities[4]->GetStat("Level")) * 4);
-		players[2]->SetStat("CurrHP", battleEntities[2]->GetStat("CurrHP"));
-	}
-	if (battleEntities[3]->GetStat("CurrHP") > 0)
-	{
-		players[3]->GiveExp((2 * battleEntities[4]->GetStat("Level")) * 4);
-		players[3]->SetStat("CurrHP", battleEntities[3]->GetStat("CurrHP"));
+		slog = " ";
+		battleLog.setPosition(Vector2f(1600, 700));
+		if (battleEntities[0]->GetStat("CurrHP") > 0)
+		{
+			int i = 2 * (battleEntities[4]->GetStat("Level") * 4);
+			players[0]->GiveExp(i);
+			players[0]->SetStat("CurrHP", battleEntities[0]->GetStat("CurrHP"));
+			slog += players[0]->GetName() + " gained " + to_string(i) + " experience\n";
+		}
+		if (battleEntities[1]->GetStat("CurrHP") > 0)
+		{
+			int i = 2 * (battleEntities[4]->GetStat("Level") * 4);
+			players[1]->GiveExp(i);
+			players[1]->SetStat("CurrHP", battleEntities[1]->GetStat("CurrHP"));
+			slog += players[1]->GetName() + " gained " + to_string(i) + " experience\n";
+		}
+		if (battleEntities[2]->GetStat("CurrHP") > 0)
+		{
+			int i = 2 * (battleEntities[4]->GetStat("Level") * 4);
+			players[2]->GiveExp(i);
+			players[2]->SetStat("CurrHP", battleEntities[2]->GetStat("CurrHP"));
+			slog += players[2]->GetName() + " gained " + to_string(i) + " experience\n";
+		}
+		if (battleEntities[3]->GetStat("CurrHP") > 0)
+		{
+			int i = 2 * (battleEntities[4]->GetStat("Level") * 4);
+			players[3]->GiveExp(i);
+			players[3]->SetStat("CurrHP", battleEntities[3]->GetStat("CurrHP"));
+			slog += players[3]->GetName() + " gained " + to_string(i) + " experience\n";
+		}
+
+		if (players[0]->hasLeveled == true)
+		{
+			slog += "Andrel leveled up\n";
+			players[0]->hasLeveled = false;
+		}
+		if (players[1]->hasLeveled == true)
+		{
+			slog += "Charity leveled up\n";
+			players[1]->hasLeveled = false;
+		}
+		if (players[2]->hasLeveled == true)
+		{
+			slog += "Helmaer leveled up\n";
+			players[2]->hasLeveled = false;
+		}
+		if (players[3]->hasLeveled == true)
+		{
+			slog += "Horo leveled up\n";
+			players[3]->hasLeveled = false;
+		}
+
+		party.clear();
+		party.push_back(players[0]);
+		party.push_back(players[1]);
+		party.push_back(players[2]);
+		party.push_back(players[3]);
+
+		int j = 100 * battleEntities[4]->GetStat("Level");
+
+		GoldCount += j;
+
+		slog += "You gained " + to_string(j) + " gold\n";
+		slog += "Press Enter to continue...";
+		battleLog.setString(slog);
+		won = true;
 	}
 
-	if (players[0]->GetStat("Level") > battleEntities[0]->GetStat("Level"))
+	if (Keyboard::isKeyPressed(Keyboard::Enter))
 	{
-		cout << "Andrel leveled up\n" << endl;
+		Reset();
+		activeScene = overworldScene;
 	}
-	if (players[1]->GetStat("Level") > battleEntities[1]->GetStat("Level"))
-	{
-		cout << "Charity leveled up\n" << endl;
-	}
-	if (players[2]->GetStat("Level") > battleEntities[2]->GetStat("Level"))
-	{
-		cout << "Helmaer leveled up\n" << endl;
-	}
-	if (players[3]->GetStat("Level") > battleEntities[3]->GetStat("Level"))
-	{
-		cout << "Horo leveled up\n" << endl;
-	}
-
-	party.clear();
-	party.push_back(players[0]);
-	party.push_back(players[1]);
-	party.push_back(players[2]);
-	party.push_back(players[3]);
-
-	GoldCount += 100 * battleEntities[4]->GetStat("Level");
-
-	Reset();
-	activeScene = overworldScene;
 }
 
 void BattleManager::Lose()
 {
 	Reset();
-	// Go to game over screen
+	activeScene = loseScene;
 	
 
 }
