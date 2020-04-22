@@ -854,8 +854,6 @@ void BattleManager::Lose()
 {
 	Reset();
 	activeScene = loseScene;
-	
-
 }
 
 vector<shared_ptr<BattleEntity>> BattleManager::GetBattleEnts()
