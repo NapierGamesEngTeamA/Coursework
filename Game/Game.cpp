@@ -143,19 +143,18 @@ void TitleScene::Load()
 	//titleMusic.setLoop(true);
 	//titleMusic.play();
 
-	
-}
-
-void TitleScene::Update(Time dt)
-{
 	sf::Music music;
-	if (!music.openFromFile("Res/Music/Overworld.wav"))
+	if (!music.openFromFile("Res/Music/Overworld.ogg"))
 	{
 		cout << "Can't load title music" << endl; // error
 	}
 	music.setVolume(50);
 	music.setLoop(true);
 	music.play();
+}
+
+void TitleScene::Update(Time dt)
+{
 
 		Vector2u size = texture.getSize();
 		Color col;
@@ -413,7 +412,46 @@ void SetScene::Load()
 	sSettingsmenu.setTexture(Settingsmenu);
 	sSettingsmenu.setOrigin(size.x / 200, size.y / 10);
 
+	winsize[0].setColor(color.White);
+	font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+	winsize[0].setFont(font);
+	winsize[0].setCharacterSize(40);
+	winsize[0].setString("Press 'F' To Change to Fullscreen");
+	winsize[0].setColor(color.Red);
+	winsize[0].setOutlineColor(color.Black);
+	winsize[0].setOutlineThickness(4);
 
+	const auto textRect = winsize[0].getGlobalBounds();
+	winsize[0].setOrigin(textRect.width * .5f, textRect.height * .5f);
+	winsize[0].setPosition(size.x / 2, size.y / 4.2);
+
+	winsize[1].setColor(color.White);
+	font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+	winsize[1].setFont(font);
+	winsize[1].setCharacterSize(40);
+	winsize[1].setString("Press 'G' To Change to Windowed");
+	winsize[1].setColor(color.Red);
+	winsize[1].setOutlineColor(color.Black);
+	winsize[1].setOutlineThickness(4);
+
+	const auto textRect1 = winsize[1].getGlobalBounds();
+	winsize[1].setOrigin(textRect1.width * .5f, textRect1.height * .5f);
+	winsize[1].setPosition(size.x / 2, size.y / 3.2);
+
+	winsize[2].setColor(color.White);
+	font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+	winsize[2].setFont(font);
+	winsize[2].setCharacterSize(40);
+	winsize[2].setString("Press 'W' To Exit");
+	winsize[2].setColor(color.Red);
+	winsize[2].setOutlineColor(color.Black);
+	winsize[2].setOutlineThickness(4);
+
+	const auto textRect2 = winsize[2].getGlobalBounds();
+	winsize[2].setOrigin(textRect2.width * .5f, textRect2.height * .5f);
+	winsize[2].setPosition(size.x / 2, size.y / 2.2);
+
+	
 }
 
 void SetScene::Update(Time dt)
@@ -425,6 +463,18 @@ void SetScene::Update(Time dt)
 		activeScene = titleScene;
 		//printf("Scene Changed!");		
 	}
+
+	if (Keyboard::isKeyPressed(Keyboard::F))
+	{
+		Renderer::GetWindow().create(sf::VideoMode::getDesktopMode(), "Borderless Fullscreen", sf::Style::None);
+			
+	}
+
+	if (Keyboard::isKeyPressed(Keyboard::G))
+	{
+		Renderer::GetWindow().create(sf::VideoMode(1920, 1080), "Fantasy & Ash");
+
+	}
 }
 
 void SetScene::Render()
@@ -432,6 +482,9 @@ void SetScene::Render()
 	Scene::Render();
 	sf::Texture::bind(&Settingsmenu);
 	Renderer::Queue(&sSettingsmenu);
+	Renderer::Queue(&winsize[0]);
+	Renderer::Queue(&winsize[1]);
+	Renderer::Queue(&winsize[2]);
 	sf::Texture::bind(NULL);
 }
 
@@ -825,7 +878,7 @@ void OverworldScene::Update(Time dt)
 
 		const auto textRect = play.getGlobalBounds();
 		play.setOrigin(textRect.width * .5f, textRect.height * .5f);
-		play.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y - 100);
+		play.setPosition(s2[0]->GetView().getCenter().x + 50 , s2[0]->GetView().getCenter().y - 100);
 
 
 		quit.setFont(font);
@@ -835,7 +888,7 @@ void OverworldScene::Update(Time dt)
 
 		const auto textRect2 = quit.getGlobalBounds();
 		quit.setOrigin(textRect2.width * .5f, textRect2.height * .5f);
-		quit.setPosition(s2[0]->GetView().getCenter().x, s2[0]->GetView().getCenter().y + 100);
+		quit.setPosition(s2[0]->GetView().getCenter().x + 50, s2[0]->GetView().getCenter().y + 100);
 
 
 
@@ -1142,6 +1195,15 @@ void WinScene::Load()
 
 void WinScene::Update(Time dt)
 {
+
+
+	if (InputManager::GetInstance()->Up(true))
+	{
+		activeScene == titleScene;
+	}
+
+	InputManager::GetInstance()->Update();
+
 	Scene::Update(dt);
 }
 
@@ -1167,11 +1229,18 @@ void LoseScene::Load()
 	Lose.loadFromFile("Res/Sprites/YouLose.png");
 	Vector2u size = Lose.getSize();
 	sLose.setTexture(Lose);
-	sLose.setOrigin(size.x / 2 , size.y / 2);
+	sLose.setOrigin(size.x / 200, size.y / 10);
 }
 
 void LoseScene::Update(Time dt)
 {
+	if (InputManager::GetInstance()->Up(true))
+	{
+		activeScene == titleScene;
+	}
+
+	InputManager::GetInstance()->Update();
+	Scene::Update(dt);
 }
 
 
