@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
+#include <SFML/Audio.hpp>
 #include "SystemRenderer.h"
 #include "ecm.h"
 #include "Scene.h"
@@ -133,19 +134,28 @@ void TitleScene::Load()
 	Settings.setPosition(size.x / 2, size.y / 1.8);
 
 	//Music titleMusic;
-	if (!titleMusic.openFromFile("Res/Music/Overworld.ogg"))
-	{
-		cout << "Can't load title music" << endl;
-	}
+	//if (!titleMusic.openFromFile("Res/Music/Overworld.ogg"))
+	//{
+	//	cout << "Can't load title music" << endl;
+	//}
 
-	titleMusic.setVolume(50);
-	titleMusic.setLoop(true);
-	titleMusic.play();
+	//titleMusic.setVolume(50);
+	//titleMusic.setLoop(true);
+	//titleMusic.play();
+
+	
 }
 
 void TitleScene::Update(Time dt)
 {
-
+	sf::Music music;
+	if (!music.openFromFile("Res/Music/Overworld.wav"))
+	{
+		cout << "Can't load title music" << endl; // error
+	}
+	music.setVolume(50);
+	music.setLoop(true);
+	music.play();
 
 		Vector2u size = texture.getSize();
 		Color col;
@@ -1040,13 +1050,13 @@ void CombatScene::Load()
 
 	//Add health 
 
-	if (!battleMusic.openFromFile("Res/Music/BossFight.ogg"))
+	if (!battleMusic.openFromFile("Res/Music/BossFight.wav"))
 	{
 		cout << "Can't load battle music" << endl;
 	}
 	battleMusic.setVolume(100);
 	battleMusic.setLoop(true);
-	//battleMusic.play();
+	battleMusic.play();
 
 	battleManager.Load();
 
