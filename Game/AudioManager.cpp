@@ -5,10 +5,12 @@
 using namespace std;
 using namespace sf;
 
-SoundBuffer* sb = new SoundBuffer();
 bool isPlaying = false;
 Music ovMusic, btMusic, goMusic, victoryMusic;
 float volume = 1;
+SoundBuffer buffer;
+map<string, string> soundeffects;
+Sound sound;
 
 AudioManager* AudioManager::_instance = 0;
 
@@ -29,7 +31,10 @@ AudioManager::AudioManager()
 
 void AudioManager::Load()
 {
-
+	soundeffects.insert(pair<string, string>("Magic", "Res/Music/Sound Effects/Custom Made SE/Magic Effect 1.wav"));
+	soundeffects.insert(pair<string, string>("Grunt", "Res/Music/Sound Effects/Custom Made SE/Orc Grunt 1.wav"));
+	soundeffects.insert(pair<string, string>("Click", "Res/Music/Sound Effects/Custom Made SE/Button Press.wav"));
+	soundeffects.insert(pair<string, string>("Attack", "Res/Music/Sound Effects/Custom Made SE/Sword Clash 4.wav"));
 }
 
 void AudioManager::Update()
@@ -99,4 +104,16 @@ void AudioManager::PlayGameOver()
 	goMusic.setLoop(false);
 	goMusic.setVolume(volume);
 	goMusic.play();
+}
+
+void AudioManager::PlaySoundEffect(string s)
+{
+	if (!buffer.loadFromFile(soundeffects[s]))
+	{
+
+	}
+
+	sound.setBuffer(buffer);
+	sound.setVolume(3);
+	sound.play();
 }

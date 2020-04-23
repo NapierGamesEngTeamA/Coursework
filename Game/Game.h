@@ -175,6 +175,7 @@ public:
 	void Update(Time dt) override;
 	void Render() override;
 	void Load() override;
+	void Reset();
 };
 
 class CombatScene : public Scene

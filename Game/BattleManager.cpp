@@ -346,7 +346,7 @@ void BattleManager::Load()
 	orcs.push_back(orc4);
 #pragma endregion
 
-#pragma region Skeleton Party
+	#pragma region Skeleton Party
 	vector<int> skelStats;
 	skelStats.push_back(1); //Strength
 	skelStats.push_back(2); //Dexterity
@@ -538,7 +538,7 @@ void BattleManager::StartBattle(int type, int level)
 
 	for each (shared_ptr<BattleEntity> i in enemies)
 	{
-		i->SetupEnemy(level);
+		i->SetupEnemy(EnemyLevel);
 		battleEntities.push_back(i);
 	}
 
@@ -560,16 +560,19 @@ void BattleManager::PickAction()
 	{
 		if (Keyboard::isKeyPressed(Keyboard::Left))
 		{
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			currentAction = ActionTypes::aAttack;
 			currentState = BattleStates::ChooseTarget;
 		}
 		if (Keyboard::isKeyPressed(Keyboard::Right))
 		{
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			currentAction = ActionTypes::aMagic;
 			currentState = BattleStates::ChooseTarget;
 		}
 		if (Keyboard::isKeyPressed(Keyboard::Down))
 		{
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			currentAction = ActionTypes::aFlee;
 			currentState = BattleStates::Action;
 		}
@@ -596,18 +599,22 @@ void BattleManager::PickTarget()
 	{
 		if (Keyboard::isKeyPressed(Keyboard::Num1))
 		{
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			selectedTarget = 4;
 		}
 		else if (Keyboard::isKeyPressed(Keyboard::Num2))
 		{
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			selectedTarget = 5;
 		}
 		else if (Keyboard::isKeyPressed(Keyboard::Num3))
 		{
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			selectedTarget = 6;
 		}
 		else if (Keyboard::isKeyPressed(Keyboard::Num4))
 		{
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			selectedTarget = 7;
 		}
 	}
@@ -634,6 +641,7 @@ void BattleManager::Attack()
 		battleLog.setString(slog);
 
 		battleEntities[index]->currentState = BattleEntity::ATTACK;
+		AudioManager::GetInstance()->PlaySoundEffect("Attack");
 
 		currentState = BattleStates::NextTurn;
 
@@ -664,6 +672,7 @@ void BattleManager::Magic()
 		battleLog.setString(slog);
 		battleEntities[index]->SetStat("CurrMP", currentEntity->GetStat("CurrMP") - 5);
 		battleEntities[index]->currentState = BattleEntity::MAGIC;
+		AudioManager::GetInstance()->PlaySoundEffect("Magic");
 		currentState = BattleStates::NextTurn;
 	}
 	else if (battleEntities[selectedTarget]->GetStat("CurrHP") <= 0)
@@ -750,7 +759,13 @@ void BattleManager::Reset()
 	index = 0;
 	turn = 0;
 	slog = " ";
+	battleLog.setString(slog);
 	HasHealed = false;
+	for (int i = 0; i < 4; i++)
+	{
+		orcs[i]->SetStat("CurrHP", orcs[i]->GetStat("MaxHP"));
+		skeletons[i]->SetStat("CurrHP", skeletons[i]->GetStat("MaxHP"));
+	}
 }
 
 void BattleManager::Render()

@@ -18,4 +18,5 @@ public:
 	static void PlayBattle();
 	static void PlayGameOver();
 	static void PlayVictory();
+	static void PlaySoundEffect(string s);
 };

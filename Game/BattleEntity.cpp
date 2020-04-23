@@ -74,6 +74,10 @@ void BattleEntity::Update(Time dt)
 		{
 			GetComponents<AnimatedSpriteComponent>()[0]->SetFrame(5);
 		}
+		if (stats["CurrHP"] > 0)
+		{
+			currentState = BattleEntity::IDLE;
+		}
 		break;
 	}
 
@@ -106,13 +110,13 @@ void BattleEntity::Setup(vector<int> st, string na)
 void BattleEntity::SetupEnemy(int level)
 {
 	stats["Level"] = level;
-	stats["Str"] *= level;
-	stats["Dex"] *= level;
-	stats["Int"] *= level;
-	stats["Con"] *= level;
+	stats["Str"] += level;
+	stats["Dex"] += level;
+	stats["Int"] += level;
+	stats["Con"] += level;
 
-	stats["MaxHP"] *= level;
-	stats["MaxMP"] *= level;
+	stats["MaxHP"] += level;
+	stats["MaxMP"] += level;
 	stats["CurrHP"] = stats["MaxHP"];
 	stats["CurrMP"] = stats["MaxMP"];
 }
@@ -174,7 +178,7 @@ void BattleEntity::Levelup()
 	stats["MaxMP"] += rand() % 5 + 1;
 	stats["CurrHP"] = stats["MaxHP"];
 	stats["CurrMP"] = stats["MaxMP"];
-	stats["Exp"] = 0;;
+	stats["Exp"] = 0;
 	stats["Level"] += 1;
 }
 
