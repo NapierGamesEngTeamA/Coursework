@@ -1232,7 +1232,7 @@ void LoseScene::Load()
 
 void LoseScene::Update(Time dt)
 {
-	if (Keyboard::isKeyPressed(Keyboard::Enter))
+	if (Keyboard::isKeyPressed(Keyboard::W))
 	{
 		AudioManager::GetInstance()->PlayOverworld();
 		activeScene = titleScene;
