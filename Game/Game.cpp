@@ -76,7 +76,7 @@ void TitleScene::Load()
 	sprite.setOrigin(size.x / 200, size.y / 10);
 
 
-	gtitlefont.loadFromFile("Res/Fonts/AncientModernTales-a7Po.ttf");
+	gtitlefont.loadFromFile("Res/Fonts/riskofrainfont.ttf");
 	gtitle.setFont(font);
 	gtitle.setCharacterSize(100);
 	gtitle.setString("Fantasy & Ash");
@@ -89,7 +89,7 @@ void TitleScene::Load()
 	gtitle.setPosition(size.x /4, size.y/12);
 
 	play.setColor(color.White);
-	font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+	font.loadFromFile("Res/Fonts/riskofrainfont.ttf");
 	play.setFont(font);
 	play.setCharacterSize(100);
 	play.setString("Play");
@@ -271,18 +271,6 @@ void IntroScene::Load()
 	sprite.setTexture(texture);
 	sprite.setOrigin(size.x / 200, size.y / 10);
 
-	play.setColor(color.White);
-	font.loadFromFile("Res/Fonts/AncientModernTales-a7Po.ttf");
-	play.setFont(font);
-	play.setCharacterSize(60);
-	play.setString("Press 'W' To Continue");
-	play.setColor(color.White);
-	play.setOutlineColor(color.Black);
-	play.setOutlineThickness(4);
-
-	const auto textRect = play.getGlobalBounds();
-	play.setOrigin(textRect.width * .5f, textRect.height * .5f);
-	play.setPosition(size.x / 6.2, size.y / 6.2);
 
 
 
@@ -322,9 +310,9 @@ void ContScene::Load()
 	sControlsmenu.setOrigin(size.x / 200, size.y / 10);
 
 	play.setColor(color.White);
-	font.loadFromFile("Res/Fonts/AncientModernTales-a7Po.ttf");
+	font.loadFromFile("Res/Fonts/riskofrainfont.ttf");
 	play.setFont(font);
-	play.setCharacterSize(60);
+	play.setCharacterSize(30);
 	play.setString("Press 'W'\nTo Exit");
 	play.setColor(color.White);
 	play.setOutlineColor(color.Black);
@@ -335,9 +323,9 @@ void ContScene::Load()
 	play.setPosition(size.x / 10.2, size.y / 6.2);
 
 	play2.setColor(color.White);
-	font.loadFromFile("Res/Fonts/AncientModernTales-a7Po.ttf");
+	font.loadFromFile("Res/Fonts/riskofrainfont.ttf");
 	play2.setFont(font);
-	play2.setCharacterSize(60);
+	play2.setCharacterSize(30);
 	play2.setString("Press 'D'\nTo View\nHow To Play");
 	play2.setColor(color.White);
 	play2.setOutlineColor(color.Black);
@@ -394,7 +382,7 @@ void SetScene::Load()
 	sSettingsmenu.setOrigin(size.x / 200, size.y / 10);
 
 	winsize[0].setColor(color.White);
-	font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+	font.loadFromFile("Res/Fonts/riskofrainfont.ttf");
 	winsize[0].setFont(font);
 	winsize[0].setCharacterSize(40);
 	winsize[0].setString("Press 'F' To Change to Fullscreen");
@@ -407,7 +395,7 @@ void SetScene::Load()
 	winsize[0].setPosition(size.x / 2, size.y / 4.2);
 
 	winsize[1].setColor(color.White);
-	font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+	font.loadFromFile("Res/Fonts/riskofrainfont.ttf");
 	winsize[1].setFont(font);
 	winsize[1].setCharacterSize(40);
 	winsize[1].setString("Press 'G' To Change to Windowed");
@@ -420,7 +408,7 @@ void SetScene::Load()
 	winsize[1].setPosition(size.x / 2, size.y / 3.2);
 
 	winsize[2].setColor(color.White);
-	font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+	font.loadFromFile("Res/Fonts/riskofrainfont.ttf");
 	winsize[2].setFont(font);
 	winsize[2].setCharacterSize(40);
 	winsize[2].setString("Press 'W' To Exit");
@@ -481,9 +469,9 @@ void HTPScene::Load()
 	shtpsmenu.setOrigin(size.x / 200, size.y / 10);
 
 	play.setColor(color.White);
-	font.loadFromFile("Res/Fonts/AncientModernTales-a7Po.ttf");
+	font.loadFromFile("Res/Fonts/riskofrainfont.ttf");
 	play.setFont(font);
-	play.setCharacterSize(60);
+	play.setCharacterSize(30);
 	play.setString("Press 'S'\nTo View\nCombat Controls");
 	play.setColor(color.White);
 	play.setOutlineColor(color.Black);
@@ -491,13 +479,13 @@ void HTPScene::Load()
 
 	const auto textRect = play.getGlobalBounds();
 	play.setOrigin(textRect.width * .5f, textRect.height * .5f);
-	play.setPosition(size.x / 10.2, size.y / 6.2);
+	play.setPosition(size.x / 10.2, size.y / 9.2);
 
 
 	play2.setColor(color.White);
-	font.loadFromFile("Res/Fonts/AncientModernTales-a7Po.ttf");
+	font.loadFromFile("Res/Fonts/riskofrainfont.ttf");
 	play2.setFont(font);
-	play2.setCharacterSize(60);
+	play2.setCharacterSize(30);
 	play2.setString("Press 'A'\nTo View\nControls");
 	play2.setColor(color.White);
 	play2.setOutlineColor(color.Black);
@@ -525,7 +513,7 @@ void HTPScene::Update(Time dt)
 	}
 	else if (InputManager::GetInstance()->Down(true))
 	{
-
+		
 		play.setString("Press 'W'\nTo View\nHow To Play\nGeneral");
 		htpsmenu.loadFromFile("Res/Sprites/htpc.png");
 		//printf("Scene Changed!");		
@@ -738,7 +726,7 @@ void OverworldScene::Update(Time dt)
 			else
 			{
 				heal.setColor(color.Black);
-				font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+				font.loadFromFile("Res/Fonts/riskofrainfont.ttf");
 				heal.setFont(font);
 				heal.setCharacterSize(30);
 				heal.setString("Press Enter\nto pay 10 gold to\nheal your party");
@@ -848,7 +836,7 @@ void OverworldScene::Update(Time dt)
 
 
 		play.setColor(color.Red);
-		font.loadFromFile("Res/Fonts/SuperLegendBoy-4w8Y.ttf");
+		font.loadFromFile("Res/Fonts/riskofrainfont.ttf");
 		play.setFont(font);
 		play.setCharacterSize(60);
 		play.setString("Press 'W'\nTo Continue");
@@ -1029,7 +1017,7 @@ void CombatScene::Load()
 	background.setTexture(bgTex);
 	background.setOrigin(0, 0);	
 
-	font.loadFromFile("Res/Fonts/BreatheFire-65pg.ttf");
+	font.loadFromFile("Res/Fonts/riskofrainfont.ttf");
 
 	//Set starting party stats
 
@@ -1040,13 +1028,13 @@ void CombatScene::Load()
 
 	statText.setFont(font);
 	statText.setColor(Color::White);
-	statText.setCharacterSize(36);
+	statText.setCharacterSize(25);
 	statText.setPosition(Vector2f(50, 500));
 	statText.setString(" ");
 	
 	menuText[0].setFont(font);
 	menuText[0].setColor(Color::White);
-	menuText[0].setCharacterSize(36);
+	menuText[0].setCharacterSize(26);
 	menuText[0].setPosition(Vector2f(50, 100));
 	menuText[0].setString("<:Attack");
 	menuText[0].setOutlineColor(color.Red);
@@ -1054,7 +1042,7 @@ void CombatScene::Load()
 
 	menuText[1].setFont(font);
 	menuText[1].setColor(Color::White);
-	menuText[1].setCharacterSize(36);
+	menuText[1].setCharacterSize(26);
 	menuText[1].setPosition(Vector2f(125, 150));
 	menuText[1].setString("\\/:Flee");
 	menuText[1].setOutlineColor(color.Red);
@@ -1062,7 +1050,7 @@ void CombatScene::Load()
 
 	menuText[2].setFont(font);
 	menuText[2].setColor(Color::White);
-	menuText[2].setCharacterSize(36);
+	menuText[2].setCharacterSize(26);
 	menuText[2].setPosition(Vector2f(200, 100));
 	menuText[2].setString(">:Magic");
 	menuText[2].setOutlineColor(color.Red);

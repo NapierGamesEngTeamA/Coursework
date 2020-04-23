@@ -454,10 +454,10 @@ void BattleManager::Load()
 	currentAction = ActionTypes::None;
 
 	slog = " ";
-	font.loadFromFile("Res/Fonts/BreatheFire-65pg.ttf");
+	font.loadFromFile("Res/Fonts/riskofrainfont.ttf");
 	battleLog.setFont(font);
 	battleLog.setColor(Color::White);
-	battleLog.setCharacterSize(24);
+	battleLog.setCharacterSize(16);
 	battleLog.setPosition(Vector2f(1600, 900));
 	battleLog.setString(" ");
 
