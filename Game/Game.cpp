@@ -708,9 +708,9 @@ void OverworldScene::Update(Time dt)
 
 	if (Paused == false)
 	{
-		if (GoldCount >= 10000)
+		if (GoldCount >= 1000)
 		{
-			activeScene == winScene;
+			activeScene = winScene;
 		}
 
 			psprite.setPosition(10000, 10000);
@@ -1168,14 +1168,15 @@ void WinScene::Load()
 	Win.loadFromFile("Res/Sprites/YouWin.png");
 	Vector2u size = Win.getSize();
 	sWin.setTexture(Win);
-	sWin.setOrigin(size.x / 200 , size.y / 10 );
+	sWin.setOrigin(size.x / 200, size.y / 10);
 }
 
 void WinScene::Update(Time dt)
 {
 
 
-	if (Keyboard::isKeyPressed(Keyboard::Enter))
+	if (Keyboard::isKeyPressed(Keyboard::
+	W))
 	{
 		activeScene = titleScene;
 	}
@@ -1202,6 +1203,7 @@ void WinScene::Render()
 
 void LoseScene::Load()
 {
+	//view.reset(FloatRect(0, 0, 1920, 1080));
 	view.reset(FloatRect(0, 0, 1920, 1080));
 
 	Lose.loadFromFile("Res/Sprites/YouLose.png");

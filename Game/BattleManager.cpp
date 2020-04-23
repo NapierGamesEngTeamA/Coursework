@@ -829,7 +829,7 @@ void BattleManager::Win()
 		party.push_back(players[2]);
 		party.push_back(players[3]);
 
-		int j = 1000 * battleEntities[4]->GetStat("Level");
+		int j = 1100 * battleEntities[4]->GetStat("Level");
 
 		GoldCount += j;
 
