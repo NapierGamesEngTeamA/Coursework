@@ -709,7 +709,7 @@ void OverworldScene::Update(Time dt)
 
 	if (Paused == false)
 	{
-		if (GoldCount >= 1000)
+		if (GoldCount >= 10000)
 		{
 			activeScene = winScene;
 		}
