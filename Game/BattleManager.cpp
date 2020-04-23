@@ -346,7 +346,7 @@ void BattleManager::Load()
 	orcs.push_back(orc4);
 #pragma endregion
 
-#pragma region Skeleton Party
+	#pragma region Skeleton Party
 	vector<int> skelStats;
 	skelStats.push_back(1); //Strength
 	skelStats.push_back(2); //Dexterity
@@ -560,16 +560,19 @@ void BattleManager::PickAction()
 	{
 		if (Keyboard::isKeyPressed(Keyboard::Left))
 		{
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			currentAction = ActionTypes::aAttack;
 			currentState = BattleStates::ChooseTarget;
 		}
 		if (Keyboard::isKeyPressed(Keyboard::Right))
 		{
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			currentAction = ActionTypes::aMagic;
 			currentState = BattleStates::ChooseTarget;
 		}
 		if (Keyboard::isKeyPressed(Keyboard::Down))
 		{
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			currentAction = ActionTypes::aFlee;
 			currentState = BattleStates::Action;
 		}
@@ -596,18 +599,22 @@ void BattleManager::PickTarget()
 	{
 		if (Keyboard::isKeyPressed(Keyboard::Num1))
 		{
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			selectedTarget = 4;
 		}
 		else if (Keyboard::isKeyPressed(Keyboard::Num2))
 		{
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			selectedTarget = 5;
 		}
 		else if (Keyboard::isKeyPressed(Keyboard::Num3))
 		{
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			selectedTarget = 6;
 		}
 		else if (Keyboard::isKeyPressed(Keyboard::Num4))
 		{
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			selectedTarget = 7;
 		}
 	}
@@ -634,6 +641,7 @@ void BattleManager::Attack()
 		battleLog.setString(slog);
 
 		battleEntities[index]->currentState = BattleEntity::ATTACK;
+		AudioManager::GetInstance()->PlaySoundEffect("Attack");
 
 		currentState = BattleStates::NextTurn;
 
@@ -664,6 +672,7 @@ void BattleManager::Magic()
 		battleLog.setString(slog);
 		battleEntities[index]->SetStat("CurrMP", currentEntity->GetStat("CurrMP") - 5);
 		battleEntities[index]->currentState = BattleEntity::MAGIC;
+		AudioManager::GetInstance()->PlaySoundEffect("Magic");
 		currentState = BattleStates::NextTurn;
 	}
 	else if (battleEntities[selectedTarget]->GetStat("CurrHP") <= 0)
