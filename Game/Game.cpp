@@ -821,7 +821,7 @@ void OverworldScene::Update(Time dt)
 				}
 				else
 				{
-				e2sprt[i].setPosition(Vector2f(-1000, -1000));
+				    e2sprt[i].setPosition(Vector2f(-1000, -1000));
 					EnemyType = 1;
 					activeScene = combatScene;
 					cout << "Battle Comencing" << '\n';
@@ -1197,9 +1197,9 @@ void WinScene::Update(Time dt)
 {
 
 
-	if (InputManager::GetInstance()->Up(true))
+	if (Keyboard::isKeyPressed(Keyboard::Enter))
 	{
-		activeScene == titleScene;
+		activeScene = titleScene;
 	}
 
 	InputManager::GetInstance()->Update();
@@ -1234,9 +1234,9 @@ void LoseScene::Load()
 
 void LoseScene::Update(Time dt)
 {
-	if (InputManager::GetInstance()->Up(true))
+	if (Keyboard::isKeyPressed(Keyboard::Enter))
 	{
-		activeScene == titleScene;
+		activeScene = titleScene;
 	}
 
 	InputManager::GetInstance()->Update();
