@@ -538,7 +538,7 @@ void BattleManager::StartBattle(int type, int level)
 
 	for each (shared_ptr<BattleEntity> i in enemies)
 	{
-		i->SetupEnemy(level);
+		i->SetupEnemy(EnemyLevel);
 		battleEntities.push_back(i);
 	}
 
@@ -750,7 +750,13 @@ void BattleManager::Reset()
 	index = 0;
 	turn = 0;
 	slog = " ";
+	battleLog.setString(slog);
 	HasHealed = false;
+	for (int i = 0; i < 4; i++)
+	{
+		orcs[i]->SetStat("CurrHP", orcs[i]->GetStat("MaxHP"));
+		skeletons[i]->SetStat("CurrHP", skeletons[i]->GetStat("MaxHP"));
+	}
 }
 
 void BattleManager::Render()

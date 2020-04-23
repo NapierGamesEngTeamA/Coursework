@@ -550,20 +550,6 @@ void HTPScene::Render()
 ///////////////////////////// OVERWORLD SCENE //////////////////
 void OverworldScene::Load()
 {
-	
-	//if (!spritesheet.loadFromFile("Res/Sprites/Orc.png"))
-	//{
-	//	cerr << "Failed to load spritesheet!" << endl;
-	//}
-
-	//
-	//hbar.loadFromFile("Res/Sprites/HealthBar.png");
-	//hbarsprite.setTexture(hbar);
-	//Vector2u size = hbar.getSize();
-	//hbarsprite.setOrigin(size.x * .5f, size.y * .5f);
-
-
-
 	HH.loadFromFile("Res/Sprites/HealthHouse.png");
 	sHH.setTexture(HH);
 	Vector2u size = HH.getSize();
@@ -698,6 +684,24 @@ void OverworldScene::Load()
 	HasHealed = false;
 }
 
+void OverworldScene::Reset()
+{
+	sprite[0].setPosition(4200, 2300);
+	sprite[1].setPosition(4700, 2000);
+	sprite[2].setPosition(4500, 1700);
+	sprite[3].setPosition(3800, 1700);
+	sprite[4].setPosition(2800, 1400);
+
+	int offset = 0;
+	int offsety = 0;
+
+	for (int i = 0; i < 5; i++)
+	{
+		offset = offset + 100;
+		offsety = offsety + 40;
+		e2sprt[i].setPosition((rand() % 2000 + 3000) + offset, (rand() % 300 + 300) + offsety);
+	}
+}
 
 void OverworldScene::Update(Time dt)
 {
@@ -787,6 +791,7 @@ void OverworldScene::Update(Time dt)
 				{
 					sprite[i].setPosition(Vector2f(-1000, -1000));
 					EnemyType = 0;
+					EnemyLevel = party[0]->GetStat("Level");
 					AudioManager::GetInstance()->PlayBattle();
 					activeScene = combatScene;
 					cout << "Battle Comencing" << '\n';
@@ -801,6 +806,7 @@ void OverworldScene::Update(Time dt)
 				{
 				    e2sprt[i].setPosition(Vector2f(-1000, -1000));
 					EnemyType = 1;
+					EnemyLevel = party[0]->GetStat("Level");
 					AudioManager::GetInstance()->PlayBattle();
 					activeScene = combatScene;
 					cout << "Battle Comencing" << '\n';
