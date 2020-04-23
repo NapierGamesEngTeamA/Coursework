@@ -7,7 +7,7 @@ using namespace sf;
 
 SoundBuffer* sb = new SoundBuffer();
 bool isPlaying = false;
-Music ovMusic, btMusic, goMusic;
+Music ovMusic, btMusic, goMusic, victoryMusic;
 float volume = 1;
 
 AudioManager* AudioManager::_instance = 0;
@@ -41,6 +41,7 @@ void AudioManager::PlayOverworld()
 {
 	btMusic.stop();
 	goMusic.stop();
+	victoryMusic.stop();
 
 	if (!ovMusic.openFromFile("Res/Music/Overworld.ogg"))
 	{
@@ -56,6 +57,7 @@ void AudioManager::PlayBattle()
 {
 	ovMusic.stop();
 	goMusic.stop();
+	victoryMusic.stop();
 
 	if (!btMusic.openFromFile("Res/Music/BossFight.ogg"))
 	{
@@ -65,4 +67,36 @@ void AudioManager::PlayBattle()
 	btMusic.setLoop(true);
 	btMusic.setVolume(volume);
 	btMusic.play();
+}
+
+void AudioManager::PlayVictory()
+{
+	ovMusic.stop();
+	goMusic.stop();
+	btMusic.stop();
+
+	if (!victoryMusic.openFromFile("Res/Music/Victory!.ogg"))
+	{
+
+	}
+
+	victoryMusic.setLoop(false);
+	victoryMusic.setVolume(volume);
+	victoryMusic.play();
+}
+
+void AudioManager::PlayGameOver()
+{
+	ovMusic.stop();
+	goMusic.stop();
+	btMusic.stop();
+
+	if (!goMusic.openFromFile("Res/Music/Game Over.ogg"))
+	{
+
+	}
+
+	goMusic.setLoop(false);
+	goMusic.setVolume(volume);
+	goMusic.play();
 }
