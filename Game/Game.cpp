@@ -798,7 +798,7 @@ void OverworldScene::Update(Time dt)
 				}
 				else
 				{
-					sprite[i].setPosition(Vector2f(-1000, -1000));
+				    e2sprt[i].setPosition(Vector2f(-1000, -1000));
 					EnemyType = 1;
 					AudioManager::GetInstance()->PlayBattle();
 					activeScene = combatScene;
@@ -1175,9 +1175,9 @@ void WinScene::Update(Time dt)
 {
 
 
-	if (InputManager::GetInstance()->Up(true))
+	if (Keyboard::isKeyPressed(Keyboard::Enter))
 	{
-		activeScene == titleScene;
+		activeScene = titleScene;
 	}
 
 	InputManager::GetInstance()->Update();
@@ -1212,9 +1212,9 @@ void LoseScene::Load()
 
 void LoseScene::Update(Time dt)
 {
-	if (InputManager::GetInstance()->Up(true))
+	if (Keyboard::isKeyPressed(Keyboard::Enter))
 	{
-		activeScene == titleScene;
+		activeScene = titleScene;
 	}
 
 	InputManager::GetInstance()->Update();

@@ -675,7 +675,7 @@ void BattleManager::Magic()
 	}
 	else if (currentEntity->GetStat("CurrMP") < 5)
 	{
-		slog = "Not enough mana to cast magic. Try something else.";
+		slog = "Not enough mana to cast magic.\nTry something else.";
 		battleLog.setString(slog);
 		selectedTarget = -1;
 		currentAction = ActionTypes::None;
