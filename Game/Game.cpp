@@ -134,6 +134,7 @@ void TitleScene::Load()
 	Settings.setOrigin(textRect4.width * .5f, textRect4.height * .5f);
 	Settings.setPosition(size.x / 2, size.y / 1.8);
 
+	AudioManager::GetInstance()->Load();
 	AudioManager::GetInstance()->PlayOverworld();
 }
 
@@ -158,6 +159,7 @@ void TitleScene::Update(Time dt)
 			quit.setOutlineThickness(0);
 			Controls.setOutlineThickness(0);
 			Settings.setOutlineThickness(0);
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 		}
 		else if (InputManager::GetInstance()->Left(true))
 		{
@@ -172,6 +174,7 @@ void TitleScene::Update(Time dt)
 			play.setOutlineThickness(0);
 			Controls.setOutlineThickness(0);
 			Settings.setOutlineThickness(0);
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 		}
 		else if (InputManager::GetInstance()->Right(true))
 		{
@@ -186,6 +189,7 @@ void TitleScene::Update(Time dt)
 			play.setOutlineThickness(0);
 			quit.setOutlineThickness(0);
 			Settings.setOutlineThickness(0);
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 		}
 
 		else if (InputManager::GetInstance()->Down(true))
@@ -201,6 +205,7 @@ void TitleScene::Update(Time dt)
 			play.setOutlineThickness(0);
 			quit.setOutlineThickness(0);
 			Controls.setOutlineThickness(0);
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 		}
 
 	
@@ -293,6 +298,7 @@ void IntroScene::Update(Time dt)
 	//Move cursor
 	if (InputManager::GetInstance()->Up(true))
 	{
+		AudioManager::GetInstance()->PlaySoundEffect("Click");
 		activeScene = overworldScene;
 		//printf("Scene Changed!");		
 	}
@@ -354,12 +360,13 @@ void ContScene::Update(Time dt)
 
 	if (InputManager::GetInstance()->Up(true))
 	{
-
+		AudioManager::GetInstance()->PlaySoundEffect("Click");
 		activeScene = titleScene;
 		//printf("Scene Changed!");		
 	}
 	else if (InputManager::GetInstance()->Right(true))
 	{
+		AudioManager::GetInstance()->PlaySoundEffect("Click");
 		activeScene = htpScene;
 		//printf("Scene Changed!");		
 	}
@@ -440,7 +447,7 @@ void SetScene::Update(Time dt)
 
 	if (InputManager::GetInstance()->Up(true))
 	{
-
+		AudioManager::GetInstance()->PlaySoundEffect("Click");
 		activeScene = titleScene;
 		//printf("Scene Changed!");		
 	}
@@ -448,13 +455,13 @@ void SetScene::Update(Time dt)
 	if (Keyboard::isKeyPressed(Keyboard::F))
 	{
 		Renderer::GetWindow().create(sf::VideoMode::getDesktopMode(), "Borderless Fullscreen", sf::Style::None);
-			
+		AudioManager::GetInstance()->PlaySoundEffect("Click");
 	}
 
 	if (Keyboard::isKeyPressed(Keyboard::G))
 	{
 		Renderer::GetWindow().create(sf::VideoMode(1920, 1080), "Fantasy & Ash");
-
+		AudioManager::GetInstance()->PlaySoundEffect("Click");
 	}
 }
 
@@ -513,19 +520,20 @@ void HTPScene::Update(Time dt)
 
 	if (InputManager::GetInstance()->Up(true))
 	{
+		AudioManager::GetInstance()->PlaySoundEffect("Click");
 		play.setString("Press 'S'\nTo View\nCombat Controls");
 		htpsmenu.loadFromFile("Res/Sprites/htp.png");
 		//printf("Scene Changed!");		
 	}
 	else if (InputManager::GetInstance()->Left(true))
 	{
-
+		AudioManager::GetInstance()->PlaySoundEffect("Click");
 		activeScene = contScene;
 		//printf("Scene Changed!");		
 	}
 	else if (InputManager::GetInstance()->Down(true))
 	{
-
+		AudioManager::GetInstance()->PlaySoundEffect("Click");
 		play.setString("Press 'W'\nTo View\nHow To Play\nGeneral");
 		htpsmenu.loadFromFile("Res/Sprites/htpc.png");
 		//printf("Scene Changed!");		
@@ -818,8 +826,8 @@ void OverworldScene::Update(Time dt)
 
 			if (InputManager::Start(true))
 			{
+				AudioManager::GetInstance()->PlaySoundEffect("Click");
 				Paused = true;
-
 			}
 
 
@@ -964,13 +972,14 @@ void OverworldScene::Update(Time dt)
 
 		if (InputManager::GetInstance()->Up(true) && index == 0)
 		{
-
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			Paused = false;
 			//printf("Scene Changed!");		
 		}
 
 		if (InputManager::GetInstance()->Down(true) && index == 1)
 		{
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			activeScene = titleScene;
 			Paused = false;
 		}

@@ -178,7 +178,7 @@ void BattleEntity::Levelup()
 	stats["MaxMP"] += rand() % 5 + 1;
 	stats["CurrHP"] = stats["MaxHP"];
 	stats["CurrMP"] = stats["MaxMP"];
-	stats["Exp"] = 0;;
+	stats["Exp"] = 0;
 	stats["Level"] += 1;
 }
 
