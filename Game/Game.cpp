@@ -821,7 +821,7 @@ void OverworldScene::Update(Time dt)
 				}
 				else
 				{
-					sprite[i].setPosition(Vector2f(-1000, -1000));
+				e2sprt[i].setPosition(Vector2f(-1000, -1000));
 					EnemyType = 1;
 					activeScene = combatScene;
 					cout << "Battle Comencing" << '\n';

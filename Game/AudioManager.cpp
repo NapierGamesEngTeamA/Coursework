@@ -28,7 +28,7 @@ AudioManager::AudioManager()
 
 void AudioManager::Load()
 {
-	menuMusic.openFromFile("Res/Music/Overworld.ogg");
+	//menuMusic.openFromFile("Res/Music/Overworld.ogg");
 }
 
 void AudioManager::Update()
