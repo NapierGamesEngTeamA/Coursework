@@ -688,6 +688,7 @@ void BattleManager::Flee()
 
 	if (i > 60)
 	{
+		Reset();
 		activeScene = overworldScene;
 	}
 	else
