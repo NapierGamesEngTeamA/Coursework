@@ -5,6 +5,7 @@
 #include <functional>
 #include "BattleEntity.h"
 #include "BattleManager.h"
+#include "LoadManager.h"
 
 using namespace std;
 using namespace sf;
@@ -25,6 +26,7 @@ extern int GoldCount;
 extern bool HasHealed;
 extern vector<shared_ptr<BattleEntity>> party;
 
+
 class TitleScene : public Scene
 {
 
@@ -34,9 +36,6 @@ public:
 	void Load() override;
 
 private:
-	Music titleMusic;
-	//SoundBuffer buffer;
-	//Sound s;
 	int index;
 	View view;
 	Sprite sprite;

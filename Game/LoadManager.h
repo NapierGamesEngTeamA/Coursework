@@ -6,11 +6,15 @@ using namespace std;
 
 class LoadManager
 {
-private:
-	ofstream file;
-	string location = "SaveFile.txt";
-public:
-	LoadManager();
-	void SaveFile(string s);
-	void LoadFile(string loc);
+//private:
+//	static LoadManager* _instance;
+//	LoadManager();
+//
+//	ofstream file;
+//	string location = "SaveFile.txt";
+//public:
+//	//static InputManager* GetInstance();
+//
+//	void SaveFile(string s);
+//	void LoadFile(string loc);
 };

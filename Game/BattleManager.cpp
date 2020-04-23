@@ -3,6 +3,7 @@
 #include "SystemRenderer.h"
 #include "InputManager.h"
 #include "Game.h"
+#include "AudioManager.h"
 
 using namespace std;
 using namespace sf;
@@ -748,14 +749,8 @@ void BattleManager::Reset()
 	selectedTarget = -1;
 	index = 0;
 	turn = 0;
-	for each (shared_ptr<BattleEntity> i in battleEntities)
-	{
-		if (i->GetStat("CurrHP") > 0)
-		{
-			i->currentState = BattleEntity::IDLE;
-		}
-	}
-
+	
+	HasHealed = false;
 }
 
 void BattleManager::Render()
@@ -847,6 +842,7 @@ void BattleManager::Win()
 	if (Keyboard::isKeyPressed(Keyboard::Enter))
 	{
 		Reset();
+		AudioManager::GetInstance()->PlayOverworld();
 		activeScene = overworldScene;
 	}
 }

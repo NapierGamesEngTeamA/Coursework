@@ -133,24 +133,7 @@ void TitleScene::Load()
 	Settings.setOrigin(textRect4.width * .5f, textRect4.height * .5f);
 	Settings.setPosition(size.x / 2, size.y / 1.8);
 
-	//Music titleMusic;
-	//if (!titleMusic.openFromFile("Res/Music/Overworld.ogg"))
-	//{
-	//	cout << "Can't load title music" << endl;
-	//}
-
-	//titleMusic.setVolume(50);
-	//titleMusic.setLoop(true);
-	//titleMusic.play();
-
-	sf::Music music;
-	if (!music.openFromFile("Res/Music/Overworld.ogg"))
-	{
-		cout << "Can't load title music" << endl; // error
-	}
-	music.setVolume(50);
-	music.setLoop(true);
-	music.play();
+	AudioManager::GetInstance()->PlayOverworld();
 }
 
 void TitleScene::Update(Time dt)
@@ -316,7 +299,6 @@ void IntroScene::Update(Time dt)
 	Scene::Update(dt);
 }
 
-
 void IntroScene::Render()
 {
 	Scene::Render();
@@ -399,8 +381,6 @@ void ContScene::Render()
 	
 	sf::Texture::bind(NULL);
 }
-
-
 
 //Settings Scene
 void SetScene::Load()
@@ -487,7 +467,6 @@ void SetScene::Render()
 	Renderer::Queue(&winsize[2]);
 	sf::Texture::bind(NULL);
 }
-
 
 void HTPScene::Load()
 {
@@ -627,9 +606,6 @@ void OverworldScene::Load()
 		{
 			e2sprt[i].setPosition(e2sprt[i].getPosition().x + 30, e2sprt[i].getPosition().y + 30);
 		}
-
-
-
 	}
 
 
@@ -810,6 +786,7 @@ void OverworldScene::Update(Time dt)
 				{
 					sprite[i].setPosition(Vector2f(-1000, -1000));
 					EnemyType = 0;
+					AudioManager::GetInstance()->PlayBattle();
 					activeScene = combatScene;
 					cout << "Battle Comencing" << '\n';
 				}
@@ -823,6 +800,7 @@ void OverworldScene::Update(Time dt)
 				{
 					sprite[i].setPosition(Vector2f(-1000, -1000));
 					EnemyType = 1;
+					AudioManager::GetInstance()->PlayBattle();
 					activeScene = combatScene;
 					cout << "Battle Comencing" << '\n';
 				}
@@ -1109,7 +1087,7 @@ void CombatScene::Load()
 	}
 	battleMusic.setVolume(100);
 	battleMusic.setLoop(true);
-	battleMusic.play();
+	//battleMusic.play();
 
 	battleManager.Load();
 
