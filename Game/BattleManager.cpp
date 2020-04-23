@@ -749,7 +749,7 @@ void BattleManager::Reset()
 	selectedTarget = -1;
 	index = 0;
 	turn = 0;
-	
+	slog = " ";
 	HasHealed = false;
 }
 
@@ -771,6 +771,8 @@ void BattleManager::Win()
 {
 	if (won == false)
 	{
+		AudioManager::GetInstance()->PlayVictory();
+
 		slog = " ";
 		battleLog.setPosition(Vector2f(1600, 700));
 		if (battleEntities[0]->GetStat("CurrHP") > 0)
@@ -850,6 +852,7 @@ void BattleManager::Win()
 void BattleManager::Lose()
 {
 	Reset();
+	AudioManager::GetInstance()->PlayGameOver();
 	activeScene = loseScene;
 }
 

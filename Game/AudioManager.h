@@ -17,4 +17,5 @@ public:
 	static void PlayOverworld();
 	static void PlayBattle();
 	static void PlayGameOver();
+	static void PlayVictory();
 };

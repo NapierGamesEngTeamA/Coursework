@@ -42,6 +42,7 @@ int EnemyType;
 int GoldCount;
 bool HasHealed;
 vector<shared_ptr<BattleEntity>> party;
+int EnemyLevel;
 
 void Scene::Load()
 {
@@ -743,7 +744,7 @@ void OverworldScene::Update(Time dt)
 				heal.setString("Press Enter\nto pay 10 gold to\nheal your party");
 				heal.setPosition(s2[0]->GetView().getCenter().x - 400, s2[0]->GetView().getCenter().y - 50);
 
-				if (InputManager::GetInstance()->Interact(true) && HasHealed == false)
+				if (InputManager::GetInstance()->Interact(true) && HasHealed == false && GoldCount >= 10)
 				{
 					
 					heal.setString("Your party is on full health");	
@@ -1214,6 +1215,7 @@ void LoseScene::Update(Time dt)
 {
 	if (Keyboard::isKeyPressed(Keyboard::Enter))
 	{
+		AudioManager::GetInstance()->PlayOverworld();
 		activeScene = titleScene;
 	}
 
