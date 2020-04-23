@@ -1183,7 +1183,7 @@ void WinScene::Update(Time dt)
 	}
 
 	InputManager::GetInstance()->Update();
-
+	Renderer::GetWindow().setView(view);
 	Scene::Update(dt);
 }
 
@@ -1211,6 +1211,8 @@ void LoseScene::Load()
 	Vector2u size = Lose.getSize();
 	sLose.setTexture(Lose);
 	sLose.setOrigin(size.x / 200, size.y / 10);
+
+	Renderer::GetWindow().setView(view);
 }
 
 void LoseScene::Update(Time dt)
