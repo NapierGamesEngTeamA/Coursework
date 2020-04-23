@@ -213,7 +213,7 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list, 
 
 				float speed = 100;
 
-				if (InputManager::GetInstance()->Up(true) )
+				if (InputManager::GetInstance()->Up(true))
 				{
 
 
@@ -225,7 +225,7 @@ void TileMap::UpdateColMap(shared_ptr<Character> ch, vector<vector<char>> list, 
 					}
 					else
 					{
-						--speed;
+						
 						cout << "Collision Detected" << '\n';
 						//s[0]->Move(Vector2f(0, speed * dt.asSeconds()));
 						ch->SetPosition(Vector2f(xpos, ypos + 50));

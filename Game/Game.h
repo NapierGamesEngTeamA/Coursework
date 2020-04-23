@@ -109,6 +109,11 @@ private:
 	Texture Settingsmenu;
 	Sprite sSettingsmenu;
 
+	Text winsize[3];
+	Font font;
+
+	Color color;
+
 public:
 	SetScene() = default;
 	void Update(Time dt) override;
