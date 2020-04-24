@@ -686,7 +686,7 @@ void OverworldScene::Load()
 
 void OverworldScene::Reset()
 {
-	activeScene = overworldScene;
+	
 	sprite[0].setPosition(4200, 2300);
 	sprite[1].setPosition(4700, 2000);
 	sprite[2].setPosition(4500, 1700);
@@ -716,6 +716,8 @@ void OverworldScene::Reset()
 	party[2]->SetStat("CurrMP", party[2]->GetStat("MaxMP"));
 	party[3]->SetStat("CurrMP", party[3]->GetStat("MaxMP"));
 
+	activeScene = overworldScene;
+
 }
 
 
@@ -723,6 +725,12 @@ void OverworldScene::Reset()
 
 void OverworldScene::Update(Time dt)
 {
+	if (IsLoaded == false && IsReset == false)
+	{
+		IsReset = true;
+		Reset();
+	}
+
 	Color color;
 
 	auto s = _ents.GetEntitys<TileMap>();
@@ -731,11 +739,7 @@ void OverworldScene::Update(Time dt)
 
 	if (Paused == false)
 	{
-		if (party[0]->GetStat("CurrHP") <= 0 && party[1]->GetStat("CurrHP") <= 0 &&
-			party[2]->GetStat("CurrHP") <= 0 && party[3]->GetStat("CurrHP") <= 0)
-		{
-			Reset();
-		}
+
 
 		if (GoldCount >= 10000)
 		{
