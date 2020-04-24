@@ -167,6 +167,8 @@ private:
 	Sprite hbarsprite;
 	bool Paused = false;
 	Color color;
+	bool IsReset = false;
+	bool IsLoaded = false;
 
 	Texture* tileSheet = new Texture();
 
