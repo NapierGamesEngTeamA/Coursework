@@ -682,8 +682,11 @@ void OverworldScene::Load()
 	HasHealed = false;
 }
 
+
+
 void OverworldScene::Reset()
 {
+	activeScene = overworldScene;
 	sprite[0].setPosition(4200, 2300);
 	sprite[1].setPosition(4700, 2000);
 	sprite[2].setPosition(4500, 1700);
@@ -699,7 +702,23 @@ void OverworldScene::Reset()
 		offsety = offsety + 40;
 		e2sprt[i].setPosition((rand() % 2000 + 3000) + offset, (rand() % 300 + 300) + offsety);
 	}
+
+	auto c = _ents.GetEntitys<Character>();
+	c[0]->SetPosition(Vector2f(4000, 2400));
+	GoldCount = 0;
+
+	party[0]->SetStat("CurrHP", party[0]->GetStat("MaxHP"));
+	party[1]->SetStat("CurrHP", party[1]->GetStat("MaxHP"));
+	party[2]->SetStat("CurrHP", party[2]->GetStat("MaxHP"));
+	party[3]->SetStat("CurrHP", party[3]->GetStat("MaxHP"));
+	party[0]->SetStat("CurrMP", party[0]->GetStat("MaxMP"));
+	party[1]->SetStat("CurrMP", party[1]->GetStat("MaxMP"));
+	party[2]->SetStat("CurrMP", party[2]->GetStat("MaxMP"));
+	party[3]->SetStat("CurrMP", party[3]->GetStat("MaxMP"));
 }
+
+
+
 
 void OverworldScene::Update(Time dt)
 {
@@ -711,6 +730,12 @@ void OverworldScene::Update(Time dt)
 
 	if (Paused == false)
 	{
+		if (party[0]->GetStat("CurrHP") <= 0 && party[1]->GetStat("CurrHP") <= 0 &&
+			party[2]->GetStat("CurrHP") <= 0 && party[3]->GetStat("CurrHP") <= 0)
+		{
+			Reset();
+		}
+
 		if (GoldCount >= 10000)
 		{
 			activeScene = winScene;
@@ -1020,6 +1045,10 @@ void OverworldScene::Render()
 
 	sf::Texture::bind(NULL);
 }
+
+
+
+
 
 ///////////////////////////////////////////////////////////////
 #pragma endregion

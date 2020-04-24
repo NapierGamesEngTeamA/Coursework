@@ -720,6 +720,7 @@ void BattleManager::ChangeTurn()
 		battleEntities[2]->GetStat("CurrHP") <= 0 && battleEntities[3]->GetStat("CurrHP") <= 0)
 	{
 		Lose();
+	
 	}
 	else
 	{
