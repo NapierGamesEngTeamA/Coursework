@@ -800,7 +800,7 @@ void OverworldScene::Update(Time dt)
 					sprite[0].setPosition(4200, 2300);
 					sprite[1].setPosition(4700, 2000);
 					sprite[2].setPosition(4500, 1700);
-					sprite[3].setPosition(3800, 1700);
+					sprite[3].setPosition(3800, 1600);
 					sprite[4].setPosition(2800, 1400);
 					int offset = 0;
 					int offsety = 0;
@@ -1016,9 +1016,12 @@ void OverworldScene::Update(Time dt)
 
 		if (InputManager::GetInstance()->Down(true) && index == 1)
 		{
-			AudioManager::GetInstance()->PlaySoundEffect("Click");
 			activeScene = titleScene;
+			AudioManager::GetInstance()->PlaySoundEffect("Click");
+			overworldScene.reset(new OverworldScene());
+			overworldScene->Load();
 			Paused = false;
+
 		}
 
 
