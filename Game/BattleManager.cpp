@@ -678,7 +678,7 @@ void BattleManager::Magic()
 			battleEntities[selectedTarget]->SetStat("CurrHP", 0);
 			battleEntities[selectedTarget]->currentState = BattleEntity::DEATH;
 		}
-		slog += currentEntity->GetName() + " dealt " + to_string(currentEntity->MgAttack()) + " damage to " + battleEntities[selectedTarget]->GetName() + "\n";
+		slog += currentEntity->GetName() + " dealt " + to_string(damage) + " damage to " + battleEntities[selectedTarget]->GetName() + "\n";
 		battleLog.setString(slog);
 		battleEntities[index]->SetStat("CurrMP", currentEntity->GetStat("CurrMP") - 5);
 		battleEntities[index]->currentState = BattleEntity::MAGIC;
@@ -804,28 +804,28 @@ void BattleManager::Win()
 		battleLog.setPosition(Vector2f(1600, 700));
 		if (battleEntities[0]->GetStat("CurrHP") > 0)
 		{
-			int i = 2 * (battleEntities[4]->GetStat("Level") * 4);
+			int i = 2 * ((battleEntities[4]->GetStat("Level") + 1) * 4);
 			players[0]->GiveExp(i);
 			players[0]->SetStat("CurrHP", battleEntities[0]->GetStat("CurrHP"));
 			slog += players[0]->GetName() + " gained " + to_string(i) + " experience\n";
 		}
 		if (battleEntities[1]->GetStat("CurrHP") > 0)
 		{
-			int i = 2 * (battleEntities[4]->GetStat("Level") * 4);
+			int i = 2 * ((battleEntities[4]->GetStat("Level") + 1) * 4);
 			players[1]->GiveExp(i);
 			players[1]->SetStat("CurrHP", battleEntities[1]->GetStat("CurrHP"));
 			slog += players[1]->GetName() + " gained " + to_string(i) + " experience\n";
 		}
 		if (battleEntities[2]->GetStat("CurrHP") > 0)
 		{
-			int i = 2 * (battleEntities[4]->GetStat("Level") * 4);
+			int i = 2 * ((battleEntities[4]->GetStat("Level") + 1) * 4);
 			players[2]->GiveExp(i);
 			players[2]->SetStat("CurrHP", battleEntities[2]->GetStat("CurrHP"));
 			slog += players[2]->GetName() + " gained " + to_string(i) + " experience\n";
 		}
 		if (battleEntities[3]->GetStat("CurrHP") > 0)
 		{
-			int i = 2 * (battleEntities[4]->GetStat("Level") * 4);
+			int i = 2 * ((battleEntities[4]->GetStat("Level")+1) * 4);
 			players[3]->GiveExp(i);
 			players[3]->SetStat("CurrHP", battleEntities[3]->GetStat("CurrHP"));
 			slog += players[3]->GetName() + " gained " + to_string(i) + " experience\n";
