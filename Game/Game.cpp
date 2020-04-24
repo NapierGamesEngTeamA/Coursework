@@ -1266,17 +1266,30 @@ void LoseScene::Load()
 	sLose.setTexture(Lose);
 	sLose.setOrigin(size.x / 200, size.y / 10);
 
+	text.setColor(color.Red);
+	font.loadFromFile("Res/Fonts/riskofrainfont.ttf");
+	text.setFont(font);
+	text.setCharacterSize(60);
+	text.setString("Loading... This may take a moment");
+
+	const auto textRect = text.getGlobalBounds();
+	text.setOrigin(textRect.width * .5f, textRect.height * .5f);
+	text.setPosition(size.x / 2, size.y / 1.8);
+
 	Renderer::GetWindow().setView(view);
 }
 
 void LoseScene::Update(Time dt)
 {
+	
 	if (Keyboard::isKeyPressed(Keyboard::W))
 	{
+
 		AudioManager::GetInstance()->PlayOverworld();
 		overworldScene.reset(new OverworldScene());
 		overworldScene->Load();
 		activeScene = titleScene;
+	
 	}
 
 	InputManager::GetInstance()->Update();
@@ -1290,6 +1303,7 @@ void LoseScene::Render()
 
 	sf::Texture::bind(&Lose);
 	Renderer::Queue(&sLose);
+	Renderer::Queue(&text);
 
 
 	sf::Texture::bind(NULL);
