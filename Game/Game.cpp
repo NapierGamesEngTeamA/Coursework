@@ -43,6 +43,8 @@ int GoldCount;
 bool HasHealed;
 vector<shared_ptr<BattleEntity>> party;
 int EnemyLevel;
+bool IsReset;
+bool IsLoaded;
 
 void Scene::Load()
 {
@@ -65,7 +67,7 @@ void Scene::Render()
 //////////////////////// TITLE SCENE ///////////////////////////////
 void TitleScene::Load()
 {
-
+	
 	view.reset(FloatRect(0, 0, 1920, 1080));
 
 	Color color;
@@ -136,11 +138,14 @@ void TitleScene::Load()
 
 	AudioManager::GetInstance()->Load();
 	AudioManager::GetInstance()->PlayOverworld();
+
+	IsLoaded = false;
+	IsReset = false;
 }
 
 void TitleScene::Update(Time dt)
 {
-
+	IsReset = false;
 		Vector2u size = texture.getSize();
 		Color col;
 		RenderWindow window;
@@ -729,6 +734,7 @@ void OverworldScene::Update(Time dt)
 	{
 		IsReset = true;
 		Reset();
+		//overworldScene.reset();
 	}
 
 	Color color;
@@ -1259,6 +1265,8 @@ void LoseScene::Update(Time dt)
 	if (Keyboard::isKeyPressed(Keyboard::W))
 	{
 		AudioManager::GetInstance()->PlayOverworld();
+		overworldScene.reset(new OverworldScene());
+		overworldScene->Load();
 		activeScene = titleScene;
 	}
 
