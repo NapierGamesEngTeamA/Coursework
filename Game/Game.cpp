@@ -796,6 +796,7 @@ void OverworldScene::Update(Time dt)
 					party[3]->SetStat("CurrMP", party[3]->GetStat("MaxMP"));
 					cout << party[1]->GetStat("CurrHP") << endl;
 					HasHealed = true;
+
 					sprite[0].setPosition(4200, 2300);
 					sprite[1].setPosition(4700, 2000);
 					sprite[2].setPosition(4500, 1700);
@@ -815,7 +816,8 @@ void OverworldScene::Update(Time dt)
 				if (party[0]->GetStat("CurrHP") == party[0]->GetStat("MaxHP")
 					&& party[1]->GetStat("CurrHP") == party[1]->GetStat("MaxHP")
 					&& party[2]->GetStat("CurrHP") == party[2]->GetStat("MaxHP")
-					&& party[3]->GetStat("CurrHP") == party[3]->GetStat("MaxHP"))
+					&& party[3]->GetStat("CurrHP") == party[3]->GetStat("MaxHP")
+					&& HasHealed == true)
 				{
 					heal.setString("Your party is on full health");
 				}
