@@ -26,8 +26,6 @@ extern int GoldCount;
 extern bool HasHealed;
 extern vector<shared_ptr<BattleEntity>> party;
 extern int EnemyLevel;
-extern bool IsReset;
-extern bool IsLoaded;
 
 class TitleScene : public Scene
 {

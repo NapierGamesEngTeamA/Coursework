@@ -28,31 +28,31 @@ void BattleManager::Load()
 	texture1[3]->loadFromFile("Res/Sprites/Horo.png");
 
 	vector<int> stats[4];
-	stats[0].push_back(2); //Strength
+	stats[0].push_back(4); //Strength
 	stats[0].push_back(3); //Dexterity
 	stats[0].push_back(1); //Intellect
-	stats[0].push_back(2); //Constitution
+	stats[0].push_back(3); //Constitution
 	stats[0].push_back(10); //Health
 	stats[0].push_back(0); //MP
 
 	stats[1].push_back(1);
 	stats[1].push_back(2);
 	stats[1].push_back(3);
-	stats[1].push_back(2);
+	stats[1].push_back(3);
 	stats[1].push_back(10);
 	stats[1].push_back(15);
 
-	stats[2].push_back(3);
+	stats[2].push_back(4);
 	stats[2].push_back(1);
 	stats[2].push_back(1);
-	stats[2].push_back(3);
+	stats[2].push_back(4);
 	stats[2].push_back(20);
 	stats[2].push_back(0);
 
 	stats[3].push_back(1);
 	stats[3].push_back(2);
 	stats[3].push_back(4);
-	stats[3].push_back(2);
+	stats[3].push_back(3);
 	stats[3].push_back(10);
 	stats[3].push_back(20);
 
@@ -246,11 +246,11 @@ void BattleManager::Load()
 
 	#pragma region Orc Party
 	vector<int> orcStats;
-	orcStats.push_back(3);
+	orcStats.push_back(2);
 	orcStats.push_back(1); 
 	orcStats.push_back(1);
-	orcStats.push_back(3);
-	orcStats.push_back(12); 
+	orcStats.push_back(1);
+	orcStats.push_back(10); 
 	orcStats.push_back(0);
 
 	Texture* orcTexture = new Texture();
@@ -350,8 +350,8 @@ void BattleManager::Load()
 	vector<int> skelStats;
 	skelStats.push_back(1); //Strength
 	skelStats.push_back(2); //Dexterity
-	skelStats.push_back(4); //Intellect
-	skelStats.push_back(3); //Constitution
+	skelStats.push_back(2); //Intellect
+	skelStats.push_back(1); //Constitution
 	skelStats.push_back(10); //Health
 	skelStats.push_back(10); //MP
 
@@ -630,14 +630,19 @@ void BattleManager::Attack()
 	{
 		slog = " ";
 		slog = currentEntity->GetName() + " is attacking " + battleEntities[selectedTarget]->GetName() + "\n";
+		int damage = battleEntities[selectedTarget]->GetStat("Con") - currentEntity->PhAttack();
+		if (damage < 1)
+		{
+			damage = 1;
+		}
 		battleEntities[selectedTarget]->SetStat("CurrHP",
-			battleEntities[selectedTarget]->GetStat("CurrHP") - currentEntity->PhAttack());
+			battleEntities[selectedTarget]->GetStat("CurrHP") -  damage);
 		if (battleEntities[selectedTarget]->GetStat("CurrHP") <= 0)
 		{
 			battleEntities[selectedTarget]->SetStat("CurrHP", 0);
 			battleEntities[selectedTarget]->currentState = BattleEntity::DEATH;
 		}
-		slog += currentEntity->GetName() + " dealt " + to_string(currentEntity->PhAttack()) + " damage to " + battleEntities[selectedTarget]->GetName() + "\n";
+		slog += currentEntity->GetName() + " dealt " + to_string(damage) + " damage to " + battleEntities[selectedTarget]->GetName() + "\n";
 		battleLog.setString(slog);
 
 		battleEntities[index]->currentState = BattleEntity::ATTACK;
@@ -661,8 +666,13 @@ void BattleManager::Magic()
 	{
 		slog = " ";
 		slog = currentEntity->GetName() + " is casting at " + battleEntities[selectedTarget]->GetName() + "\n";
+		int damage = battleEntities[selectedTarget]->GetStat("Int") - currentEntity->MgAttack();
+		if (damage < 3)
+		{
+			damage = 3;
+		}
 		battleEntities[selectedTarget]->SetStat("CurrHP",
-			battleEntities[selectedTarget]->GetStat("CurrHP") - currentEntity->MgAttack());
+			battleEntities[selectedTarget]->GetStat("CurrHP") - damage);
 		if (battleEntities[selectedTarget]->GetStat("CurrHP") <= 0)
 		{
 			battleEntities[selectedTarget]->SetStat("CurrHP", 0);
@@ -699,6 +709,7 @@ void BattleManager::Flee()
 	if (i > 60)
 	{
 		Reset();
+		AudioManager::GetInstance()->PlayOverworld();
 		activeScene = overworldScene;
 	}
 	else

@@ -834,7 +834,7 @@ void OverworldScene::Update(Time dt)
 				{
 					sprite[i].setPosition(Vector2f(-1000, -1000));
 					EnemyType = 0;
-					EnemyLevel = party[0]->GetStat("Level");
+					EnemyLevel = party[0]->GetStat("Level") - 1;
 					AudioManager::GetInstance()->PlayBattle();
 					activeScene = combatScene;
 					cout << "Battle Comencing" << '\n';
@@ -849,7 +849,7 @@ void OverworldScene::Update(Time dt)
 				{
 				    e2sprt[i].setPosition(Vector2f(-1000, -1000));
 					EnemyType = 1;
-					EnemyLevel = party[0]->GetStat("Level");
+					EnemyLevel = party[0]->GetStat("Level") - 1;
 					AudioManager::GetInstance()->PlayBattle();
 					activeScene = combatScene;
 					cout << "Battle Comencing" << '\n';

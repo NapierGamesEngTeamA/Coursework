@@ -115,8 +115,8 @@ void BattleEntity::SetupEnemy(int level)
 	stats["Int"] += level;
 	stats["Con"] += level;
 
-	stats["MaxHP"] += level;
-	stats["MaxMP"] += level;
+	stats["MaxHP"] += (level * 2);
+	stats["MaxMP"] += (level * 2);
 	stats["CurrHP"] = stats["MaxHP"];
 	stats["CurrMP"] = stats["MaxMP"];
 }

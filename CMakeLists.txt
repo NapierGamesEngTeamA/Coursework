@@ -10,6 +10,8 @@ project(Coursework)
 SET(OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/")
 #Output all DLLs from all libs into main build folder
 SET(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIRECTORY})
+set_target_properties(${exe} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY
+	${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$(Configuration))
 
 ### Add External Dependencies ###
 add_subdirectory("Libs/sfml")
