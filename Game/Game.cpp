@@ -699,6 +699,8 @@ void OverworldScene::Reset()
 		offsety = offsety + 40;
 		e2sprt[i].setPosition((rand() % 2000 + 3000) + offset, (rand() % 300 + 300) + offsety);
 	}
+
+
 }
 
 void OverworldScene::Update(Time dt)
