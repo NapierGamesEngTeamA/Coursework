@@ -796,7 +796,19 @@ void OverworldScene::Update(Time dt)
 					party[3]->SetStat("CurrMP", party[3]->GetStat("MaxMP"));
 					cout << party[1]->GetStat("CurrHP") << endl;
 					HasHealed = true;
-
+					sprite[0].setPosition(4200, 2300);
+					sprite[1].setPosition(4700, 2000);
+					sprite[2].setPosition(4500, 1700);
+					sprite[3].setPosition(3800, 1700);
+					sprite[4].setPosition(2800, 1400);
+					int offset = 0;
+					int offsety = 0;
+					for (int i = 0; i < 5; i++)
+					{
+						offset = offset + 100;
+						offsety = offsety + 40;
+						e2sprt[i].setPosition((rand() % 2000 + 3000) + offset, (rand() % 300 + 300) + offsety);
+					}
 				}
 
 
@@ -866,24 +878,12 @@ void OverworldScene::Update(Time dt)
 			}
 
 
-
-
-			//if (InputManager::Up(true) || InputManager::Down(true) || InputManager::Right(true) || InputManager::Left(true))
-			//{
-			//	int d100 = rand() % 100 + 1;
-			//	if (d100 > 80)
-			//	{
-			//		//activeScene = combatScene;
-			//		printf("Scene: Combat Scene");
-			//	}
-			//}
-
 			InputManager::GetInstance()->Update();
 
 
 
 			Scene::Update(dt);
-		/*}*/
+
 	}
 
 	else
@@ -1101,24 +1101,24 @@ void CombatScene::Load()
 	menuText[0].setFont(font);
 	menuText[0].setColor(Color::White);
 	menuText[0].setCharacterSize(26);
-	menuText[0].setPosition(Vector2f(50, 100));
-	menuText[0].setString("<:Attack");
+	menuText[0].setPosition(Vector2f(45, 100));
+	menuText[0].setString("<:Attack  ");
 	menuText[0].setOutlineColor(color.Red);
 	menuText[0].setOutlineThickness(4);
 
 	menuText[1].setFont(font);
 	menuText[1].setColor(Color::White);
 	menuText[1].setCharacterSize(26);
-	menuText[1].setPosition(Vector2f(125, 150));
-	menuText[1].setString("\\/:Flee");
+	menuText[1].setPosition(Vector2f(150, 150));
+	menuText[1].setString("Flee\n \\/");
 	menuText[1].setOutlineColor(color.Red);
 	menuText[1].setOutlineThickness(4);
 
 	menuText[2].setFont(font);
 	menuText[2].setColor(Color::White);
 	menuText[2].setCharacterSize(26);
-	menuText[2].setPosition(Vector2f(200, 100));
-	menuText[2].setString(">:Magic");
+	menuText[2].setPosition(Vector2f(210, 100));
+	menuText[2].setString("  Magic:>");
 	menuText[2].setOutlineColor(color.Red);
 	menuText[2].setOutlineThickness(4);
 

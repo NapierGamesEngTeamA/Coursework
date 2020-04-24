@@ -21,6 +21,7 @@ private:
 	Text battleLog;
 	string slog;
 	bool won;
+	RectangleShape indicator;
 public:
 	enum BattleStates { Start, ChooseAction, ChooseTarget, Action, NextTurn, End };
 	BattleStates currentState = BattleStates::Start;;

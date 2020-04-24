@@ -465,6 +465,11 @@ void BattleManager::Load()
 	party.push_back(players[1]);
 	party.push_back(players[2]);
 	party.push_back(players[3]);
+
+	indicator.setSize(Vector2f(20, 20));
+	indicator.setFillColor(Color::White);
+	indicator.setRotation(45.0f);
+	indicator.setPosition(Vector2f(560, 500));
 }
 
 void BattleManager::Update(Time dt)
@@ -482,6 +487,14 @@ void BattleManager::Update(Time dt)
 		currentState = BattleStates::ChooseAction;
 		break;
 	case BattleManager::ChooseAction:
+		if (currentEntity->type == BattleEntity::Player)
+		{
+			indicator.setPosition(Vector2f(currentEntity->GetPosition().x - 50, currentEntity->GetPosition().y));
+		}
+		else
+		{
+			indicator.setPosition(Vector2f(currentEntity->GetPosition().x + 80, currentEntity->GetPosition().y));
+		}
 		PickAction();
 		break;
 	case BattleManager::ChooseTarget:
@@ -786,6 +799,7 @@ void BattleManager::Render()
 	{
 		s->Render();
 	}
+	Renderer::Queue(&indicator);
 	Renderer::Queue(&battleLog);
 }
 

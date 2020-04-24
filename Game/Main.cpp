@@ -56,11 +56,11 @@ void Update(RenderWindow& window)
 		InputManager::GetInstance()->Update();
 	}
 
-	//Debug exit
-	if (Keyboard::isKeyPressed(Keyboard::Escape))
-	{
-		window.close();
-	}
+	////Debug exit
+	//if (Keyboard::isKeyPressed(Keyboard::Escape))
+	//{
+	//	window.close();
+	//}
 
 	
 
