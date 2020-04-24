@@ -703,8 +703,8 @@ void OverworldScene::Reset()
 		e2sprt[i].setPosition((rand() % 2000 + 3000) + offset, (rand() % 300 + 300) + offsety);
 	}
 
-	auto c = _ents.GetEntitys<Character>();
-	c[0]->SetPosition(Vector2f(4000, 2400));
+	_ents.GetEntitys<Character>()[0]->SetPosition(Vector2f(4000, 2400));
+	
 	GoldCount = 0;
 
 	party[0]->SetStat("CurrHP", party[0]->GetStat("MaxHP"));
