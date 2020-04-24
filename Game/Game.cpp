@@ -764,9 +764,9 @@ void OverworldScene::Update(Time dt)
 		
 	
 			int bottom, top, left, right;
-			bottom = sHH.getPosition().y + 260;
+			bottom = sHH.getPosition().y + 200;
 			left = sHH.getPosition().x;
-			right = sHH.getPosition().x + 260;
+			right = sHH.getPosition().x + 200;
 			top = sHH.getPosition().y;
 
 			if (c[0]->right < left || c[0]->left > right || c[0]->top > bottom || c[0]->bottom < top)
@@ -784,8 +784,7 @@ void OverworldScene::Update(Time dt)
 
 				if (InputManager::GetInstance()->Interact(true) && HasHealed == false && GoldCount >= 10)
 				{
-					
-					heal.setString("Your party is on full health");	
+				
 					GoldCount -= 10;
 					party[0]->SetStat("CurrHP", party[0]->GetStat("MaxHP"));
 					party[1]->SetStat("CurrHP", party[1]->GetStat("MaxHP"));
@@ -797,6 +796,16 @@ void OverworldScene::Update(Time dt)
 					party[3]->SetStat("CurrMP", party[3]->GetStat("MaxMP"));
 					cout << party[1]->GetStat("CurrHP") << endl;
 					HasHealed = true;
+
+				}
+
+
+				if (party[0]->GetStat("CurrHP") == party[0]->GetStat("MaxHP")
+					&& party[1]->GetStat("CurrHP") == party[1]->GetStat("MaxHP")
+					&& party[2]->GetStat("CurrHP") == party[2]->GetStat("MaxHP")
+					&& party[3]->GetStat("CurrHP") == party[3]->GetStat("MaxHP"))
+				{
+					heal.setString("Your party is on full health");
 				}
 			}
 
@@ -1042,10 +1051,10 @@ void OverworldScene::Render()
 	}
 
 	Renderer::Queue(&sHH);
+	Renderer::Queue(&heal);
 	Renderer::Queue(&psprite);
 	Renderer::Queue(&play);
 	Renderer::Queue(&quit);
-	Renderer::Queue(&heal);
 	Renderer::Queue(&h1[0]);
 	Renderer::Queue(&h1[1]);
 	Renderer::Queue(&h1[2]);
