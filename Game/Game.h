@@ -233,7 +233,9 @@ private:
 
 	Texture Lose;
 	Sprite sLose;
-
+	Font font;
+	Text text;
+	Color color;
 public:
 	LoseScene() = default;
 	void Update(Time dt) override;
