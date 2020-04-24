@@ -1230,9 +1230,11 @@ void WinScene::Update(Time dt)
 {
 
 
-	if (Keyboard::isKeyPressed(Keyboard::
-	W))
+	if (Keyboard::isKeyPressed(Keyboard::W))
 	{
+		AudioManager::GetInstance()->PlayOverworld();
+		overworldScene.reset(new OverworldScene());
+		overworldScene->Load();
 		activeScene = titleScene;
 	}
 
