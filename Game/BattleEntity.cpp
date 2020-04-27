@@ -170,12 +170,12 @@ void BattleEntity::GiveExp(int i)
 void BattleEntity::Levelup()
 {
 	hasLeveled = true;
-	stats["Str"] += rand() % 3;
-	stats["Dex"] += rand() % 2;
-	stats["Int"] += rand() % 3;
-	stats["Con"] += rand() % 3;
-	stats["MaxHP"] += rand() % 5 + 1;
-	stats["MaxMP"] += rand() % 5 + 1;
+	stats["Str"] += rand() % 5 + 2;
+	stats["Dex"] += rand() % 3 + 1;
+	stats["Int"] += rand() % 5 + 2;
+	stats["Con"] += rand() % 3 + 1;
+	stats["MaxHP"] += rand() % 10 + 2;
+	stats["MaxMP"] += rand() % 6 + 2;
 	stats["CurrHP"] = stats["MaxHP"];
 	stats["CurrMP"] = stats["MaxMP"];
 	stats["Exp"] = 0;

@@ -250,7 +250,7 @@ void BattleManager::Load()
 	orcStats.push_back(1); 
 	orcStats.push_back(1);
 	orcStats.push_back(1);
-	orcStats.push_back(10); 
+	orcStats.push_back(7); 
 	orcStats.push_back(0);
 
 	Texture* orcTexture = new Texture();
@@ -352,7 +352,7 @@ void BattleManager::Load()
 	skelStats.push_back(2); //Dexterity
 	skelStats.push_back(2); //Intellect
 	skelStats.push_back(1); //Constitution
-	skelStats.push_back(10); //Health
+	skelStats.push_back(9); //Health
 	skelStats.push_back(10); //MP
 
 	Texture* skelTexture = new Texture();
@@ -643,7 +643,7 @@ void BattleManager::Attack()
 	{
 		slog = " ";
 		slog = currentEntity->GetName() + " is attacking " + battleEntities[selectedTarget]->GetName() + "\n";
-		int damage = battleEntities[selectedTarget]->GetStat("Con") - currentEntity->PhAttack();
+		int damage = currentEntity->PhAttack() - battleEntities[selectedTarget]->GetStat("Con");
 		if (damage < 1)
 		{
 			damage = 1;
@@ -679,7 +679,7 @@ void BattleManager::Magic()
 	{
 		slog = " ";
 		slog = currentEntity->GetName() + " is casting at " + battleEntities[selectedTarget]->GetName() + "\n";
-		int damage = battleEntities[selectedTarget]->GetStat("Int") - currentEntity->MgAttack();
+		int damage = currentEntity->MgAttack() - battleEntities[selectedTarget]->GetStat("Int");
 		if (damage < 3)
 		{
 			damage = 3;

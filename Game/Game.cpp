@@ -567,13 +567,12 @@ void OverworldScene::Load()
 	float x = rand() % 100 + 4000;
 	float y = rand() % 100 + 960;
 
-//	int Random = Randomizer::Random(0, 100);
 
 
 	float offset = 0.0f;
 
 	float offsety = 0.0f;
-	//float y = 0.0f;
+
 	for (int i = 0; i < 5; i++)
 	{
 		offset = offset + 100;
@@ -621,11 +620,6 @@ void OverworldScene::Load()
 
 	//Add Camera
 	auto cam = ch->AddComponent<Camera>();
-
-
-
-	
-	//cam->SetWindow();
 
 	////////////////// Set animations /////////////////////////////////
 	Animation* su = new Animation();
@@ -676,9 +670,6 @@ void OverworldScene::Load()
 	as->SetAnimation(*sl);
 	as->Play();
 	//////////////////////////////////////////////////////////////////////////
-
-	//ch->SetPosition(Vector2f(2000, 600));
-
 
 	_ents.list.push_back(tm);
 	_ents.list.push_back(ch);
@@ -1024,13 +1015,6 @@ void OverworldScene::Update(Time dt)
 
 		}
 
-
-
-	
-		//if (InputManager::Start(true))
-		//{
-		//	Paused = false;
-		//}
 	}
 }
 
